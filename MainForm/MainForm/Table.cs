@@ -10,11 +10,11 @@ namespace MainForm
 {
     public class Table
     {
-        public Table(int idban,double giatien,int trangthai) 
+        public Table(int idban, double giatien, int trangthai) 
         {
-            this.Idban = idban;
-            this.Giatien = giatien;
-            this.Trangthai = trangthai;
+            Idban = idban;
+            Giatien = giatien;
+            Trangthai = trangthai;
         }
         
           

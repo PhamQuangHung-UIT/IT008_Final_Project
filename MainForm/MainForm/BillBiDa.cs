@@ -10,22 +10,22 @@ namespace MainForm
 {
     public class BillBiDa
     {
-        private static BillBiDa instance;
+        private static BillBiDa? instance;
 
         public static BillBiDa Instance
         {
             get 
             { 
-                if (instance == null) instance = new BillBiDa() ;
-                return BillBiDa.instance; 
+                instance ??= new BillBiDa() ;
+                return instance; 
             }
-            private set { BillBiDa.instance = value;}
+            private set { instance = value;}
         }
         private BillBiDa() { }
-        SqlConnection connection;
-        SqlCommand command;
-        SqlDataAdapter adapter = new SqlDataAdapter();
-        string str1 = "Data Source=DESKTOP-Q8NOVRR\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
+        internal SqlConnection? connection;
+        internal SqlCommand? command;
+        internal SqlDataAdapter adapter = new();
+        readonly string connectionString = $"Data Source = {Environment.MachineName}\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
         /*
         public Bill GetUnCheckBillIDbyMaKH(int makh)
         {
@@ -38,12 +38,12 @@ namespace MainForm
         
         public List<Bill> GetListUnCheckBillID()
         {
-            List<Bill> billlist=new List<Bill>();
-            DataTable data = new DataTable();
-            connection = new SqlConnection(str1);
+            List<Bill> billlist=new();
+            DataTable data = new();
+            connection = new SqlConnection(connectionString);
             connection.Open();
             command = connection.CreateCommand();
-            command.CommandText = "select *from HoaDon where trangthai=0";
+            command.CommandText = "select * from HoaDon where trangthai = 0";
             adapter.SelectCommand = command;
             adapter.Fill(data);
             connection.Close();
@@ -52,19 +52,19 @@ namespace MainForm
                 int idhd = Convert.ToInt32(row["idhd"]);
                 int makh= Convert.ToInt32(row["makh"]);
                 
-                Bill bill = new Bill(idhd,makh);
+                Bill bill = new(idhd, makh);
                 billlist.Add(bill);
             }
             return billlist;
         }
         public List<Bill> GetListCheckedBill()
         {
-            List<Bill> billlist = new List<Bill>();
-            DataTable data = new DataTable();
-            connection = new SqlConnection(str1);
+            List<Bill> billlist = new();
+            DataTable data = new();
+            connection = new SqlConnection(connectionString);
             connection.Open();
             command = connection.CreateCommand();
-            command.CommandText = "select *from HoaDon where trangthai=1";
+            command.CommandText = "select * from HoaDon where trangthai = 1";
             adapter.SelectCommand = command;
             adapter.Fill(data);
             connection.Close();
@@ -72,8 +72,7 @@ namespace MainForm
             {
                 int idhd = Convert.ToInt32(row["idhd"]);
                 int makh = Convert.ToInt32(row["makh"]);
-
-                Bill bill = new Bill(idhd, makh);
+                Bill bill = new(idhd, makh);
                 billlist.Add(bill);
             }
             return billlist;

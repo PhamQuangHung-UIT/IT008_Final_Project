@@ -8,30 +8,16 @@ namespace MainForm
 {
     public class DichVu
     {
-        public DichVu(int iddv,string tenDV,double giatien) 
+        public DichVu(int iddv, string? tenDV, double giatien) 
         {
-            this.IDdv = iddv;
-            this.TenDV = tenDV;
-            this.Giatien = giatien;
+            IDdv = iddv;
+            TenDV = tenDV;
+            Giatien = giatien;
         }
-        private int iddv;
-        private string tenDV;
-        private double giatien;
-        public int IDdv
-        {
-            get { return iddv; }
-            set { iddv = value; }
-        }
-        public string TenDV
-        {
-            get { return tenDV; }
-            set { tenDV = value; }
-        }
-        public double Giatien
-        {
-            get { return giatien; }
-            set { giatien = value; }
-        }
+
+        public int IDdv { get; set; }
+        public string? TenDV { get; set; }
+        public double Giatien { get; set; }
 
 
     }

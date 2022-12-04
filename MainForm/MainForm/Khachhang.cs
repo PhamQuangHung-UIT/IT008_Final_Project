@@ -8,37 +8,17 @@ namespace MainForm
 {
     public class Khachhang
     {
-        public Khachhang(int makh,string hoten,string dchi,int sodt) 
+        public Khachhang(int makh, string? hoten, string? dchi, int sodt) 
         {
-            this.Makh= makh;
-            this.Hoten= hoten;
-            this.Dchi= dchi;
-            this.Sodt= sodt;
+            Makh = makh;
+            Hoten = hoten;
+            Dchi = dchi;
+            Sodt = sodt;
         }
-        private int makh;
-        private string hoten;
-        private string dchi;
-        private int sodt;
 
-        public int Makh 
-        {
-            get { return makh; }
-            set { makh = value; }
-        }
-        public string Hoten
-        {
-            get { return hoten; }
-            set { hoten = value; }
-        }
-        public string Dchi
-        {
-            get { return dchi; }
-            set { dchi = value; }
-        }
-        public int Sodt
-        {
-            get { return sodt; }
-            set { sodt = value; }
-        }
+        public int Makh { get; set; }
+        public string? Hoten { get; set; }
+        public string? Dchi { get; set; }
+        public int Sodt { get; set; }
     }
 }

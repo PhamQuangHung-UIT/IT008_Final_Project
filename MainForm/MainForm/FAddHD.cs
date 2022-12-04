@@ -9,25 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
-using System.Data;
 
 namespace MainForm
 {
     public partial class FAddHD : Form
     {
-        SqlConnection connection;
-        SqlCommand command = new SqlCommand();
-        string str = "Data Source=DESKTOP-Q8NOVRR\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
-        SqlDataAdapter adapter = new SqlDataAdapter();
-        DataTable table = new DataTable();
+        readonly string connectionString = $"Data Source = {Environment.MachineName}\\SQLEXPRESS; Initial Catalog=DoAn_lttq;Integrated Security=True";
+        DataTable table = new();
 
 
-        void loaddataDV()
+        void LoaddataDV()
         {
-            table =new DataTable();
-            command = connection.CreateCommand();
-            command.CommandText = "select tenDV,giatien,soluong from DichVu, HDDV where DichVu.iddv=HDDV.iddv and HDDV.idhd='"+FMain.idhd+"'";
-            adapter.SelectCommand = command;
+            table = new DataTable();
+            SqlConnection connection = new(connectionString);
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = $"select tenDV, giatien, soluong from DichVu, HDDV where DichVu.iddv = HDDV.iddv and HDDV.idhd = '{FMain.idhd}'";
+            SqlDataAdapter adapter = new(command);
             table.Clear();
             adapter.Fill(table);
             dgvHDDV.DataSource = table;
@@ -39,9 +36,9 @@ namespace MainForm
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            connection = new SqlConnection(str);
+            SqlConnection connection = new(connectionString);
             connection.Open();
-            loaddataDV();
+            LoaddataDV();
             loadtable();
             LoadDichVu();
             connection.Close();
@@ -60,16 +57,16 @@ namespace MainForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            connection = new SqlConnection(str);
+            SqlConnection connection = new(connectionString);
             connection.Open();
-            command = connection.CreateCommand();
+            SqlCommand command = connection.CreateCommand();
             command.CommandText = "insert into KHACHHANG values ('" + tbMaKH.Text + "','" + tbTenKH.Text + "','" + tbDC.Text + "','" + tbSDT.Text + "')";
             command.ExecuteNonQuery();
 
 
             //thêm hóa đơn bàn
 
-            connection = new SqlConnection(str);
+            connection = new SqlConnection(connectionString);
             connection.Open();
             command = connection.CreateCommand();
             List<Table> listtable = TableBiDa.Instance.LoadTableList();
@@ -134,44 +131,46 @@ namespace MainForm
                 btn.Cursor = Cursors.Hand;
             }
         }
-        private void BtnDV_Click(object sender, EventArgs e)
+        private void BtnDV_Click(object? sender, EventArgs e)
         {
-            if ((sender as Button).BackColor == Color.Green)
+            Button? button = sender as Button;
+            if (button?.BackColor == Color.Green)
             {
-                (sender as Button).BackColor = Color.Red;
+                button.BackColor = Color.Red;
             }
-            else if ((sender as Button).BackColor == Color.Red)
+            else if (button?.BackColor == Color.Red)
             {
-                (sender as Button).BackColor = Color.Green;
+                button.BackColor = Color.Green;
             }
         }
-        private void BtnBan_Click(object sender, EventArgs e)
+        private void BtnBan_Click(object? sender, EventArgs e)
         {
+            Button? button = sender as Button;
             List<Table> tablelist = TableBiDa.Instance.LoadTableList();
             foreach (Table item in tablelist)
             {
                 
-                if ((sender as Button).Text == "Bàn " + item.Idban + Environment.NewLine + "trống")
+                if (button?.Text == "Bàn " + item.Idban + Environment.NewLine + "trống")
                 {
                     MessageBox.Show(item.Idban.ToString());
                     if (item.Trangthai == 0)
                     {
-                        if ((sender as Button).BackColor == Color.Green) (sender as Button).BackColor = Color.Red;
+                        if (button.BackColor == Color.Green) button.BackColor = Color.Red;
                         TableBiDa.Instance.UpdateDataTable(item, 1);
-                        (sender as Button).BackColor = Color.Red;
-                        (sender as Button).Text = "Bàn " + item.Idban + Environment.NewLine + "đang chọn";
+                        button.BackColor = Color.Red;
+                        button.Text = "Bàn " + item.Idban + Environment.NewLine + "đang chọn";
                         item.Trangthai = 1;
                         break;
                     }
                 }
-                else if ((sender as Button).Text == "Bàn " + item.Idban + Environment.NewLine + "đang chọn")
+                else if (button?.Text == "Bàn " + item.Idban + Environment.NewLine + "đang chọn")
                 {
                     MessageBox.Show("hmm");
                     TableBiDa.Instance.UpdateDataTable(item, 0);
-                    if ((sender as Button).BackColor == Color.Red) (sender as Button).BackColor = Color.Green;
+                    if (button.BackColor == Color.Red) button.BackColor = Color.Green;
 
 
-                    (sender as Button).Text = "Bàn " + item.Idban + Environment.NewLine + "trống";
+                    button.Text = "Bàn " + item.Idban + Environment.NewLine + "trống";
                     item.Trangthai = 0;
                     break;
                 }
@@ -198,9 +197,9 @@ namespace MainForm
 
         private void btnAddDV_Click(object sender, EventArgs e)
         {
-            connection = new SqlConnection(str);
+            SqlConnection connection = new(connectionString);
             connection.Open();
-            command = connection.CreateCommand();
+            SqlCommand command = connection.CreateCommand();
             List<DichVu> dichvulist = DichVuBiDa.Instance.LoadDichVuList();
             
 
@@ -220,7 +219,7 @@ namespace MainForm
                 }
                 
             }
-            loaddataDV();
+            LoaddataDV();
             connection.Close();
 
 

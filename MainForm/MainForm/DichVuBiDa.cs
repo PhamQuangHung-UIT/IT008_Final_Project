@@ -11,47 +11,52 @@ namespace MainForm
 {
     public class DichVuBiDa
     {
-        private static DichVuBiDa instance;
+        private static DichVuBiDa? instance;
 
         public static DichVuBiDa Instance
         {
             get
             {
-                if (instance == null) instance = new DichVuBiDa();
-                return DichVuBiDa.instance;
+                instance ??= new();
+                return instance;
             }
-            private set { DichVuBiDa.instance = value; }
+            private set { instance = value; }
         }
-        SqlConnection connection;
-        SqlCommand command;
-        SqlDataAdapter adapter = new SqlDataAdapter();
 
-        string str1 = "Data Source=DESKTOP-Q8NOVRR\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
+        readonly string connectionString = $"Data Source={Environment.MachineName}\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
 
 
         public List<DichVu> LoadDichVuList()
         {
-            List<DichVu> dichvulist = new List<DichVu>();
-            DataTable data = new DataTable();
-            connection = new SqlConnection(str1);
+            List<DichVu> dichvulist = new();
+            DataTable data = new();
+            SqlConnection connection = new(connectionString);
             connection.Open();
-            command = connection.CreateCommand();
-            command.CommandText = "select *from DICHVU";
-            adapter.SelectCommand = command;
+            SqlCommand command = connection.CreateCommand();
+            command.CommandText = "select * from DICHVU";
+            SqlDataAdapter adapter = new(command);
             adapter.Fill(data);
-            DataGridView dataGridView = new DataGridView();
-            dataGridView.DataSource = data;
+            DataGridView dataGridView = new()
+            {
+                DataSource = data
+            };
             dataGridView.Show();
             connection.Close();
 
             foreach (DataRow item in data.Rows)
             {
-                int iddv = Convert.ToInt32(item["iddv"]);
-                string tenDV = item["tenDV"].ToString();
-                double money = Convert.ToDouble(item["giatien"]);
-               
-                DichVu dichvu = new DichVu(iddv,tenDV,money);
-                dichvulist.Add(dichvu);
+                try 
+                {
+                    int iddv = Convert.ToInt32(item["iddv"]);
+                    string? tenDV = item["tenDV"].ToString();
+                    double money = Convert.ToDouble(item["giatien"]);
+                    DichVu dichvu = new(iddv, tenDV, money);
+                    dichvulist.Add(dichvu);
+                }
+                catch (Exception ex) 
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             return dichvulist;
