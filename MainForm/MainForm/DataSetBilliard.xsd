@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSetBilliard" targetNamespace="http://tempuri.org/DataSetBilliard.xsd" xmlns:mstns="http://tempuri.org/DataSetBilliard.xsd" xmlns="http://tempuri.org/DataSetBilliard.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSetBilliard" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="DataSetBilliard" msprop:Generator_DataSetName="DataSetBilliard">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="NHANVIEN" msprop:Generator_RowEvHandlerName="NHANVIENRowChangeEventHandler" msprop:Generator_RowDeletedName="NHANVIENRowDeleted" msprop:Generator_RowDeletingName="NHANVIENRowDeleting" msprop:Generator_RowEvArgName="NHANVIENRowChangeEvent" msprop:Generator_TablePropName="NHANVIEN" msprop:Generator_RowChangedName="NHANVIENRowChanged" msprop:Generator_RowChangingName="NHANVIENRowChanging" msprop:Generator_TableClassName="NHANVIENDataTable" msprop:Generator_RowClassName="NHANVIENRow" msprop:Generator_TableVarName="tableNHANVIEN" msprop:Generator_UserTableName="NHANVIEN">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDNV" msprop:Generator_ColumnPropNameInRow="IDNV" msprop:Generator_ColumnPropNameInTable="IDNVColumn" msprop:Generator_ColumnVarNameInTable="columnIDNV" msprop:Generator_UserColumnName="IDNV" type="xs:string" />
+              <xs:element name="HOTENNV" msprop:Generator_ColumnPropNameInRow="HOTENNV" msprop:Generator_ColumnPropNameInTable="HOTENNVColumn" msprop:Generator_ColumnVarNameInTable="columnHOTENNV" msprop:Generator_UserColumnName="HOTENNV" type="xs:string" />
+              <xs:element name="NGAYSINH" msdata:DateTimeMode="Utc" msprop:Generator_ColumnPropNameInRow="NGAYSINH" msprop:Generator_ColumnPropNameInTable="NGAYSINHColumn" msprop:Generator_ColumnVarNameInTable="columnNGAYSINH" msprop:Generator_UserColumnName="NGAYSINH" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CCCD" msprop:Generator_ColumnPropNameInRow="CCCD" msprop:Generator_ColumnPropNameInTable="CCCDColumn" msprop:Generator_ColumnVarNameInTable="columnCCCD" msprop:Generator_UserColumnName="CCCD" type="xs:string" minOccurs="0" />
+              <xs:element name="MATKHAU" msprop:Generator_ColumnPropNameInRow="MATKHAU" msprop:Generator_ColumnPropNameInTable="MATKHAUColumn" msprop:Generator_ColumnVarNameInTable="columnMATKHAU" msprop:Generator_UserColumnName="MATKHAU" type="xs:string" />
+              <xs:element name="QUYENADMIN" msprop:Generator_ColumnPropNameInRow="QUYENADMIN" msprop:Generator_ColumnPropNameInTable="QUYENADMINColumn" msprop:Generator_ColumnVarNameInTable="columnQUYENADMIN" msprop:Generator_UserColumnName="QUYENADMIN" type="xs:boolean" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="BAN" msprop:Generator_RowEvHandlerName="BANRowChangeEventHandler" msprop:Generator_RowDeletedName="BANRowDeleted" msprop:Generator_RowDeletingName="BANRowDeleting" msprop:Generator_RowEvArgName="BANRowChangeEvent" msprop:Generator_TablePropName="BAN" msprop:Generator_RowChangedName="BANRowChanged" msprop:Generator_RowChangingName="BANRowChanging" msprop:Generator_TableClassName="BANDataTable" msprop:Generator_RowClassName="BANRow" msprop:Generator_TableVarName="tableBAN" msprop:Generator_UserTableName="BAN">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDBAN" msprop:Generator_ColumnPropNameInRow="IDBAN" msprop:Generator_ColumnPropNameInTable="IDBANColumn" msprop:Generator_ColumnVarNameInTable="columnIDBAN" msprop:Generator_UserColumnName="IDBAN" type="xs:string" />
+              <xs:element name="GIATIEN" msprop:Generator_ColumnPropNameInRow="GIATIEN" msprop:Generator_ColumnPropNameInTable="GIATIENColumn" msprop:Generator_ColumnVarNameInTable="columnGIATIEN" msprop:Generator_UserColumnName="GIATIEN" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DICHVU" msprop:Generator_RowEvHandlerName="DICHVURowChangeEventHandler" msprop:Generator_RowDeletedName="DICHVURowDeleted" msprop:Generator_RowDeletingName="DICHVURowDeleting" msprop:Generator_RowEvArgName="DICHVURowChangeEvent" msprop:Generator_TablePropName="DICHVU" msprop:Generator_RowChangedName="DICHVURowChanged" msprop:Generator_RowChangingName="DICHVURowChanging" msprop:Generator_TableClassName="DICHVUDataTable" msprop:Generator_RowClassName="DICHVURow" msprop:Generator_TableVarName="tableDICHVU" msprop:Generator_UserTableName="DICHVU">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDDV" msprop:Generator_ColumnPropNameInRow="IDDV" msprop:Generator_ColumnPropNameInTable="IDDVColumn" msprop:Generator_ColumnVarNameInTable="columnIDDV" msprop:Generator_UserColumnName="IDDV" type="xs:string" />
+              <xs:element name="TENDV" msprop:Generator_ColumnPropNameInRow="TENDV" msprop:Generator_ColumnPropNameInTable="TENDVColumn" msprop:Generator_ColumnVarNameInTable="columnTENDV" msprop:Generator_UserColumnName="TENDV" type="xs:string" />
+              <xs:element name="GIATIEN" msprop:Generator_ColumnPropNameInRow="GIATIEN" msprop:Generator_ColumnPropNameInTable="GIATIENColumn" msprop:Generator_ColumnVarNameInTable="columnGIATIEN" msprop:Generator_UserColumnName="GIATIEN" type="xs:decimal" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="HOADONBAN" msprop:Generator_RowEvHandlerName="HOADONBANRowChangeEventHandler" msprop:Generator_RowDeletedName="HOADONBANRowDeleted" msprop:Generator_RowDeletingName="HOADONBANRowDeleting" msprop:Generator_RowEvArgName="HOADONBANRowChangeEvent" msprop:Generator_TablePropName="HOADONBAN" msprop:Generator_RowChangedName="HOADONBANRowChanged" msprop:Generator_RowChangingName="HOADONBANRowChanging" msprop:Generator_TableClassName="HOADONBANDataTable" msprop:Generator_RowClassName="HOADONBANRow" msprop:Generator_TableVarName="tableHOADONBAN" msprop:Generator_UserTableName="HOADONBAN">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDHD" msprop:Generator_ColumnPropNameInRow="IDHD" msprop:Generator_ColumnPropNameInTable="IDHDColumn" msprop:Generator_ColumnVarNameInTable="columnIDHD" msprop:Generator_UserColumnName="IDHD" type="xs:string" />
+              <xs:element name="IDBAN" msprop:Generator_ColumnPropNameInRow="IDBAN" msprop:Generator_ColumnPropNameInTable="IDBANColumn" msprop:Generator_ColumnVarNameInTable="columnIDBAN" msprop:Generator_UserColumnName="IDBAN" type="xs:string" />
+              <xs:element name="GIOBATDAU" msdata:DateTimeMode="Utc" msprop:Generator_ColumnPropNameInRow="GIOBATDAU" msprop:Generator_ColumnPropNameInTable="GIOBATDAUColumn" msprop:Generator_ColumnVarNameInTable="columnGIOBATDAU" msprop:Generator_UserColumnName="GIOBATDAU" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="GIOKETTHUC" msdata:DateTimeMode="Utc" msprop:Generator_ColumnPropNameInRow="GIOKETTHUC" msprop:Generator_ColumnPropNameInTable="GIOKETTHUCColumn" msprop:Generator_ColumnVarNameInTable="columnGIOKETTHUC" msprop:Generator_UserColumnName="GIOKETTHUC" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="HOADONDV" msprop:Generator_RowEvHandlerName="HOADONDVRowChangeEventHandler" msprop:Generator_RowDeletedName="HOADONDVRowDeleted" msprop:Generator_RowDeletingName="HOADONDVRowDeleting" msprop:Generator_RowEvArgName="HOADONDVRowChangeEvent" msprop:Generator_TablePropName="HOADONDV" msprop:Generator_RowChangedName="HOADONDVRowChanged" msprop:Generator_RowChangingName="HOADONDVRowChanging" msprop:Generator_TableClassName="HOADONDVDataTable" msprop:Generator_RowClassName="HOADONDVRow" msprop:Generator_TableVarName="tableHOADONDV" msprop:Generator_UserTableName="HOADONDV">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDHD" msprop:Generator_ColumnPropNameInRow="IDHD" msprop:Generator_ColumnPropNameInTable="IDHDColumn" msprop:Generator_ColumnVarNameInTable="columnIDHD" msprop:Generator_UserColumnName="IDHD" type="xs:string" />
+              <xs:element name="IDDV" msprop:Generator_ColumnPropNameInRow="IDDV" msprop:Generator_ColumnPropNameInTable="IDDVColumn" msprop:Generator_ColumnVarNameInTable="columnIDDV" msprop:Generator_UserColumnName="IDDV" type="xs:string" />
+              <xs:element name="SOLUONG" msprop:Generator_ColumnPropNameInRow="SOLUONG" msprop:Generator_ColumnPropNameInTable="SOLUONGColumn" msprop:Generator_ColumnVarNameInTable="columnSOLUONG" msprop:Generator_UserColumnName="SOLUONG" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="HOADON" msprop:Generator_RowEvHandlerName="HOADONRowChangeEventHandler" msprop:Generator_RowDeletedName="HOADONRowDeleted" msprop:Generator_RowDeletingName="HOADONRowDeleting" msprop:Generator_RowEvArgName="HOADONRowChangeEvent" msprop:Generator_TablePropName="HOADON" msprop:Generator_RowChangedName="HOADONRowChanged" msprop:Generator_RowChangingName="HOADONRowChanging" msprop:Generator_TableClassName="HOADONDataTable" msprop:Generator_RowClassName="HOADONRow" msprop:Generator_TableVarName="tableHOADON" msprop:Generator_UserTableName="HOADON">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDHD" msprop:Generator_ColumnPropNameInRow="IDHD" msprop:Generator_ColumnPropNameInTable="IDHDColumn" msprop:Generator_ColumnVarNameInTable="columnIDHD" msprop:Generator_UserColumnName="IDHD" type="xs:string" />
+              <xs:element name="IDNV" msprop:Generator_ColumnPropNameInRow="IDNV" msprop:Generator_ColumnPropNameInTable="IDNVColumn" msprop:Generator_ColumnVarNameInTable="columnIDNV" msprop:Generator_UserColumnName="IDNV" type="xs:string" />
+              <xs:element name="IDKH" msprop:Generator_ColumnPropNameInRow="IDKH" msprop:Generator_ColumnPropNameInTable="IDKHColumn" msprop:Generator_ColumnVarNameInTable="columnIDKH" msprop:Generator_UserColumnName="IDKH" type="xs:string" />
+              <xs:element name="GIOLAPHD" msdata:DateTimeMode="Utc" msprop:Generator_ColumnPropNameInRow="GIOLAPHD" msprop:Generator_ColumnPropNameInTable="GIOLAPHDColumn" msprop:Generator_ColumnVarNameInTable="columnGIOLAPHD" msprop:Generator_UserColumnName="GIOLAPHD" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="THANHTIEN" msprop:Generator_ColumnPropNameInRow="THANHTIEN" msprop:Generator_ColumnPropNameInTable="THANHTIENColumn" msprop:Generator_ColumnVarNameInTable="columnTHANHTIEN" msprop:Generator_UserColumnName="THANHTIEN" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="KHACHHANG" msprop:Generator_RowEvHandlerName="KHACHHANGRowChangeEventHandler" msprop:Generator_RowDeletedName="KHACHHANGRowDeleted" msprop:Generator_RowDeletingName="KHACHHANGRowDeleting" msprop:Generator_RowEvArgName="KHACHHANGRowChangeEvent" msprop:Generator_TablePropName="KHACHHANG" msprop:Generator_RowChangedName="KHACHHANGRowChanged" msprop:Generator_RowChangingName="KHACHHANGRowChanging" msprop:Generator_TableClassName="KHACHHANGDataTable" msprop:Generator_RowClassName="KHACHHANGRow" msprop:Generator_TableVarName="tableKHACHHANG" msprop:Generator_UserTableName="KHACHHANG">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="IDKH" msprop:Generator_ColumnPropNameInRow="IDKH" msprop:Generator_ColumnPropNameInTable="IDKHColumn" msprop:Generator_ColumnVarNameInTable="columnIDKH" msprop:Generator_UserColumnName="IDKH" type="xs:string" />
+              <xs:element name="TENKH" msprop:Generator_ColumnPropNameInRow="TENKH" msprop:Generator_ColumnPropNameInTable="TENKHColumn" msprop:Generator_ColumnVarNameInTable="columnTENKH" msprop:Generator_UserColumnName="TENKH" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:NHANVIEN" />
+      <xs:field xpath="mstns:IDNV" />
+    </xs:unique>
+    <xs:unique name="Constraint2">
+      <xs:selector xpath=".//mstns:NHANVIEN" />
+      <xs:field xpath="mstns:CCCD" />
+    </xs:unique>
+    <xs:unique name="BAN_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:BAN" />
+      <xs:field xpath="mstns:IDBAN" />
+    </xs:unique>
+    <xs:unique name="DICHVU_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:DICHVU" />
+      <xs:field xpath="mstns:IDDV" />
+    </xs:unique>
+    <xs:unique name="HOADONBAN_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:HOADONBAN" />
+      <xs:field xpath="mstns:IDHD" />
+    </xs:unique>
+    <xs:unique name="HOADONBAN_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:HOADONBAN" />
+      <xs:field xpath="mstns:IDBAN" />
+    </xs:unique>
+    <xs:unique name="HOADONDV_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:HOADONDV" />
+      <xs:field xpath="mstns:IDHD" />
+    </xs:unique>
+    <xs:unique name="HOADONDV_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:HOADONDV" />
+      <xs:field xpath="mstns:IDDV" />
+    </xs:unique>
+    <xs:unique name="HOADON_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:HOADON" />
+      <xs:field xpath="mstns:IDHD" />
+    </xs:unique>
+    <xs:unique name="HOADON_Constraint2" msdata:ConstraintName="Constraint2">
+      <xs:selector xpath=".//mstns:HOADON" />
+      <xs:field xpath="mstns:IDNV" />
+    </xs:unique>
+    <xs:unique name="Constraint3">
+      <xs:selector xpath=".//mstns:HOADON" />
+      <xs:field xpath="mstns:IDKH" />
+    </xs:unique>
+    <xs:unique name="KHACHHANG_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:KHACHHANG" />
+      <xs:field xpath="mstns:IDKH" />
+    </xs:unique>
+    <xs:keyref name="FK_KHACHHANG_HOADON" refer="KHACHHANG_Constraint1" msprop:rel_Generator_UserParentTable="KHACHHANG" msprop:rel_Generator_UserChildTable="HOADON" msprop:rel_Generator_RelationVarName="relationFK_KHACHHANG_HOADON" msprop:rel_Generator_UserRelationName="FK_KHACHHANG_HOADON" msprop:rel_Generator_ChildPropName="GetHOADONRows" msprop:rel_Generator_ParentPropName="KHACHHANGRow" msdata:UpdateRule="None" msdata:DeleteRule="None">
+      <xs:selector xpath=".//mstns:HOADON" />
+      <xs:field xpath="mstns:IDKH" />
+    </xs:keyref>
+    <xs:keyref name="FK_NHANVIEN_HOADON" refer="Constraint1" msprop:rel_Generator_UserParentTable="NHANVIEN" msprop:rel_Generator_UserChildTable="HOADON" msprop:rel_Generator_RelationVarName="relationFK_NHANVIEN_HOADON" msprop:rel_Generator_ChildPropName="GetHOADONRows" msprop:rel_Generator_ParentPropName="NHANVIENRow" msprop:rel_Generator_UserRelationName="FK_NHANVIEN_HOADON" msdata:UpdateRule="None" msdata:DeleteRule="None">
+      <xs:selector xpath=".//mstns:HOADON" />
+      <xs:field xpath="mstns:IDNV" />
+    </xs:keyref>
+    <xs:keyref name="FK_HOADON_HOADONDV" refer="HOADON_Constraint1" msprop:rel_Generator_UserParentTable="HOADON" msprop:rel_Generator_UserChildTable="HOADONDV" msprop:rel_Generator_RelationVarName="relationFK_HOADON_HOADONDV" msprop:rel_Generator_UserRelationName="FK_HOADON_HOADONDV" msprop:rel_Generator_ChildPropName="GetHOADONDVRows" msprop:rel_Generator_ParentPropName="HOADONRow">
+      <xs:selector xpath=".//mstns:HOADONDV" />
+      <xs:field xpath="mstns:IDHD" />
+    </xs:keyref>
+    <xs:keyref name="FK_DICHVU_HOADONDV" refer="DICHVU_Constraint1" msprop:rel_Generator_UserParentTable="DICHVU" msprop:rel_Generator_UserChildTable="HOADONDV" msprop:rel_Generator_RelationVarName="relationFK_DICHVU_HOADONDV" msprop:rel_Generator_ChildPropName="GetHOADONDVRows" msprop:rel_Generator_ParentPropName="DICHVURow" msprop:rel_Generator_UserRelationName="FK_DICHVU_HOADONDV" msdata:UpdateRule="None" msdata:DeleteRule="None">
+      <xs:selector xpath=".//mstns:HOADONDV" />
+      <xs:field xpath="mstns:IDDV" />
+    </xs:keyref>
+    <xs:keyref name="FK_HOADON_HOADONBAN" refer="HOADON_Constraint1" msprop:rel_Generator_UserParentTable="HOADON" msprop:rel_Generator_UserChildTable="HOADONBAN" msprop:rel_Generator_RelationVarName="relationFK_HOADON_HOADONBAN" msprop:rel_Generator_UserRelationName="FK_HOADON_HOADONBAN" msprop:rel_Generator_ChildPropName="GetHOADONBANRows" msprop:rel_Generator_ParentPropName="HOADONRow">
+      <xs:selector xpath=".//mstns:HOADONBAN" />
+      <xs:field xpath="mstns:IDHD" />
+    </xs:keyref>
+    <xs:keyref name="FK_BAN_HOADONBAN" refer="BAN_Constraint1" msprop:rel_Generator_UserParentTable="BAN" msprop:rel_Generator_UserChildTable="HOADONBAN" msprop:rel_Generator_RelationVarName="relationFK_BAN_HOADONBAN" msprop:rel_Generator_ChildPropName="GetHOADONBANRows" msprop:rel_Generator_ParentPropName="BANRow" msprop:rel_Generator_UserRelationName="FK_BAN_HOADONBAN" msdata:UpdateRule="None" msdata:DeleteRule="None">
+      <xs:selector xpath=".//mstns:HOADONBAN" />
+      <xs:field xpath="mstns:IDHD" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

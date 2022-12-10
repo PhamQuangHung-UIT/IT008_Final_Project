@@ -126,8 +126,14 @@ namespace MainForm
             {
                 
             }
-        
-            
+
+        private void adminMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AdminMenu amf = new AdminMenu();
+            amf.FormClosing += delegate { this.Show(); };
+            amf.Show();
+            this.Hide();
+        }
     }
         
 

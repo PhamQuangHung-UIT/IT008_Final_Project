@@ -2778,23 +2778,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Pham Quang Hung\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ADMIN\\.nuget\\packages\\": {},
+    "D:\\Tin\\VisualStudio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\MainForm.csproj",
+      "projectUniqueName": "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\MainForm.csproj",
       "projectName": "MainForm",
-      "projectPath": "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\MainForm.csproj",
-      "packagesPath": "C:\\Users\\Pham Quang Hung\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\obj\\",
+      "projectPath": "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\MainForm.csproj",
+      "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+      "outputPath": "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "D:\\Tin\\VisualStudio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Pham Quang Hung\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
