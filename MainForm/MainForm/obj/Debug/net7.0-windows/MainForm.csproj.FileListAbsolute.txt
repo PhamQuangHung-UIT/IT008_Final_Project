@@ -1,0 +1,106 @@
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.exe
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.deps.json
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.runtimeconfig.json
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.pdb
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.AssemblyReference.cache
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.GenerateResource.cache
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.GeneratedMSBuildEditorConfig.editorconfig
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AssemblyInfoInputs.cache
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AssemblyInfo.cs
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.CoreCompileInputs.cache
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.dll
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\refint\MainForm.dll
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.pdb
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.genruntimeconfig.cache
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\ref\MainForm.dll
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FHoadon.resources
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Azure.Core.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Azure.Identity.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Data.SqlClient.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Identity.Client.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Abstractions.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Logging.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Protocols.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Tokens.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.SqlServer.Server.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\System.Data.SqlClient.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\System.IdentityModel.Tokens.Jwt.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\System.Memory.Data.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\System.Runtime.Caching.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-arm64\native\sni.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x64\native\sni.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x86\native\sni.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\Code test\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.CopyComplete
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.Form2.resources
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FAddHD.resources
+D:\Code test\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FMain.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.exe
+C:\Users\Pham Quang Hung\source\repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.deps.json
+C:\Users\Pham Quang Hung\source\repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.runtimeconfig.json
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\MainForm.pdb
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Azure.Core.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Azure.Identity.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Data.SqlClient.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Identity.Client.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Logging.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\Microsoft.SqlServer.Server.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\System.Data.SqlClient.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\System.Memory.Data.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\System.Runtime.Caching.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\bin\Debug\net7.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.AssemblyReference.cache
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FAddHD.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FHoadon.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FMain.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.GenerateResource.cache
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AssemblyInfoInputs.cache
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AssemblyInfo.cs
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.CoreCompileInputs.cache
+C:\Users\Pham Quang Hung\source\repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.csproj.CopyComplete
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\refint\MainForm.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.pdb
+C:\Users\Pham Quang Hung\source\repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.genruntimeconfig.cache
+C:\Users\Pham Quang Hung\source\repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\ref\MainForm.dll
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AdminMenu.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.BarChart.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.StatisticsControl.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AccountInfoDlg.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.LoginDlg.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.SignUpDlg.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AccountToApproveDlg.resources
