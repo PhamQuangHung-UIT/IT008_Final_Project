@@ -10,34 +10,26 @@ namespace MainForm
 {
     public class Table
     {
-        public Table(int idban, double giatien, int trangthai) 
+        public Table(int idban, double giatien, int trangthai)
         {
             Idban = idban;
             Giatien = giatien;
             Trangthai = trangthai;
+            idhdCurrent = -1;
         }
-        
-          
+
+
         private int idban;
         private double giatien;
         private int trangthai;
-        public int Idban 
-        {
-            get { return idban; }
-            set { idban = value; }
-        }
+        private int idhdCurrent;
 
-        public double Giatien 
-        {
-            get { return giatien; }
-            set { giatien = value; }
-        }
+        public int Idban { get => idban; set => idban = value; }
 
-        public int Trangthai 
-        { 
-            get { return trangthai; }
-            set { trangthai = value; }
-        }
-     
+        public double Giatien { get => giatien; set => giatien = value; }
+
+        public int Trangthai { get => trangthai; set => trangthai = value; }
+
+        public int IdhdCurrent { get => idhdCurrent; set => idhdCurrent = value; }
     }
 }

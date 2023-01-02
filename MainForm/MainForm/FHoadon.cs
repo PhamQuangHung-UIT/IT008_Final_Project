@@ -1,184 +1,136 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-
+﻿using System.Data;
 namespace MainForm
 {
     public partial class FHoadon : Form
     {
-        SqlConnection connection;
-        SqlCommand command;
-        string str = "Data Source=DESKTOP-Q8NOVRR\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
-        SqlDataAdapter adapter = new SqlDataAdapter();
-        DataTable table ;
         private int idhd;
-        private int makh;
+        private int idkh;
         private double thanhtien;
 
-        public int Idhd 
+        public int IDHD 
         {
             get { return idhd; }
             set { idhd = value; }
         }
-        public int Makh
+        public int IDKH
         {
-            get { return makh; }
-            set { makh = value; }
+            get { return idkh; }
+            set { idkh = value; }
         }
 
         public FHoadon()
         {
             InitializeComponent();
         }
-        public FHoadon(int MaKH)
+        public FHoadon(int idhd) : this()
         {
-
-        }
-
-        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
+            this.idhd = idhd;
         }
 
         private void FHoadon_Load(object sender, EventArgs e)
         {
-            connection = new SqlConnection(str);
-            connection.Open();
             LoadHD();
             LoadKH();
             LoadHDBan();
             LoadHDDV();
             LoadDichVu();
-            connection.Close();
         }
         void LoadDichVu()
         {
-            List<DichVu> dichvulist = DichVuBiDa.Instance.LoadDichVuList();
+            List<DichVu> dichvulist = DichVuBiDa.LoadDichVuList();
             foreach (DichVu item in dichvulist)
             {
-                Button btn = new Button() { Width = 100, Height = 40 };
-                btn.Text = item.TenDV;
-                btn.BackColor = Color.Green;
+                Button btn = new()
+                {
+                    Width = 120,
+                    Height = 40,
+                    Text = item.TenDV,
+                    BackColor = Color.LightGray
+                };
                 flpDichVu.Controls.Add(btn);
                 btn.Click += Btn_Click;
                 btn.Cursor = Cursors.Hand;
             }
         }
-        private void Btn_Click(object sender, EventArgs e)
+        private void Btn_Click(object? sender, EventArgs e)
         {
-            if ((sender as Button).BackColor == Color.Green) (sender as Button).BackColor = Color.Red;
-            else if ((sender as Button).BackColor == Color.Red) (sender as Button).BackColor = Color.Green;
+            if (sender is Button btn)
+            {
+                if (btn.BackColor == Color.LightGray) btn.BackColor = Color.DarkGray;
+                else btn.BackColor = Color.LightGray;
+            }
+
         }
         void LoadHDBan()
         {          
-            table =new DataTable();
-            command = connection.CreateCommand();
-            command.CommandText = "select Ban.idban,giatien,sogio from Ban,HDBan,HoaDon where HDBan.idhd=" + Convert.ToInt32(tbIdhd.Text)+" and Ban.idban=HDBan.idban";
-            adapter.SelectCommand = command;
-            table.Clear();
-            adapter.Fill(table);
-            dgvHDBan.DataSource = table;
+            string commandText = "SELECT BAN.IDBAN [ID Bàn], " +
+                "GIATIEN [Giá tiền], " +
+                "GIOBATDAU [Giờ bắt đầu], " +
+                "GIOKETTHUC [Giờ kết thúc] " +
+                "FROM BAN, HOADONBAN, HOADON " +
+                $"WHERE HOADONBAN.IDHD =  {Convert.ToInt32(tbIdhd.Text)} and BAN.IDBAN = HOADONBAN.IDBAN";
+            dgvHDBan.DataSource = FMain.GetSqlData(commandText);
         }
         void LoadHDDV()
         {
-            table = new DataTable();
-            command = connection.CreateCommand();
-            command.CommandText = "select DichVu.tenDV,giatien,soluong from DichVu,HDDV,HoaDon where HDDV.idhd=" + Convert.ToInt32(tbIdhd.Text) + " and DichVu.iddv=HDDV.iddv";
-            adapter.SelectCommand = command;
-            table.Clear();
-            adapter.Fill(table);
-            dgvHDDV.DataSource = table;
+            string commandText = "SELECT DICHVU.TENDV [Tên dịch vụ], GIATIEN [Giá tiền], SOLUONG [Số lượng] " +
+                "FROM DICHVU, HOADONDV, HOADON " +
+                $"WHERE HOADONDV.IDDV = {Convert.ToInt32(tbIdhd.Text)} and DICHVU.IDDV = HOADONDV.IDDV";
+            dgvHDDV.DataSource = FMain.GetSqlData(commandText);
         }
         void LoadHD()
         {
-            List<Bill> listbill = BillBiDa.Instance.GetListUnCheckBillID();
-            foreach(Bill item in listbill)
-            {
-                if (item.Makh == makh)
-                {
-                    tbIdhd.Text = (item.Idhd).ToString();
-                    tbMakh.Text = (item.Makh).ToString();
-                }
-            }
+            Bill bill = BillBiDa.GetUnCheckBill(idhd);
+            tbIdhd.Text = bill.Idhd.ToString();
+            tbIdkh.Text = bill.Idkh.ToString();
         }
         void LoadKH()
         {
-            List<Khachhang> khachhanglist = KhachhangBiDa.Instance.GetListKhachhang();
-            foreach(Khachhang item in khachhanglist)
-            {
-                if(item.Makh == makh)
-                {
-                    tbTenKh.Text=item.Hoten.ToString();
-                    tbSodt.Text=item.Sodt.ToString();
-                    tbDchi.Text=item.Dchi.ToString();
-                }
-            }
+            Khachhang? khachhang = KhachhangBiDa.GetKhachhang(idkh);
+            tbTenKh.Text = khachhang?.Hoten == null ? "" : khachhang.Hoten.ToString();
+            tbSodt.Text = khachhang?.Sodt == null ? "" : khachhang.Sodt.ToString();
+            tbDchi.Text = khachhang?.Dchi == null ? "" : khachhang.Dchi.ToString();
         }
 
-        private void btnEndhd_Click(object sender, EventArgs e)
+        private void BtnEndhd_Click(object sender, EventArgs e)
         {
             TinhThanhTien();
-            connection.Open();
-            command = connection.CreateCommand();
-            command.CommandText = "insert into HoaDon values ('" + tbIdhd.Text + "','" + tbMakh.Text + "','" + DateTime.Now + "','"+thanhtien+"','"+1.ToString()+"')";
-            command.ExecuteNonQuery();
-            
-            connection.Close();
+            string commandText = $"INSERT INTO HOADON VALUES ('{tbIdhd.Text}', '{tbIdkh.Text}', '{DateTime.Now}', '{thanhtien}', 1)";
+            FMain.SendSqlCommand(commandText);
         }
-        private double SumMNofDV=0;
-        private double SumMNofBan=0;
+        private double SumMoneyOfDV = 0;
+        private double SumMoneyOfTable = 0;
         void TinhThanhTien()
         {
-            table =new DataTable();
-            connection.Open();
-            command = connection.CreateCommand();
-            command.CommandText = "select * from HDBan where HDBan.idhd='"+tbIdhd+"'";
-            adapter.SelectCommand = command;
-            table.Clear();
-            adapter.Fill(table);
+            string commandText = $"SELECT * FROM HOADONBAN where IDHD = '{tbIdhd.Text}'";
+            var table = FMain.GetSqlData(commandText);
 
-            List<Table> tablelist=TableBiDa.Instance.LoadTableList();
+            List<Table> tablelist=TableBiDa.LoadTableList();
             foreach(Table item in tablelist)
             {
                 foreach(DataRow row in table.Rows)
                 {
                     if (item.Idban == Convert.ToInt32(row["idban"]))
                     {
-                        SumMNofBan += Convert.ToDouble(row["sogio"])*item.Giatien;
+                        SumMoneyOfTable += Convert.ToDouble(row["sogio"])*item.Giatien;
                     }
                 }
             }
-            table = new DataTable();
-            connection.Open();
-            command = connection.CreateCommand();
-            command.CommandText = "select * from HDDV where HDDV.idhd='" + tbIdhd + "'";
-            adapter.SelectCommand = command;
-            table.Clear();
-            adapter.Fill(table);
-
-            List<DichVu> dichvulist =DichVuBiDa.Instance.LoadDichVuList();
+            commandText = $"SELECT * FROM HOADONDV WHERE HOADONDV.IDHD= '{tbIdhd}'";
+            table = FMain.GetSqlData(commandText);
+            List<DichVu> dichvulist = DichVuBiDa.LoadDichVuList();
             foreach (DichVu item in dichvulist)
             {
                 foreach (DataRow row in table.Rows)
                 {
                     if (item.IDdv == Convert.ToInt32(row["iddv"]))
                     {
-                        SumMNofBan += Convert.ToInt32(row["soluong"]) * item.Giatien;
+                        SumMoneyOfTable += Convert.ToInt32(row["soluong"]) * item.Giatien;
                     }
                 }
             }
 
-            thanhtien = SumMNofBan + SumMNofDV;
-            connection.Close();
+            thanhtien = SumMoneyOfTable + SumMoneyOfDV;
         }
     }
 }

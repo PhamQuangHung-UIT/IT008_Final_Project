@@ -1,54 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MainForm
+﻿namespace MainForm
 {
     public class KhachhangBiDa
     {
-        private static KhachhangBiDa? instance;
-
-        public static KhachhangBiDa Instance
-        {
-            get
-            {
-                instance ??= new KhachhangBiDa();
-                return instance;
-            }
-            private set { KhachhangBiDa.instance = value; }
-        }
         public KhachhangBiDa() { }
 
-        string connectionString = $"Data Source = {Environment.MachineName}\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
-
-        public List<Khachhang> GetListKhachhang()
+        public static Khachhang? GetKhachhang(int idkh)
         {
-            List<Khachhang> khachhanglist = new List<Khachhang>();
-
-            DataTable data = new DataTable();
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = "select *from khachhang";
-            SqlDataAdapter adapter = new(command);
-            adapter.Fill(data);
-            connection.Close();
-            foreach (DataRow row in data.Rows)
-            {                
-                int makh = Convert.ToInt32(row["makh"]);
-                string? hoten = row["hoten"].ToString();
-                string? dchi = row["dchi"].ToString();
-                int sodt = Convert.ToInt32(row["sodt"]);
-
-                Khachhang khachhang = new(makh, hoten, dchi, sodt);
-                khachhanglist.Add(khachhang);
+            string commandText = $"SELECT * FROM KHACHHANG WHERE IDKH = {idkh}";
+            var data = FMain.GetSqlData(commandText);
+            if (data.Rows.Count > 0) 
+            {
+                string? hoten = data.Rows[0]["HOTEN"].ToString();
+                string? dchi = data.Rows[0]["DCHI"].ToString();
+                string? sodt = data.Rows[0]["SODT"].ToString();
+                Khachhang khachhang = new(idkh, hoten, dchi, sodt);
+                return khachhang;
             }
-
-            return khachhanglist;
+            return null;
         }
     }
 }

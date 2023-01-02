@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\MainForm.csproj": {}
+    "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\MainForm.csproj": {}
   },
   "projects": {
-    "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\MainForm.csproj": {
+    "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\MainForm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\MainForm.csproj",
+        "projectUniqueName": "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\MainForm.csproj",
         "projectName": "MainForm",
-        "projectPath": "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\MainForm.csproj",
-        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
-        "outputPath": "D:\\Tin\\LTTQ\\remote\\MainForm\\MainForm\\obj\\",
+        "projectPath": "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\MainForm.csproj",
+        "packagesPath": "C:\\Users\\Pham Quang Hung\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Pham Quang Hung\\Source\\Repos\\PhamQuangHung-UIT\\IT008_Final_Project\\MainForm\\MainForm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "D:\\Tin\\VisualStudio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pham Quang Hung\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -72,7 +72,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

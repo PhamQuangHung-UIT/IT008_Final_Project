@@ -8,17 +8,17 @@ namespace MainForm
 {
     public class Khachhang
     {
-        public Khachhang(int makh, string? hoten, string? dchi, int sodt) 
+        public Khachhang(int idkh, string? hoten, string? dchi, string? sodt) 
         {
-            Makh = makh;
+            Idkh = idkh;
             Hoten = hoten;
             Dchi = dchi;
             Sodt = sodt;
         }
 
-        public int Makh { get; set; }
+        public int Idkh { get; set; }
         public string? Hoten { get; set; }
         public string? Dchi { get; set; }
-        public int Sodt { get; set; }
+        public string? Sodt { get; set; }
     }
 }

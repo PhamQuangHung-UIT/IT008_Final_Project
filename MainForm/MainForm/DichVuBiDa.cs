@@ -11,37 +11,16 @@ namespace MainForm
 {
     public class DichVuBiDa
     {
-        private static DichVuBiDa? instance;
-
-        public static DichVuBiDa Instance
-        {
-            get
-            {
-                instance ??= new();
-                return instance;
-            }
-            private set { instance = value; }
-        }
-
-        readonly string connectionString = $"Data Source={Environment.MachineName}\\SQLEXPRESS;Initial Catalog=DoAn_lttq;Integrated Security=True";
-
-
-        public List<DichVu> LoadDichVuList()
+        public static List<DichVu> LoadDichVuList()
         {
             List<DichVu> dichvulist = new();
-            DataTable data = new();
-            SqlConnection connection = new(connectionString);
-            connection.Open();
-            SqlCommand command = connection.CreateCommand();
-            command.CommandText = "select * from DICHVU";
-            SqlDataAdapter adapter = new(command);
-            adapter.Fill(data);
+            string commandText = "SELECT * FROM DICHVU";
+            DataTable data = FMain.GetSqlData(commandText);
             DataGridView dataGridView = new()
             {
                 DataSource = data
             };
             dataGridView.Show();
-            connection.Close();
 
             foreach (DataRow item in data.Rows)
             {
@@ -60,9 +39,6 @@ namespace MainForm
             }
 
             return dichvulist;
-
-
-
         }
     }
 }
