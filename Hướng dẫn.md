@@ -1,11 +1,3 @@
-# Một số lưu ý về làm đồ án
-
-- Đặt tên biến, hàm và file rõ ràng. Không đặt tên biến chỉ bằng 1 kí tự (trừ vòng lặp for). Hạn chế đặt tên bằng số (form1, form2, form3,...), thay vào đó nên đặt tên theo chức năng của nó (form_HoaDon, FormMain, ...)
-- Gom nhóm các hàm có liên quan với nhau và đặt chúng trong cặp tiền chỉ thị ``#region Tên của region ... #endregion``
-- Nếu cần đổi tên biến, hàm, lớp,... sử dụng Rename (Ctrl + R 2 lần). Visual Studio sẽ tự động đổi tên tất cả hiện diện của chúng một cách an toàn
-- Các tệp tài nguyên sẽ thêm trong file Resources.recx trước. Nếu muốn sử dụng chúng chỉ cần gọi Properties.Resources.TenTaiNguyen
-- Khi Commit, không thêm thư mục ".vs" vào bệ. Đây là thư mục do Visual Studio tự sinh ra trong quá trình làm việc với Project.
-
 # Hướng dẫn cách edit nội dung và cập nhật lên Github
 **Tạo bản sao cho repos**
 
@@ -52,33 +44,3 @@ Nhấp vào biểu tượng "Sync" để đồng bộ quá trình thu hồi trê
 
 Bạn sẽ thấy thông báo thu hồi hiển thị trên Github nhóm
 <img width="800" alt="2022-10-25 (12)" src="https://user-images.githubusercontent.com/113542311/197800781-9105dcb2-69e2-4562-81a2-85e3922894e7.png">
-
-# Sử dụng Git
-
-Một cách khác để làm việc với repos đó là sử dụng Git. Các repos trên Github về bản chất là các file Git. Có thể sử dụng công cụ làm việc với Git tích hợp sẵn trong Visual Studio thông qua màn hình Terminal (View > Terminal hoặc Ctrl + ` ). Các lệnh Git luôn bắt đầu bằng từ "git".
-
-Xem tất cả các lệnh Git [tại đây](https://git-scm.com/docs)
-
-**Một số lệnh Git thông dụng**
-
-Cập nhật (fetch) toàn bộ nhánh có trên Github (gọi là remote branch):
-````
-    git fetch -p
-````
-Xóa một nhánh cục bộ (local branch):
-````
-    git branch -d <Tên nhánh>
-````
-hoặc
-````
-    git branch --delete <Tên nhánh>
-````
-Xóa một nhánh cục bộ bắt buộc:
-````
-    git branch -D <Tên nhánh>
-````
-hoặc
-````
-    git branch --delete --force <Tên nhánh>
-````
-**Chú ý: Không xóa nhánh main vì đây là nhánh làm việc chính của nhóm**

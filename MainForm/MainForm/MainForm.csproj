@@ -12,4 +12,19 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.0.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DataSetBilliard.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataSetBilliard.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DataSetBilliard.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetBilliard.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 </Project>

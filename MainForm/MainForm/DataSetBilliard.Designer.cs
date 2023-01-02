@@ -38,17 +38,17 @@ namespace MainForm {
         
         private KHACHHANGDataTable tableKHACHHANG;
         
-        private global::System.Data.DataRelation relationFK_HOADON_HOADONBAN;
-        
         private global::System.Data.DataRelation relationFK_BAN_HOADONBAN;
         
-        private global::System.Data.DataRelation relationFK_HOADON_HOADONDV;
+        private global::System.Data.DataRelation relationFK_HOADON_HOADONBAN;
         
         private global::System.Data.DataRelation relationFK_DICHVU_HOADONDV;
         
-        private global::System.Data.DataRelation relationFK_KHACHHANG_HOADON;
+        private global::System.Data.DataRelation relationFK_HOADON_HOADONDV;
         
         private global::System.Data.DataRelation relationFK_NHANVIEN_HOADON;
+        
+        private global::System.Data.DataRelation relationFK_KHACHHANG_HOADON;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -350,12 +350,12 @@ namespace MainForm {
                     this.tableKHACHHANG.InitVars();
                 }
             }
-            this.relationFK_HOADON_HOADONBAN = this.Relations["FK_HOADON_HOADONBAN"];
             this.relationFK_BAN_HOADONBAN = this.Relations["FK_BAN_HOADONBAN"];
-            this.relationFK_HOADON_HOADONDV = this.Relations["FK_HOADON_HOADONDV"];
+            this.relationFK_HOADON_HOADONBAN = this.Relations["FK_HOADON_HOADONBAN"];
             this.relationFK_DICHVU_HOADONDV = this.Relations["FK_DICHVU_HOADONDV"];
-            this.relationFK_KHACHHANG_HOADON = this.Relations["FK_KHACHHANG_HOADON"];
+            this.relationFK_HOADON_HOADONDV = this.Relations["FK_HOADON_HOADONDV"];
             this.relationFK_NHANVIEN_HOADON = this.Relations["FK_NHANVIEN_HOADON"];
+            this.relationFK_KHACHHANG_HOADON = this.Relations["FK_KHACHHANG_HOADON"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -381,13 +381,6 @@ namespace MainForm {
             this.tableKHACHHANG = new KHACHHANGDataTable();
             base.Tables.Add(this.tableKHACHHANG);
             global::System.Data.ForeignKeyConstraint fkc;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_HOADON_HOADONBAN", new global::System.Data.DataColumn[] {
-                        this.tableHOADON.IDHDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableHOADONBAN.IDHDColumn});
-            this.tableHOADONBAN.Constraints.Add(fkc);
-            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.Cascade;
-            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_BAN_HOADONBAN", new global::System.Data.DataColumn[] {
                         this.tableBAN.IDBANColumn}, new global::System.Data.DataColumn[] {
                         this.tableHOADONBAN.IDHDColumn});
@@ -395,10 +388,10 @@ namespace MainForm {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.None;
             fkc.UpdateRule = global::System.Data.Rule.None;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_HOADON_HOADONDV", new global::System.Data.DataColumn[] {
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_HOADON_HOADONBAN", new global::System.Data.DataColumn[] {
                         this.tableHOADON.IDHDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableHOADONDV.IDHDColumn});
-            this.tableHOADONDV.Constraints.Add(fkc);
+                        this.tableHOADONBAN.IDHDColumn});
+            this.tableHOADONBAN.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.Cascade;
             fkc.UpdateRule = global::System.Data.Rule.Cascade;
@@ -409,13 +402,13 @@ namespace MainForm {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.None;
             fkc.UpdateRule = global::System.Data.Rule.None;
-            fkc = new global::System.Data.ForeignKeyConstraint("FK_KHACHHANG_HOADON", new global::System.Data.DataColumn[] {
-                        this.tableKHACHHANG.IDKHColumn}, new global::System.Data.DataColumn[] {
-                        this.tableHOADON.IDKHColumn});
-            this.tableHOADON.Constraints.Add(fkc);
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_HOADON_HOADONDV", new global::System.Data.DataColumn[] {
+                        this.tableHOADON.IDHDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableHOADONDV.IDHDColumn});
+            this.tableHOADONDV.Constraints.Add(fkc);
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
-            fkc.DeleteRule = global::System.Data.Rule.None;
-            fkc.UpdateRule = global::System.Data.Rule.None;
+            fkc.DeleteRule = global::System.Data.Rule.Cascade;
+            fkc.UpdateRule = global::System.Data.Rule.Cascade;
             fkc = new global::System.Data.ForeignKeyConstraint("FK_NHANVIEN_HOADON", new global::System.Data.DataColumn[] {
                         this.tableNHANVIEN.IDNVColumn}, new global::System.Data.DataColumn[] {
                         this.tableHOADON.IDNVColumn});
@@ -423,30 +416,37 @@ namespace MainForm {
             fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
             fkc.DeleteRule = global::System.Data.Rule.None;
             fkc.UpdateRule = global::System.Data.Rule.None;
-            this.relationFK_HOADON_HOADONBAN = new global::System.Data.DataRelation("FK_HOADON_HOADONBAN", new global::System.Data.DataColumn[] {
-                        this.tableHOADON.IDHDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableHOADONBAN.IDHDColumn}, false);
-            this.Relations.Add(this.relationFK_HOADON_HOADONBAN);
+            fkc = new global::System.Data.ForeignKeyConstraint("FK_KHACHHANG_HOADON", new global::System.Data.DataColumn[] {
+                        this.tableKHACHHANG.IDKHColumn}, new global::System.Data.DataColumn[] {
+                        this.tableHOADON.IDKHColumn});
+            this.tableHOADON.Constraints.Add(fkc);
+            fkc.AcceptRejectRule = global::System.Data.AcceptRejectRule.None;
+            fkc.DeleteRule = global::System.Data.Rule.None;
+            fkc.UpdateRule = global::System.Data.Rule.None;
             this.relationFK_BAN_HOADONBAN = new global::System.Data.DataRelation("FK_BAN_HOADONBAN", new global::System.Data.DataColumn[] {
                         this.tableBAN.IDBANColumn}, new global::System.Data.DataColumn[] {
                         this.tableHOADONBAN.IDHDColumn}, false);
             this.Relations.Add(this.relationFK_BAN_HOADONBAN);
-            this.relationFK_HOADON_HOADONDV = new global::System.Data.DataRelation("FK_HOADON_HOADONDV", new global::System.Data.DataColumn[] {
+            this.relationFK_HOADON_HOADONBAN = new global::System.Data.DataRelation("FK_HOADON_HOADONBAN", new global::System.Data.DataColumn[] {
                         this.tableHOADON.IDHDColumn}, new global::System.Data.DataColumn[] {
-                        this.tableHOADONDV.IDHDColumn}, false);
-            this.Relations.Add(this.relationFK_HOADON_HOADONDV);
+                        this.tableHOADONBAN.IDHDColumn}, false);
+            this.Relations.Add(this.relationFK_HOADON_HOADONBAN);
             this.relationFK_DICHVU_HOADONDV = new global::System.Data.DataRelation("FK_DICHVU_HOADONDV", new global::System.Data.DataColumn[] {
                         this.tableDICHVU.IDDVColumn}, new global::System.Data.DataColumn[] {
                         this.tableHOADONDV.IDDVColumn}, false);
             this.Relations.Add(this.relationFK_DICHVU_HOADONDV);
-            this.relationFK_KHACHHANG_HOADON = new global::System.Data.DataRelation("FK_KHACHHANG_HOADON", new global::System.Data.DataColumn[] {
-                        this.tableKHACHHANG.IDKHColumn}, new global::System.Data.DataColumn[] {
-                        this.tableHOADON.IDKHColumn}, false);
-            this.Relations.Add(this.relationFK_KHACHHANG_HOADON);
+            this.relationFK_HOADON_HOADONDV = new global::System.Data.DataRelation("FK_HOADON_HOADONDV", new global::System.Data.DataColumn[] {
+                        this.tableHOADON.IDHDColumn}, new global::System.Data.DataColumn[] {
+                        this.tableHOADONDV.IDHDColumn}, false);
+            this.Relations.Add(this.relationFK_HOADON_HOADONDV);
             this.relationFK_NHANVIEN_HOADON = new global::System.Data.DataRelation("FK_NHANVIEN_HOADON", new global::System.Data.DataColumn[] {
                         this.tableNHANVIEN.IDNVColumn}, new global::System.Data.DataColumn[] {
                         this.tableHOADON.IDNVColumn}, false);
             this.Relations.Add(this.relationFK_NHANVIEN_HOADON);
+            this.relationFK_KHACHHANG_HOADON = new global::System.Data.DataRelation("FK_KHACHHANG_HOADON", new global::System.Data.DataColumn[] {
+                        this.tableKHACHHANG.IDKHColumn}, new global::System.Data.DataColumn[] {
+                        this.tableHOADON.IDKHColumn}, false);
+            this.Relations.Add(this.relationFK_KHACHHANG_HOADON);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -586,6 +586,8 @@ namespace MainForm {
             
             private global::System.Data.DataColumn columnQUYENADMIN;
             
+            private global::System.Data.DataColumn columnTENDANGNHAP;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public NHANVIENDataTable() {
@@ -669,6 +671,14 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TENDANGNHAPColumn {
+                get {
+                    return this.columnTENDANGNHAP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -704,7 +714,7 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public NHANVIENRow AddNHANVIENRow(string IDNV, string HOTENNV, System.DateTime NGAYSINH, string CCCD, string MATKHAU, bool QUYENADMIN) {
+            public NHANVIENRow AddNHANVIENRow(string IDNV, string HOTENNV, System.DateTime NGAYSINH, string CCCD, string MATKHAU, bool QUYENADMIN, string TENDANGNHAP) {
                 NHANVIENRow rowNHANVIENRow = ((NHANVIENRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IDNV,
@@ -712,7 +722,8 @@ namespace MainForm {
                         NGAYSINH,
                         CCCD,
                         MATKHAU,
-                        QUYENADMIN};
+                        QUYENADMIN,
+                        TENDANGNHAP};
                 rowNHANVIENRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowNHANVIENRow);
                 return rowNHANVIENRow;
@@ -741,6 +752,7 @@ namespace MainForm {
                 this.columnCCCD = base.Columns["CCCD"];
                 this.columnMATKHAU = base.Columns["MATKHAU"];
                 this.columnQUYENADMIN = base.Columns["QUYENADMIN"];
+                this.columnTENDANGNHAP = base.Columns["TENDANGNHAP"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -758,6 +770,8 @@ namespace MainForm {
                 base.Columns.Add(this.columnMATKHAU);
                 this.columnQUYENADMIN = new global::System.Data.DataColumn("QUYENADMIN", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQUYENADMIN);
+                this.columnTENDANGNHAP = new global::System.Data.DataColumn("TENDANGNHAP", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTENDANGNHAP);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIDNV}, false));
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint2", new global::System.Data.DataColumn[] {
@@ -766,8 +780,10 @@ namespace MainForm {
                 this.columnIDNV.Unique = true;
                 this.columnHOTENNV.AllowDBNull = false;
                 this.columnNGAYSINH.DateTimeMode = global::System.Data.DataSetDateTime.Utc;
+                this.columnCCCD.AllowDBNull = false;
                 this.columnCCCD.Unique = true;
                 this.columnMATKHAU.AllowDBNull = false;
+                this.columnTENDANGNHAP.MaxLength = 32;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -905,6 +921,8 @@ namespace MainForm {
             
             private global::System.Data.DataColumn columnGIATIEN;
             
+            private global::System.Data.DataColumn columnTRANGTHAI;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public BANDataTable() {
@@ -956,6 +974,14 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn TRANGTHAIColumn {
+                get {
+                    return this.columnTRANGTHAI;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -991,11 +1017,12 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public BANRow AddBANRow(string IDBAN, decimal GIATIEN) {
+            public BANRow AddBANRow(string IDBAN, decimal GIATIEN, bool TRANGTHAI) {
                 BANRow rowBANRow = ((BANRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         IDBAN,
-                        GIATIEN};
+                        GIATIEN,
+                        TRANGTHAI};
                 rowBANRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowBANRow);
                 return rowBANRow;
@@ -1020,6 +1047,7 @@ namespace MainForm {
             internal void InitVars() {
                 this.columnIDBAN = base.Columns["IDBAN"];
                 this.columnGIATIEN = base.Columns["GIATIEN"];
+                this.columnTRANGTHAI = base.Columns["TRANGTHAI"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1029,11 +1057,14 @@ namespace MainForm {
                 base.Columns.Add(this.columnIDBAN);
                 this.columnGIATIEN = new global::System.Data.DataColumn("GIATIEN", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnGIATIEN);
+                this.columnTRANGTHAI = new global::System.Data.DataColumn("TRANGTHAI", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTRANGTHAI);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnIDBAN}, false));
                 this.columnIDBAN.AllowDBNull = false;
                 this.columnIDBAN.Unique = true;
                 this.columnGIATIEN.AllowDBNull = false;
+                this.columnTRANGTHAI.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1558,15 +1589,15 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public HOADONBANRow AddHOADONBANRow(HOADONRow parentHOADONRowByFK_HOADON_HOADONBAN, string IDBAN, System.DateTime GIOBATDAU, System.DateTime GIOKETTHUC) {
+            public HOADONBANRow AddHOADONBANRow(BANRow parentBANRowByFK_BAN_HOADONBAN, string IDBAN, System.DateTime GIOBATDAU, System.DateTime GIOKETTHUC) {
                 HOADONBANRow rowHOADONBANRow = ((HOADONBANRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         IDBAN,
                         GIOBATDAU,
                         GIOKETTHUC};
-                if ((parentHOADONRowByFK_HOADON_HOADONBAN != null)) {
-                    columnValuesArray[0] = parentHOADONRowByFK_HOADON_HOADONBAN[0];
+                if ((parentBANRowByFK_BAN_HOADONBAN != null)) {
+                    columnValuesArray[0] = parentBANRowByFK_BAN_HOADONBAN[0];
                 }
                 rowHOADONBANRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHOADONBANRow);
@@ -2675,12 +2706,7 @@ namespace MainForm {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public string CCCD {
                 get {
-                    try {
-                        return ((string)(this[this.tableNHANVIEN.CCCDColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'CCCD\' in table \'NHANVIEN\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tableNHANVIEN.CCCDColumn]));
                 }
                 set {
                     this[this.tableNHANVIEN.CCCDColumn] = value;
@@ -2716,6 +2742,22 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string TENDANGNHAP {
+                get {
+                    try {
+                        return ((string)(this[this.tableNHANVIEN.TENDANGNHAPColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TENDANGNHAP\' in table \'NHANVIEN\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableNHANVIEN.TENDANGNHAPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsNGAYSINHNull() {
                 return this.IsNull(this.tableNHANVIEN.NGAYSINHColumn);
             }
@@ -2728,18 +2770,6 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsCCCDNull() {
-                return this.IsNull(this.tableNHANVIEN.CCCDColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetCCCDNull() {
-                this[this.tableNHANVIEN.CCCDColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsQUYENADMINNull() {
                 return this.IsNull(this.tableNHANVIEN.QUYENADMINColumn);
             }
@@ -2748,6 +2778,18 @@ namespace MainForm {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetQUYENADMINNull() {
                 this[this.tableNHANVIEN.QUYENADMINColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTENDANGNHAPNull() {
+                return this.IsNull(this.tableNHANVIEN.TENDANGNHAPColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTENDANGNHAPNull() {
+                this[this.tableNHANVIEN.TENDANGNHAPColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2796,6 +2838,34 @@ namespace MainForm {
                 set {
                     this[this.tableBAN.GIATIENColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool TRANGTHAI {
+                get {
+                    try {
+                        return ((bool)(this[this.tableBAN.TRANGTHAIColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TRANGTHAI\' in table \'BAN\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableBAN.TRANGTHAIColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsTRANGTHAINull() {
+                return this.IsNull(this.tableBAN.TRANGTHAIColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetTRANGTHAINull() {
+                this[this.tableBAN.TRANGTHAIColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2939,23 +3009,23 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public HOADONRow HOADONRow {
-                get {
-                    return ((HOADONRow)(this.GetParentRow(this.Table.ParentRelations["FK_HOADON_HOADONBAN"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_HOADON_HOADONBAN"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public BANRow BANRow {
                 get {
                     return ((BANRow)(this.GetParentRow(this.Table.ParentRelations["FK_BAN_HOADONBAN"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_BAN_HOADONBAN"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public HOADONRow HOADONRow {
+                get {
+                    return ((HOADONRow)(this.GetParentRow(this.Table.ParentRelations["FK_HOADON_HOADONBAN"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_HOADON_HOADONBAN"]);
                 }
             }
             
@@ -3038,23 +3108,23 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public HOADONRow HOADONRow {
-                get {
-                    return ((HOADONRow)(this.GetParentRow(this.Table.ParentRelations["FK_HOADON_HOADONDV"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_HOADON_HOADONDV"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public DICHVURow DICHVURow {
                 get {
                     return ((DICHVURow)(this.GetParentRow(this.Table.ParentRelations["FK_DICHVU_HOADONDV"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_DICHVU_HOADONDV"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public HOADONRow HOADONRow {
+                get {
+                    return ((HOADONRow)(this.GetParentRow(this.Table.ParentRelations["FK_HOADON_HOADONDV"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_HOADON_HOADONDV"]);
                 }
             }
             
@@ -3152,23 +3222,23 @@ namespace MainForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public KHACHHANGRow KHACHHANGRow {
-                get {
-                    return ((KHACHHANGRow)(this.GetParentRow(this.Table.ParentRelations["FK_KHACHHANG_HOADON"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_KHACHHANG_HOADON"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public NHANVIENRow NHANVIENRow {
                 get {
                     return ((NHANVIENRow)(this.GetParentRow(this.Table.ParentRelations["FK_NHANVIEN_HOADON"])));
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_NHANVIEN_HOADON"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public KHACHHANGRow KHACHHANGRow {
+                get {
+                    return ((KHACHHANGRow)(this.GetParentRow(this.Table.ParentRelations["FK_KHACHHANG_HOADON"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_KHACHHANG_HOADON"]);
                 }
             }
             
