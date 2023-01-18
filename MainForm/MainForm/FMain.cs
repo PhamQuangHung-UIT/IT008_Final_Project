@@ -35,23 +35,36 @@ namespace MainForm
             root_KetThuc.Text = "Hóa đơn đã kết thúc";
             tvHD.NodeMouseDoubleClick += TvHD_NodeMouseDoubleClick;
 
-            var table = FMain.GetSqlData("SELECT TOP 1 IDKH FROM KHACHHANG");
+            var table = FMain.GetSqlData("SELECT TOP 1 IDKH FROM KHACHHANG ORDER BY (IDKH) DESC");
+            int a=table.Rows.Count;
             if (table.Rows.Count == 0)
                 IDKH = 1;
             else IDKH = (int)table.Rows[0][0];
-            table = FMain.GetSqlData("SELECT TOP 1 IDHD FROM HOADON");
+            table = FMain.GetSqlData("SELECT TOP 1 IDHD FROM HOADON ORDER BY (IDHD) DESC");
             if (table.Rows.Count == 0)
                 IDHD = 1;
             else IDHD = (int)table.Rows[0][0];
         }
 
         private void TvHD_NodeMouseDoubleClick(object? sender, TreeNodeMouseClickEventArgs e)
-        {
+        {          
             try
             {
-                FHoadon fHoadon = new(Convert.ToInt32(tvHD.SelectedNode.Text));
+               
+                
+                FHoadon fHoadon = new (Convert.ToInt32(tvHD.SelectedNode.Text));
+                if(tvHD.SelectedNode.Parent.Text == "Hóa đơn đang xử lý")
+                {
+                    FHoadon.Trangthai = 0;
+                }
+                else if (tvHD.SelectedNode.Parent.Text == "Hóa đơn đã kết thúc")
+                {
+                    FHoadon.Trangthai = 1;
+                }
                 fHoadon.ShowDialog();
+                
             } catch (Exception) { }
+            
         }
 
         private void BtnCreateHD_Click(object sender, EventArgs e)
@@ -63,6 +76,7 @@ namespace MainForm
                 {
                     Text = IDKH.ToString()
                 };
+                
                 root_XuLi.Nodes.Add(nodex);
                 IDHD++;
             }
