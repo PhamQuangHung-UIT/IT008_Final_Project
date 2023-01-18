@@ -23,17 +23,6 @@ namespace MainForm
         }
 
         private void LoadComboBox()
-            Loadcombobox();
-            MessageBox.Show("Đã load");
-            
-        }
-
-        private void FChangTable_Load(object sender, EventArgs e)
-        {
-            
-            
-        }
-        private void Loadcombobox()
         {
             DataTable data1 = FMain.GetSqlData($"SELECT IDBAN FROM HOADONBAN WHERE IDHD={idhd}");
             cbOldTable.DataSource = data1;
@@ -42,30 +31,21 @@ namespace MainForm
             DataTable data2 = FMain.GetSqlData($"SELECT IDBAN FROM BAN WHERE TRANGTHAI=0");
             cbNewTable.DataSource = data2;
             cbNewTable.DisplayMember = "IDBAN";
+
         }
 
         private void BtnChangeTable_Click(object sender, EventArgs e)
-        
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnChangeTable_Click(object sender, EventArgs e)
         {
             MessageBox.Show(cbOldTable.GetItemText(cbOldTable.SelectedValue));
             
             
             string commandText = $"UPDATE HOADONBAN SET GIOKETTHUC ='{DateTime.Now}' WHERE IDHD='{idhd}' AND IDBAN={cbOldTable.GetItemText(cbOldTable.SelectedValue)}";
-            string commandText = $"UPDATE HOADONBAN SET GIOKETTHUC='{DateTime.Now}' WHERE IDHD='{idhd}' AND IDBAN={cbOldTable.GetItemText(cbOldTable.SelectedValue)}";
             FMain.SendSqlCommand(commandText);
            
             commandText = $"INSERT INTO HOADONBAN(IDHD,IDBAN,GIOBATDAU,GIOKETTHUC) VALUES('{idhd}','{cbNewTable.GetItemText(cbNewTable.SelectedValue)}','{DateTime.Now}','{DateTime.Now}')";
             MessageBox.Show(commandText);
             FMain.SendSqlCommand(commandText);
             Close();
-
-           
         }
     }
 }
