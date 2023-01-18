@@ -38,6 +38,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 49);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 25);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Bàn cũ";
             this.label1.Location = new System.Drawing.Point(12, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 20);
@@ -48,6 +54,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(344, 49);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(77, 25);
             this.label2.Location = new System.Drawing.Point(275, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 20);
@@ -57,6 +67,10 @@
             // cbOldTable
             // 
             this.cbOldTable.FormattingEnabled = true;
+            this.cbOldTable.Location = new System.Drawing.Point(110, 49);
+            this.cbOldTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbOldTable.Name = "cbOldTable";
+            this.cbOldTable.Size = new System.Drawing.Size(188, 33);
             this.cbOldTable.Location = new System.Drawing.Point(88, 39);
             this.cbOldTable.Name = "cbOldTable";
             this.cbOldTable.Size = new System.Drawing.Size(151, 28);
@@ -65,6 +79,10 @@
             // cbNewTable
             // 
             this.cbNewTable.FormattingEnabled = true;
+            this.cbNewTable.Location = new System.Drawing.Point(449, 49);
+            this.cbNewTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbNewTable.Name = "cbNewTable";
+            this.cbNewTable.Size = new System.Drawing.Size(188, 33);
             this.cbNewTable.Location = new System.Drawing.Point(359, 39);
             this.cbNewTable.Name = "cbNewTable";
             this.cbNewTable.Size = new System.Drawing.Size(151, 28);
@@ -72,6 +90,22 @@
             // 
             // btnChangeTable
             // 
+            this.btnChangeTable.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnChangeTable.Location = new System.Drawing.Point(260, 195);
+            this.btnChangeTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChangeTable.Name = "btnChangeTable";
+            this.btnChangeTable.Size = new System.Drawing.Size(118, 36);
+            this.btnChangeTable.TabIndex = 4;
+            this.btnChangeTable.Text = "Đổi bàn";
+            this.btnChangeTable.UseVisualStyleBackColor = true;
+            this.btnChangeTable.Click += new System.EventHandler(this.BtnChangeTable_Click);
+            // 
+            // FChangeTable
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(661, 280);
+            this.ControlBox = false;
             this.btnChangeTable.Location = new System.Drawing.Point(181, 139);
             this.btnChangeTable.Name = "btnChangeTable";
             this.btnChangeTable.Size = new System.Drawing.Size(94, 29);
@@ -90,6 +124,9 @@
             this.Controls.Add(this.cbOldTable);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "FChangeTable";
+            this.Text = "Đổi bàn";
             this.Name = "FChangeTable";
             this.Text = "FChangTable";
             this.ResumeLayout(false);

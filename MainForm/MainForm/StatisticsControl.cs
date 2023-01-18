@@ -3,7 +3,7 @@
 namespace MainForm
 {
     /// <summary>
-    /// UserControl trong phần Thống Kê của menu Quản trị viên (đang làm dở)
+    /// UserControl trong phần Thống Kê của menu Quản trị viên
     /// </summary>
     public partial class StatisticsControl : UserControl
     {
@@ -19,14 +19,19 @@ namespace MainForm
             Bàn
         }
         private const int dayIndex = 0, monthIndex = 1;
+        private readonly float[] zoomRatioArr = { 0.25f, 0.5f, 0.75f, 1.0f, 1.5f, 2.0f };
+        private int currentZoomRatioIndex = 3;
+        private Size defaultBarChartSize;
         public StatisticsControl()
         {
             InitializeComponent();
             barChart = new()
             {
-                VerticalText = "Doanh thu",
+                BarColor = Color.Cyan,
+                VerticalText = "Doanh thu (VNĐ)",
                 Location = default,
-                Dock = DockStyle.Fill,
+                Width = panel_Chart.Width,
+                Height = panel_Chart.Height + 100,
                 DoubleBuffered = true,
                 AutoCalculateVerticalValueList = true
             };
@@ -35,8 +40,6 @@ namespace MainForm
         private void StatisticsControl_Load(object sender, EventArgs e)
         {
             comboBox_TimeSpan.SelectedIndex = 0;
-            comboBox_TableType.SelectedIndex = 0;
-            ComboBox_TableType_SelectionChangeCommitted(sender, e);
             startDate = endDate = DateTime.Now.Date;
 
             while (startDate.DayOfWeek != DayOfWeek.Sunday || DateTime.Now.Date - startDate.Date == TimeSpan.Zero) 
@@ -48,9 +51,8 @@ namespace MainForm
             dateTimePicker_StartDate.Value = startDate;
             dateTimePicker_EndDate.Value = endDate;
             
-            ButtonShow_Click(sender, e);
             panel_Chart.Controls.Add(barChart);
-            barChart.Size = new(barChart.Size.Width, panel_Chart.Height + 100);
+            defaultBarChartSize = barChart.Size;
         }
 
         private void CheckBox_ValueLabel_CheckedChanged(object sender, EventArgs e)
@@ -85,12 +87,12 @@ namespace MainForm
             }
             comboBox_ID.Items.Clear();
             comboBox_Name.Items.Clear();
+            comboBox_ID.SelectedIndex = -1;
+            comboBox_Name.SelectedIndex = -1;
             comboBox_ID.Items.AddRange(currentTable.Rows.Cast<DataRow>().Select(row => row[0]).ToArray());
             if (new[] { "Bàn", "Hóa đơn" }.Any(s => s == comboBox_TableType.SelectedItem.ToString()))
                 comboBox_Name.Items.AddRange((from row in currentTable.Rows.Cast<DataRow>() select $"{comboBox_TableType.SelectedItem} {row[0]}").ToArray());
             else comboBox_Name.Items.AddRange((from row in currentTable.Rows.Cast<DataRow>() select row[1]).ToArray());
-            comboBox_ID.SelectedIndex = -1;
-            comboBox_Name.SelectedIndex = -1;
         }
 
         private void ButtonShow_Click(object sender, EventArgs e)
@@ -126,19 +128,25 @@ namespace MainForm
                         barChart.ChartItems.Clear();
                         for (DateTime i = new(startDate.Year, startDate.Month, 1); i <= endDate; i = i.AddMonths(1))
                         {
-                            string queryString = $"SELECT SUM(THANHTIEN) FROM HOADON WHERE YEAR(GIOLAPHD) = {i.Year} and MONTH(GIOLAPHD) = {i.Month} " +
+                            string queryString = $"SELECT SUM(THANHTIEN) FROM {GetTableName()} " +
+                                                $"WHERE YEAR(GIOLAPHD) = {i.Year} and MONTH(GIOLAPHD) = {i.Month} {GetCondition()}" +
                                                 $"GROUP BY YEAR(GIOLAPHD), MONTH(GIOLAPHD)";
                             var table = FMain.GetSqlData(queryString);
-                            double value = (double)(table.Rows.Count == 0 ? 0 : table.Rows[0][0])/1000000;
+                            double value = Convert.ToDouble(table.Rows.Count == 0 ? 0 : table.Rows[0][0]);
                             barChart.ChartItems.Add(new ChartItem<double>($"{i:'Tháng' MM/yyyy}", value));
                         }
                         break;
                 }
                 barChart.IsValueLabelShowed = checkBox_ValueLabel.Checked;
+                textBox_MaxValue.Text = $"{barChart.MaxValue:c2}";
+                textBox_MinValue.Text = $"{barChart.MinValue:c2}";
+                textBox_AverageValue.Text = $"{barChart.Expectation:c2}";
+                splitContainer_Top.Panel2Collapsed = false;
+                barChart.Refresh();
             }
             catch (Exception ex) 
             {
-                MessageBox.Show(ex.Message, "Lỗi hiển thị", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -166,20 +174,43 @@ namespace MainForm
             comboBox_Name.SelectedIndex = comboBox_ID.SelectedIndex;
         }
 
+        private void Panel_Chart_SizeChanged(object sender, EventArgs e)
+        {
+            barChart.Height = panel_Chart.Height + 100;
+        }
+
+        private void Button_ZoomIn_Click(object sender, EventArgs e)
+        {
+            currentZoomRatioIndex++;
+            if (currentZoomRatioIndex >= zoomRatioArr.Length) currentZoomRatioIndex = zoomRatioArr.Length - 1;
+            barChart.ZoomRatio = zoomRatioArr[currentZoomRatioIndex];
+            barChart.Width = (int)(defaultBarChartSize.Width * zoomRatioArr[currentZoomRatioIndex]);
+            barChart.Height = (int)(defaultBarChartSize.Height * zoomRatioArr[currentZoomRatioIndex]);
+        }
+
+        private void Button_ZoomOut_Click(object sender, EventArgs e)
+        {
+            currentZoomRatioIndex--;
+            if (currentZoomRatioIndex < 0) currentZoomRatioIndex = 0;
+            barChart.ZoomRatio = zoomRatioArr[currentZoomRatioIndex];
+            barChart.Width = (int)(defaultBarChartSize.Width * zoomRatioArr[currentZoomRatioIndex]);
+            barChart.Height = (int)(defaultBarChartSize.Height * zoomRatioArr[currentZoomRatioIndex]);
+        }
+
         private string GetTableName()
         {
             return (TableType)comboBox_TableType.SelectedIndex switch
             {
                 TableType.Hóa_Đơn => "HOADON",
-                TableType.Dịch_Vụ => "HOADON h JOIN (" +
-                                        "SELECT IDHD, h.IDDV, THANHTIEN = SOLUONG * GIATIEN" +
-                                        "FROM HOADONDV h JOIN DICHVU d ON h.IDDV = d.IDDV" +
-                                        ") as c ON h.IDHD = c.IDHD",
+                TableType.Dịch_Vụ => "(SELECT IDHD, GIOLAPHD FROM HOADON) AS h JOIN (" +
+                                    "SELECT IDHD, h.IDDV, THANHTIEN = SOLUONG * GIATIEN " +
+                                    "FROM HOADONDV h JOIN DICHVU d ON h.IDDV = d.IDDV" +
+                                    ") AS c ON h.IDHD = c.IDHD",
                 TableType.Nhân_Viên => "HOADON h JOIN NHANVIEN n ON h.IDNV = n.IDNV",
                 TableType.Khách_Hàng => "HOADON h JOIN KHACHHANG k ON h.IDKH = k.IDKH",
                 TableType.Bàn => "HOADON h JOIN (" +
                                         "SELECT IDHD, h.IDBAN, " +
-                                        "THANHTIEN = (DATEPART(HOUR, GIOKETTHUC - GIOBATDAU) + DATEPART(MINUTE, GIOKETTHUC - GIOBATDAU)/60.0) * GIATIEN" +
+                                        "THANHTIEN = (DATEPART(HOUR, GIOKETTHUC - GIOBATDAU) + DATEPART(MINUTE, GIOKETTHUC - GIOBATDAU)/60.0) * GIATIEN " +
                                         "FROM HOADONBAN h JOIN BAN b ON h.IDBAN = b.IDBAN) AS c ON h.IDHD = c.IDHD",
                 _ => throw new Exception("Vui lòng chọn \"Loại đối tượng\".")
             };

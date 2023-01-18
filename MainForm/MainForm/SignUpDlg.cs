@@ -64,7 +64,7 @@ namespace MainForm
             string matKhau = textBox_MatKhau.Text;
             FMain.SendSqlCommand($"INSERT INTO NHANVIEN VALUES " +
                 $"({idNV},N'{tenNV}','{ngaySinh:yyyy-MM-dd}'," +
-                $"'{CCCD}','{matKhau}'," +
+                $"'{CCCD}','{matKhau.Trim()}'," +
                 // Mặc định tài khoản đầu tiên được tạo sẽ được cấp quyền quản trị viên
                 $"{(idNV == 1 ? 1 : "null")},'{tenDangNhap}')");
             MessageBox.Show("Đăng ký thành công. Vui lòng chờ thông tin đăng ký được duyệt");
@@ -86,7 +86,7 @@ namespace MainForm
                     throw new("Mục \"Số CCCD/CMND\" không được để trống.");
                 if (textBox_CCCDNV.Text.Length > 15)
                     throw new("Độ dài số CCCD/CMND tối đa chỉ 15 kí tự.");
-                if (textBox_TenDangNhap.Text == "")
+                if (string.IsNullOrWhiteSpace(textBox_TenDangNhap.Text))
                     throw new("Mục \"Tên đăng nhập\" không được để trống.");
                 if (textBox_TenDangNhap.Text.Length > 32)
                     throw new("Độ dài tên đăng nhập tối đa chỉ 32 kí tự");

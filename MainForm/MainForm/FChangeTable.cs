@@ -19,6 +19,10 @@ namespace MainForm
         {
             InitializeComponent();
             idhd = x;
+            LoadComboBox();  
+        }
+
+        private void LoadComboBox()
             Loadcombobox();
             MessageBox.Show("Đã load");
             
@@ -38,8 +42,9 @@ namespace MainForm
             DataTable data2 = FMain.GetSqlData($"SELECT IDBAN FROM BAN WHERE TRANGTHAI=0");
             cbNewTable.DataSource = data2;
             cbNewTable.DisplayMember = "IDBAN";
-
         }
+
+        private void BtnChangeTable_Click(object sender, EventArgs e)
         
         private void label1_Click(object sender, EventArgs e)
         {
@@ -51,12 +56,14 @@ namespace MainForm
             MessageBox.Show(cbOldTable.GetItemText(cbOldTable.SelectedValue));
             
             
+            string commandText = $"UPDATE HOADONBAN SET GIOKETTHUC ='{DateTime.Now}' WHERE IDHD='{idhd}' AND IDBAN={cbOldTable.GetItemText(cbOldTable.SelectedValue)}";
             string commandText = $"UPDATE HOADONBAN SET GIOKETTHUC='{DateTime.Now}' WHERE IDHD='{idhd}' AND IDBAN={cbOldTable.GetItemText(cbOldTable.SelectedValue)}";
             FMain.SendSqlCommand(commandText);
            
             commandText = $"INSERT INTO HOADONBAN(IDHD,IDBAN,GIOBATDAU,GIOKETTHUC) VALUES('{idhd}','{cbNewTable.GetItemText(cbNewTable.SelectedValue)}','{DateTime.Now}','{DateTime.Now}')";
             MessageBox.Show(commandText);
             FMain.SendSqlCommand(commandText);
+            Close();
 
            
         }
