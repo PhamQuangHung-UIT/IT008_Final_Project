@@ -1,3 +1,7 @@
 ﻿namespace MainForm
 {
 }
+
+namespace MainForm
+{
+}

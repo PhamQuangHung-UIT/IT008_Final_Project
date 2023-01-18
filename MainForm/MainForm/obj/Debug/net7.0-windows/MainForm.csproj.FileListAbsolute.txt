@@ -104,3 +104,4 @@ C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\Main
 C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.LoginDlg.resources
 C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.SignUpDlg.resources
 C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AccountToApproveDlg.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.Properties.Resources.resources

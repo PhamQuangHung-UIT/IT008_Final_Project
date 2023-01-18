@@ -1,11 +1,13 @@
-﻿using System.Data;
+﻿using Microsoft.VisualBasic;
+using System.Data;
 namespace MainForm
 {
     public partial class FHoadon : Form
     {
         private int idhd;
         private int idkh;
-        private double thanhtien;
+        
+        public static int Trangthai { get; set; }
 
         public int IDHD 
         {
@@ -17,19 +19,33 @@ namespace MainForm
             get { return idkh; }
             set { idkh = value; }
         }
-
+        /*
         public FHoadon()
         {
-            InitializeComponent();
+            MessageBox.Show("ok");
+            //InitializeComponent();
         }
-        public FHoadon(int idhd) : this()
+        */
+        public FHoadon(int id_kh)
         {
-            this.idhd = idhd;
+            InitializeComponent();
+            IDKH= id_kh;
+            
         }
+        
 
         private void FHoadon_Load(object sender, EventArgs e)
         {
-            LoadHD();
+            if (Trangthai == 0)
+            {
+                LoadUnCheckHD();
+
+            }
+            else if(Trangthai == 1)
+            {
+                LoadCheckedHD();
+            }
+            
             LoadKH();
             LoadHDBan();
             LoadHDDV();
@@ -37,28 +53,34 @@ namespace MainForm
         }
         void LoadDichVu()
         {
-            List<DichVu> dichvulist = DichVuBiDa.LoadDichVuList();
-            foreach (DichVu item in dichvulist)
+            List<DichVu> dichVuList = DichVuBiDa.LoadDichVuList();
+            foreach (DichVu item in dichVuList)
             {
                 Button btn = new()
                 {
-                    Width = 120,
+                    Width = 100,
                     Height = 40,
                     Text = item.TenDV,
-                    BackColor = Color.LightGray
+                    BackColor = Color.Green
                 };
                 flpDichVu.Controls.Add(btn);
                 btn.Click += Btn_Click;
+
                 btn.Cursor = Cursors.Hand;
             }
         }
         private void Btn_Click(object? sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                if (btn.BackColor == Color.LightGray) btn.BackColor = Color.DarkGray;
-                else btn.BackColor = Color.LightGray;
-            }
+        {            
+                Button? button = sender as Button;
+                if (button?.BackColor == Color.Green)
+                {
+                    button.BackColor = Color.Red;
+                }
+                else if (button?.BackColor == Color.Red)
+                {
+                    button.BackColor = Color.Green;
+                }
+            
 
         }
         void LoadHDBan()
@@ -68,21 +90,47 @@ namespace MainForm
                 "GIOBATDAU [Giờ bắt đầu], " +
                 "GIOKETTHUC [Giờ kết thúc] " +
                 "FROM BAN, HOADONBAN, HOADON " +
-                $"WHERE HOADONBAN.IDHD =  {Convert.ToInt32(tbIdhd.Text)} and BAN.IDBAN = HOADONBAN.IDBAN";
+                $"WHERE HOADONBAN.IDHD = '"+Convert.ToInt32(tbIdhd.Text)+"' and BAN.IDBAN = HOADONBAN.IDBAN";
             dgvHDBan.DataSource = FMain.GetSqlData(commandText);
         }
         void LoadHDDV()
         {
             string commandText = "SELECT DICHVU.TENDV [Tên dịch vụ], GIATIEN [Giá tiền], SOLUONG [Số lượng] " +
                 "FROM DICHVU, HOADONDV, HOADON " +
-                $"WHERE HOADONDV.IDDV = {Convert.ToInt32(tbIdhd.Text)} and DICHVU.IDDV = HOADONDV.IDDV";
+                $"WHERE HOADONDV.IDHD = {Convert.ToInt32(tbIdhd.Text)} and DICHVU.IDDV = HOADONDV.IDDV";
             dgvHDDV.DataSource = FMain.GetSqlData(commandText);
         }
-        void LoadHD()
+        void LoadUnCheckHD()
         {
+            /*
             Bill bill = BillBiDa.GetUnCheckBill(idhd);
             tbIdhd.Text = bill.Idhd.ToString();
             tbIdkh.Text = bill.Idkh.ToString();
+            */
+            List<Bill> listbill = BillBiDa.GetListUnCheckBillID();
+            foreach (Bill item in listbill)
+            {
+                if (item.Idkh == idkh)
+                {
+                   
+                    tbIdhd.Text = (item.Idhd).ToString();
+                    tbIdkh.Text = (item.Idkh).ToString();
+                }
+            }
+        }
+        void LoadCheckedHD()
+        {
+            List<Bill> listbill = BillBiDa.GetListCheckedBill();
+            foreach (Bill item in listbill)
+            {
+                if (item.Idkh == idkh)
+                {
+
+                    tbIdhd.Text = (item.Idhd).ToString();
+                    tbIdkh.Text = (item.Idkh).ToString();
+                }
+            }
+
         }
         void LoadKH()
         {
@@ -93,44 +141,48 @@ namespace MainForm
         }
 
         private void BtnEndhd_Click(object sender, EventArgs e)
-        {
-            TinhThanhTien();
-            string commandText = $"INSERT INTO HOADON VALUES ('{tbIdhd.Text}', '{tbIdkh.Text}', '{DateTime.Now}', '{thanhtien}', 1)";
+        {           
+            string commandText = $"UPDATE HOADON SET GIOLAPHD='{DateTime.Now}',TRANGTHAI='{1}'WHERE IDHD='{tbIdhd.Text}'";
             FMain.SendSqlCommand(commandText);
+            commandText = $"UPDATE HOADONBAN SET GIOKETTHUC='{DateTime.Now}' WHERE IDHD='{tbIdhd.Text}'";
+            FMain.SendSqlCommand(commandText);
+            LoadHDBan();
+
+            commandText = $"select * from HoaDon where IDHD='{tbIdhd.Text}'";
+            DataTable data = FMain.GetSqlData(commandText);
+            foreach (DataRow row in data.Rows)
+            {
+                tbThanhtien.Text= row["Thanhtien"].ToString();
+            }
         }
-        private double SumMoneyOfDV = 0;
-        private double SumMoneyOfTable = 0;
-        void TinhThanhTien()
+
+        private void btnAddDV_FHoadon_Click(object sender, EventArgs e)
         {
-            string commandText = $"SELECT * FROM HOADONBAN where IDHD = '{tbIdhd.Text}'";
-            var table = FMain.GetSqlData(commandText);
-
-            List<Table> tablelist=TableBiDa.LoadTableList();
-            foreach(Table item in tablelist)
-            {
-                foreach(DataRow row in table.Rows)
-                {
-                    if (item.Idban == Convert.ToInt32(row["idban"]))
-                    {
-                        SumMoneyOfTable += Convert.ToDouble(row["sogio"])*item.Giatien;
-                    }
-                }
-            }
-            commandText = $"SELECT * FROM HOADONDV WHERE HOADONDV.IDHD= '{tbIdhd}'";
-            table = FMain.GetSqlData(commandText);
             List<DichVu> dichvulist = DichVuBiDa.LoadDichVuList();
-            foreach (DichVu item in dichvulist)
+
+            foreach (Control ct in flpDichVu.Controls)
             {
-                foreach (DataRow row in table.Rows)
+                foreach (DichVu item in dichvulist)
                 {
-                    if (item.IDdv == Convert.ToInt32(row["iddv"]))
+                    if (ct.Text == item.TenDV)
                     {
-                        SumMoneyOfTable += Convert.ToInt32(row["soluong"]) * item.Giatien;
+                        if (ct.BackColor == Color.Red)
+                        {
+                            string commandText = $"INSERT INTO HOADONDV VALUES ('{FMain.IDHD}', '{item.IDdv}', '{nud_Fhoadon.Value}')";
+                            FMain.SendSqlCommand(commandText);
+                            break;
+                        }
                     }
                 }
-            }
 
-            thanhtien = SumMoneyOfTable + SumMoneyOfDV;
+            }
+            LoadHDDV();
+        }
+
+        private void btnChangeBan_Click(object sender, EventArgs e)
+        {
+            FChangeTable a = new(Convert.ToInt32(tbIdhd.Text));
+            a.ShowDialog();
         }
     }
 }

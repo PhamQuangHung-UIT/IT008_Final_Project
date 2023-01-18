@@ -1,5 +1,4 @@
-﻿using System.CodeDom;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
 
 namespace MainForm
@@ -15,11 +14,13 @@ namespace MainForm
         private Color axisColor = Color.DarkGray;
         private string horizontalText = "";
         private string verticalText = "";
-        private readonly List<ChartItem<T>> chartItems;
-        private bool isValueLabelShow;
         private string? title;
+        private bool isValueLabelShow;
         private bool autoCalculateVerticalValueList;
+        private double zoomRatio = 1;
+        private readonly Size defaultControlSize;
         private readonly List<T> verticalValueList;
+        private readonly List<ChartItem<T>> chartItems;
 
         public BarChart()
         {
@@ -27,6 +28,7 @@ namespace MainForm
             BackColor = Color.White;
             chartItems = new List<ChartItem<T>>();
             verticalValueList = new List<T>();
+            defaultControlSize = Size;
         }
 
         public BarChart(IContainer container) : this()
@@ -44,93 +46,99 @@ namespace MainForm
                 Graphics graphics = e.Graphics;
                 SizeF horizontalTextSize = graphics.MeasureString(horizontalText, Font);
                 SizeF verticalTextSize = graphics.MeasureString(verticalText, Font);
-                float horizontalAxisLength = DisplayRectangle.Width * 0.8f;
+                float horizontalAxisLength = 840;
                 float horizontalPerItemWidth = (horizontalAxisLength - 30 - horizontalTextSize.Width) / chartItems.Count;
                 float maxTextWidth = graphics.MeasureString(chartItems.MaxBy(item => item?.Name?.Length)?.Name, Font).Width;
-                float verticalAxisLength = verticalAxisLength = DisplayRectangle.Height * 0.8f;
-                if (horizontalPerItemWidth < maxTextWidth)
-                    verticalAxisLength -= maxTextWidth;
-                PointF chartPosition = new(verticalTextSize.Width * 1.1f, DisplayRectangle.Height * 0.1f);
+                float verticalAxisLength = 360;
+
+                PointF chartPosition = new((verticalTextSize.Width + 10) * (float)zoomRatio, verticalAxisLength * 0.15f * (float)zoomRatio);
                 Pen axisPen = new(axisColor, 5)
                 {
                     EndCap = LineCap.ArrowAnchor
                 };
 
                 // Draw horizontal axis
-                graphics.Transform = new(1, 0, 0, -1, chartPosition.X, verticalAxisLength + chartPosition.Y);
-                graphics.DrawLine(axisPen, 0, 0, horizontalAxisLength, 0);
+                graphics.Transform = new(1, 0, 0, -1, chartPosition.X, chartPosition.Y);
+                graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
+                graphics.DrawLine(axisPen, 0, -verticalAxisLength, horizontalAxisLength, -verticalAxisLength);
                 for (int i = 0; i < chartItems.Count; i++)
                 {
+                    graphics.Transform = new(1, 0, 0, -1, chartPosition.X, chartPosition.Y);
+                    graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
                     graphics.DrawLine(new(axisColor, 3),
-                        horizontalPerItemWidth * (i + 1), -5,
-                        horizontalPerItemWidth * (i + 1), 5);
+                        horizontalPerItemWidth * (i + 1), -5 - verticalAxisLength,
+                        horizontalPerItemWidth * (i + 1), 5 - verticalAxisLength);
                     if (horizontalPerItemWidth < maxTextWidth)
                     {
-                        graphics.Transform = new(0, -1, 1, 0, chartPosition.X, verticalAxisLength + chartPosition.Y);
+                        graphics.Transform = new(0, -1, 1, 0, chartPosition.X, chartPosition.Y);
+                        graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
                         graphics.DrawString(
                             chartItems[i].Name,
                             Font,
                             new SolidBrush(ForeColor),
-                            -graphics.MeasureString(chartItems[i].Name, Font).Width - 8,
+                            -graphics.MeasureString(chartItems[i].Name, Font).Width - 8 - verticalAxisLength,
                             horizontalPerItemWidth * (i + 0.5f) - graphics.MeasureString(chartItems[i].Name, Font).Height / 2
                             );
-                        graphics.Transform = new(1, 0, 0, -1, chartPosition.X, verticalAxisLength + chartPosition.Y);
                     }
                     else
                     {
-                        graphics.Transform = new(1, 0, 0, 1, chartPosition.X, verticalAxisLength + chartPosition.Y);
+                        graphics.Transform = new(1, 0, 0, 1, chartPosition.X, chartPosition.Y);
+                        graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
                         graphics.DrawString(
                         chartItems[i].Name,
                         Font,
                         new SolidBrush(ForeColor),
                         (horizontalPerItemWidth * (i + 0.5f)) - graphics.MeasureString(chartItems[i].Name, Font).Width / 2,
-                        8);
+                        8 + verticalAxisLength);
                     }
                 }
 
                 // Draw vertical axis
-                graphics.Transform = new(1, 0, 0, -1, chartPosition.X, verticalAxisLength + chartPosition.Y);
-                graphics.DrawLine(axisPen, 0, 0, 0, verticalAxisLength);
+                graphics.Transform = new(1, 0, 0, -1, chartPosition.X, chartPosition.Y);
+                graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
+                graphics.DrawLine(axisPen, 0, -verticalAxisLength, 0, 0);
                 foreach (var value in VerticalValueList)
                 {
-                    graphics.DrawLine(new Pen(axisColor, 3), -5, ValueToHeight(value), 5, ValueToHeight(value));
+                    graphics.DrawLine(new Pen(axisColor, 3), -5, ValueToHeight(value) - verticalAxisLength, 5, ValueToHeight(value) - verticalAxisLength);
                     var transform = graphics.Transform;
                     var measureStringWidth = graphics.MeasureString(value.ToString(), Font).Width;
-                    graphics.Transform = new Matrix(1, 0, 0, 1, chartPosition.X, verticalAxisLength + chartPosition.Y);
+                    graphics.Transform = new(1, 0, 0, 1, chartPosition.X, chartPosition.Y);
+                    graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
                     if (typeof(T) == typeof(Enum))
                         graphics.DrawString(
                             Enum.GetName(typeof(T), value),
                             Font,
                             new SolidBrush(ForeColor),
-                            new PointF(-measureStringWidth - 8, -ValueToHeight(value) - 12));
+                            new PointF(-measureStringWidth - 8, -ValueToHeight(value) - 12 + verticalAxisLength));
                     else graphics.DrawString(
                             value.ToString(),
                             Font,
                             new SolidBrush(ForeColor),
-                            new PointF(-measureStringWidth - 8, -ValueToHeight(value) - 12));
+                            new PointF(-measureStringWidth - 8, -ValueToHeight(value) - 12 + verticalAxisLength));
                     graphics.Transform = transform;
                 }
 
                 // Draw text displayed on horizontal axis, vertical axis and draw the title of the bar chart
-                graphics.Transform = new Matrix(1, 0, 0, 1, chartPosition.X, verticalAxisLength + chartPosition.Y);
+                graphics.Transform = new(1, 0, 0, 1, chartPosition.X, chartPosition.Y);
+                graphics.ScaleTransform((float)zoomRatio, (float)zoomRatio);
                 graphics.DrawString(
                     verticalText,
                     Font,
                     new SolidBrush(ForeColor),
                     -verticalTextSize.Width - 8,
-                    -verticalAxisLength + 10);
+                    10);
                 graphics.DrawString(
                     horizontalText,
                     Font,
                     new SolidBrush(ForeColor),
                     horizontalAxisLength - horizontalTextSize.Width - 15,
-                    8);
+                    8 + verticalAxisLength);
                 graphics.DrawString(
                     title,
                     Font,
                     new SolidBrush(ForeColor),
                     (horizontalAxisLength - graphics.MeasureString(title, Font).Width) / 2,
-                    verticalAxisLength - 10);
+                    2 * verticalAxisLength - 10);
                 if (isValueLabelShow)
                     for (int i = 0; i < chartItems.Count; i++)
                         graphics.DrawString(
@@ -138,19 +146,18 @@ namespace MainForm
                             Font,
                             new SolidBrush(ForeColor),
                             horizontalPerItemWidth * (i + 0.5f) - graphics.MeasureString(chartItems[i].Value.ToString(), Font).Width / 2,
-                            -ValueToHeight(chartItems[i].Value) - graphics.MeasureString(chartItems[i].Value.ToString(), Font).Height - 5);
-                // Draw column bar
-                graphics.Transform = new(1, 0, 0, -1, chartPosition.X, verticalAxisLength + chartPosition.Y);
+                            -ValueToHeight(chartItems[i].Value) - graphics.MeasureString(chartItems[i].Value.ToString(), Font).Height - 5 + verticalAxisLength);
+                // Draw columns
                 for (int i = 0; i < chartItems.Count; i++)
                 {
                     float barWidth = horizontalPerItemWidth * 0.7f;
                     float barHeight = ValueToHeight(chartItems[i].Value);
-                    graphics.DrawRectangle(new(barBorderColor, 2), horizontalPerItemWidth * (i + 0.15f), 0, barWidth, barHeight);
-                    graphics.FillRectangle(new SolidBrush(barColor), horizontalPerItemWidth * (i + 0.15f), 0, barWidth, barHeight);
+                    graphics.DrawRectangle(new(barBorderColor, 2), horizontalPerItemWidth * (i + 0.15f), verticalAxisLength - barHeight, barWidth, barHeight);
+                    graphics.FillRectangle(new SolidBrush(barColor), horizontalPerItemWidth * (i + 0.15f), verticalAxisLength - barHeight, barWidth, barHeight);
                 }
                 //Local function
                 float ValueToHeight(T? value)
-                    => (Convert.ToSingle(value) / Convert.ToSingle(VerticalValueList.Max()) * (verticalAxisLength - verticalTextSize.Height - 50));
+                    => Convert.ToSingle(value) / Convert.ToSingle(VerticalValueList.Max()) * (verticalAxisLength - verticalTextSize.Height - 50);
             }
             catch (Exception) { }
         }
@@ -177,7 +184,7 @@ namespace MainForm
                         unit /= 5;
                     while (maxValue < unit * 5)
                         unit /= 2;
-                    for (double i = 0; i <= maxValue; i += unit)
+                    for (double i = 0; i <= maxValue + unit; i += unit)
                         verticalValueList.Add((T)(object)i);
                 }
                 else
@@ -202,34 +209,43 @@ namespace MainForm
             get => axisColor;
             set
             {
-                axisColor = value;
-                Refresh();
+                if (axisColor != value)
+                {
+                    axisColor = value;
+                    Refresh();
+                }
             }
         }
 
         /// <summary>
-        /// The color used for paint the border of the bars
+        /// The color of the border of the columns (bars)
         /// </summary>
         public Color BarBorderColor
         {
             get => barBorderColor;
             set
             {
-                barBorderColor = value;
-                Refresh();
+                if (barBorderColor != value)
+                {
+                    barBorderColor = value;
+                    Refresh();
+                }
             }
         }
 
         /// <summary>
-        /// The color used for fill the bars of the chart
+        /// The color of the column (bars)
         /// </summary>
         public Color BarColor
         {
             get => barColor;
             set
             {
-                barColor = value;
-                Refresh();
+                if (barColor != value)
+                {
+                    barColor = value;
+                    Refresh();
+                }
             }
         }
 
@@ -246,8 +262,11 @@ namespace MainForm
             get => horizontalText;
             set
             {
-                horizontalText = value;
-                Refresh();
+                if (horizontalText != value)
+                {
+                    horizontalText = value;
+                    Refresh();
+                }
             }
         }
 
@@ -259,8 +278,11 @@ namespace MainForm
             get => verticalText;
             set
             {
-                verticalText = value;
-                Refresh();
+                if (verticalText != value)
+                {
+                    verticalText = value;
+                    Refresh();
+                }
             }
         }
 
@@ -295,7 +317,7 @@ namespace MainForm
             {
                 double val = 0;
                 for (int i = 0; i < chartItems.Count; i++)
-                    val += Convert.ToDouble(chartItems[i]);
+                    val += Convert.ToDouble(chartItems[i].Value);
                 return val / chartItems.Count;
             }
         }
@@ -328,8 +350,11 @@ namespace MainForm
             get => isValueLabelShow;
             set
             {
-                isValueLabelShow = value;
-                Refresh();
+                if (isValueLabelShow != value)
+                {
+                    isValueLabelShow = value;
+                    Refresh();
+                }
             }
         }
 
@@ -341,8 +366,11 @@ namespace MainForm
             get => title;
             set
             {
-                title = value;
-                Refresh();
+                if (title != value)
+                {
+                    title = value;
+                    Refresh();
+                }
             }
         }
 
@@ -360,8 +388,24 @@ namespace MainForm
             get => autoCalculateVerticalValueList;
             set
             {
-                autoCalculateVerticalValueList = value;
-                Refresh();
+                if (autoCalculateVerticalValueList != value)
+                {
+                    autoCalculateVerticalValueList = value;
+                    Refresh();
+                }
+            }
+        }
+
+        public double ZoomRatio 
+        { 
+            get => zoomRatio;
+            set
+            {
+                if (zoomRatio != value)
+                {
+                    zoomRatio = value;
+                    Refresh();
+                }
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace MainForm
+﻿using static System.ComponentModel.Design.ObjectSelectorEditor;
+
+namespace MainForm
 {
     public partial class FAddHD : Form
     {
@@ -14,14 +16,19 @@
 
         private void FAddHD_Load(object sender, EventArgs e)
         {
-            LoadDataDV();
+            //LoadDataDV();
             LoadTable();
             LoadDichVu();
         }
 
         private void ButtonAddHD_Click(object sender, EventArgs e)
         {
-            string commandText = $"INSERT INTO KHACHHANG VALUES ('{tbMaKH.Text}', '{tbTenKH.Text}', '{ tbDC.Text}', '{tbSDT.Text}')";
+            string commandText = $"INSERT INTO KHACHHANG VALUES ({tbMaKH.Text}, '{tbTenKH.Text}', '{ tbDC.Text}', '{tbSDT.Text}')";
+            FMain.SendSqlCommand(commandText);
+            //thêm hóa đơn
+            FMain.IDKH = Convert.ToInt32(tbMaKH.Text);
+            
+            commandText = $"INSERT INTO HOADON(IDHD, IDKH, TRANGTHAI) VALUES ('{FMain.IDHD}', {tbMaKH.Text}, '0')";
             FMain.SendSqlCommand(commandText);
             //thêm hóa đơn bàn
             List<Table> listTable = TableBiDa.LoadTableList();
@@ -31,15 +38,16 @@
                 {
                     if (ct.Text == "Bàn " + item.Idban + Environment.NewLine + "đang chọn")
                     {                        
-                        commandText = $"INSERT INTO HOADONBAN(IDHD,IDBAN) VALUES ('{FMain.IDHD}', '{item.Idban}')";
+                        commandText = $"INSERT INTO HOADONBAN(IDHD,IDBAN,GIOBATDAU,GIOKETTHUC) VALUES ('{FMain.IDHD}', '{item.Idban}','{DateTime.Now}','{DateTime.Now}')";
                         FMain.SendSqlCommand(commandText);
+                        break;
                     }
                 }
             }
-            FMain.IDKH = Convert.ToInt32(tbMaKH.Text);
-            commandText = $"INSERT INTO HOADON(IDHD, MAKH, TRANGTHAI) VALUES ('{FMain.IDHD}', '{tbMaKH.Text}', '0')";
-            FMain.SendSqlCommand(commandText);
-            DialogResult = DialogResult.OK;
+            LoadDataDV();
+            
+            
+            //DialogResult = DialogResult.OK;
         }
         void LoadTable()
         {
@@ -101,25 +109,32 @@
             foreach (Table item in tablelist)
             {
 
-                if (button?.BackColor == Color.Green)
+                if (button?.Text == "Bàn " + item.Idban + Environment.NewLine + "trống")
                 {
                     MessageBox.Show(item.Idban.ToString());
-                    button.BackColor = Color.Red;
-                    TableBiDa.UpdateDataTable(item, 1);
-                    button.BackColor = Color.Red;
-                    button.Text = "Bàn " + item.Idban + Environment.NewLine + "đang chọn";
-                    item.Trangthai = 1;
-                    break;
+                    if (item.Trangthai == 0)
+                    {
+                        if (button.BackColor == Color.Green) button.BackColor = Color.Red;
+                        TableBiDa.UpdateDataTable(item, 1);
+                        button.BackColor = Color.Red;
+                        button.Text = "Bàn " + item.Idban + Environment.NewLine + "đang chọn";
+                        item.Trangthai = 1;
+                        break;
+                    }
                 }
-                else if (button != null)
+                else if (button?.Text == "Bàn " + item.Idban + Environment.NewLine + "đang chọn")
                 {
+                    MessageBox.Show("hmm");
                     TableBiDa.UpdateDataTable(item, 0);
-                    button.BackColor = Color.Green;
+                    if (button.BackColor == Color.Red) button.BackColor = Color.Green;
+
+
                     button.Text = "Bàn " + item.Idban + Environment.NewLine + "trống";
                     item.Trangthai = 0;
                     break;
                 }
-            }  
+
+            }
         }
 
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -142,6 +157,7 @@
                         {
                             string commandText = $"INSERT INTO HOADONDV VALUES ('{FMain.IDHD}', '{item.IDdv}', '{nud.Value}')";
                             FMain.SendSqlCommand(commandText);
+                            break;
                         }
                     }                        
                 }
@@ -152,7 +168,14 @@
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Đã lưu");
+            DialogResult = DialogResult.OK;
             
+        }
+
+        private void FAddHD_FormClosing(object sender, FormClosingEventArgs e)
+        {        
+            DialogResult = DialogResult.OK;
         }
     }
 }
