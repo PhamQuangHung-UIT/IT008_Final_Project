@@ -1,89 +1,6 @@
-USE [DoAn_lttq]
-GO
-/****** Object:  Trigger [TRG_NHANVIEN_UPDATE]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[TRG_NHANVIEN_UPDATE]
-GO
-/****** Object:  Trigger [TRG_NHANVIEN_INSERT]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[TRG_NHANVIEN_INSERT]
-GO
-/****** Object:  Trigger [TRG_NHANVIEN_DELETE]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[TRG_NHANVIEN_DELETE]
-GO
-/****** Object:  Trigger [Xóa hóa đơn DV]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Xóa hóa đơn DV]
-GO
-/****** Object:  Trigger [Thêm hóa đơn DV]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Thêm hóa đơn DV]
-GO
-/****** Object:  Trigger [Chỉnh sửa hóa đơn DV]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Chỉnh sửa hóa đơn DV]
-GO
-/****** Object:  Trigger [Xóa HD bàn]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Xóa HD bàn]
-GO
-/****** Object:  Trigger [Thêm HD bàn]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Thêm HD bàn]
-GO
-/****** Object:  Trigger [Chỉnh sửa HD bàn]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Chỉnh sửa HD bàn]
-GO
-/****** Object:  Trigger [Thêm hóa đơn]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TRIGGER IF EXISTS [dbo].[Thêm hóa đơn]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[HOADONDV]') AND type in (N'U'))
-ALTER TABLE [dbo].[HOADONDV] DROP CONSTRAINT IF EXISTS [FK_HOADONDV_HOADON]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[HOADONDV]') AND type in (N'U'))
-ALTER TABLE [dbo].[HOADONDV] DROP CONSTRAINT IF EXISTS [FK_HOADONDV_DICHVU]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[HOADONBAN]') AND type in (N'U'))
-ALTER TABLE [dbo].[HOADONBAN] DROP CONSTRAINT IF EXISTS [FK_HOADONBAN_HOADON]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[HOADONBAN]') AND type in (N'U'))
-ALTER TABLE [dbo].[HOADONBAN] DROP CONSTRAINT IF EXISTS [FK_HOADONBAN_BAN]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[HOADON]') AND type in (N'U'))
-ALTER TABLE [dbo].[HOADON] DROP CONSTRAINT IF EXISTS [FK_HOADON_NHANVIEN]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[HOADON]') AND type in (N'U'))
-ALTER TABLE [dbo].[HOADON] DROP CONSTRAINT IF EXISTS [FK_HOADON_KHACHHANG]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NHANVIEN]') AND type in (N'U'))
-ALTER TABLE [dbo].[NHANVIEN] DROP CONSTRAINT IF EXISTS [DF_NHANVIEN_TENDANGNHAP]
-GO
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NHANVIEN]') AND type in (N'U'))
-ALTER TABLE [dbo].[NHANVIEN] DROP CONSTRAINT IF EXISTS [DF_NHANVIEN_MATKHAU]
-GO
-/****** Object:  Index [UNQ_CCCD]    Script Date: 02/01/2023 5:35:44 CH ******/
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[NHANVIEN]') AND type in (N'U'))
-ALTER TABLE [dbo].[NHANVIEN] DROP CONSTRAINT IF EXISTS [UNQ_CCCD]
-GO
-/****** Object:  Table [dbo].[NHANVIEN]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[NHANVIEN]
-GO
-/****** Object:  Table [dbo].[KHACHHANG]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[KHACHHANG]
-GO
-/****** Object:  Table [dbo].[HOADONDV]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[HOADONDV]
-GO
-/****** Object:  Table [dbo].[HOADONBAN]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[HOADONBAN]
-GO
-/****** Object:  Table [dbo].[HOADON]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[HOADON]
-GO
-/****** Object:  Table [dbo].[DICHVU]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[DICHVU]
-GO
-/****** Object:  Table [dbo].[BAN]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP TABLE IF EXISTS [dbo].[BAN]
-GO
-USE [master]
-GO
-/****** Object:  Database [DoAn_lttq]    Script Date: 02/01/2023 5:35:44 CH ******/
-DROP DATABASE IF EXISTS [DoAn_lttq]
-GO
+/****** 
+	This is the generating-database script for the application. DO NOT MODIFY IT. 
+******/
 /****** Object:  Database [DoAn_lttq]    Script Date: 02/01/2023 5:35:44 CH ******/
 CREATE DATABASE [DoAn_lttq]
  CONTAINMENT = NONE
@@ -275,7 +192,7 @@ CREATE TABLE [dbo].[NHANVIEN](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT [dbo].[BAN] ([IDBAN], [GIATIEN], [TRANGTHAI]) VALUES (1, 100000.0000, 0)
+/*INSERT [dbo].[BAN] ([IDBAN], [GIATIEN], [TRANGTHAI]) VALUES (1, 100000.0000, 0)
 GO
 INSERT [dbo].[BAN] ([IDBAN], [GIATIEN], [TRANGTHAI]) VALUES (2, 100000.0000, 0)
 GO
@@ -332,7 +249,7 @@ GO
 INSERT [dbo].[NHANVIEN] ([IDNV], [HOTENNV], [NGAYSINH], [CCCD], [MATKHAU], [QUYENADMIN], [TENDANGNHAP]) VALUES (3, N'Vũ Đức Thành', CAST(N'1998-05-02T00:00:00.000' AS DateTime), N'078345389752', N'30041975', 0, N'nv03')
 GO
 INSERT [dbo].[NHANVIEN] ([IDNV], [HOTENNV], [NGAYSINH], [CCCD], [MATKHAU], [QUYENADMIN], [TENDANGNHAP]) VALUES (4, N'Trần Anh Hà', CAST(N'2000-07-16T00:00:00.000' AS DateTime), N'079200001277', N'17251900', NULL, N'nv04')
-GO
+GO*/
 SET ANSI_PADDING ON
 GO
 /****** Object:  Index [UNQ_CCCD]    Script Date: 02/01/2023 5:35:44 CH ******/

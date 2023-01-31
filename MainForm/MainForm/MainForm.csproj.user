@@ -7,11 +7,17 @@
     <Compile Update="AccountToApproveDlg.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AddTableDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="AdminMenu.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="BarChart.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="FChangeTable.cs">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Update="FHoadon.cs">
       <SubType>Form</SubType>
@@ -31,5 +37,10 @@
     <Compile Update="StatisticsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="DataSetBilliard.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
 </Project>

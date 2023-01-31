@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using System.Reflection;
 
 namespace MainForm
 {
@@ -19,9 +18,25 @@ namespace MainForm
 
         private void FMain_Load(object sender, EventArgs e)
         {
+            try
+            {
+                // Kiểm tra database có trong máy không
+                SendSqlCommand(" ");
+            }
+            catch (Exception)
+            {
+                // Khởi tạo database
+                FileInfo scriptFile = new("..\\..\\DoAn_lttq_CreateScript.sql");
+                string script = scriptFile.OpenText().ReadToEnd();
+                SqlConnection connection = new($"Data Source = {Environment.MachineName}\\SQLEXPRESS; Integrated Security = True");
+                connection.Open();
+                new SqlCommand(script, connection).ExecuteNonQuery();
+                connection.Close();
+            }
             LoginDlg dlg = new();
             if (dlg.ShowDialog() == DialogResult.Cancel)
                 Close();
+            WindowState = FormWindowState.Maximized;
             Text += $" - Mã nhân viên: {IDNV_Current}";
             if (IsAdminState)
                 Text += " - Quản trị viên";
@@ -177,7 +192,7 @@ namespace MainForm
         }
 
         /// <summary>
-        /// Hàm gửi lệnh SQL nhưng không truy xuất Table đến server SQL client
+        /// Hàm gửi lệnh SQL đến CSDL nhưng không truy xuất Table
         /// </summary>
         /// <param name="commandString">lệnh cần gửi</param>
         public static void SendSqlCommand(string commandString)
@@ -192,10 +207,10 @@ namespace MainForm
         }
 
         /// <summary>
-        /// Hàm gửi lệnh SQL và trả về Table được phản hồi bời server SQL
+        /// Hàm gửi lệnh SQL đến CSDL và trả về DataTable
         /// </summary>
         /// <param name="queryString">lệnh cần gửi</param>
-        /// <returns></returns>
+        /// <returns>DataTable chứa kết quả trả về</returns>
         public static DataTable GetSqlData(string queryString)
         {
             DataTable myDataTable = new();

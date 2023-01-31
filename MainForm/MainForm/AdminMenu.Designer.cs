@@ -39,13 +39,12 @@
             this.button_AdminThongKe = new System.Windows.Forms.Button();
             this.panel_AdminNhanVien = new System.Windows.Forms.Panel();
             this.linkLabel_AccountToApprove = new System.Windows.Forms.LinkLabel();
-            this.button_SuaNhanVien = new System.Windows.Forms.Button();
+            this.button_ChinhSuaNhanVien = new System.Windows.Forms.Button();
             this.button_ThemNhanVien = new System.Windows.Forms.Button();
             this.button_XoaNhanVien = new System.Windows.Forms.Button();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_NgaySinh = new System.Windows.Forms.DateTimePicker();
             this.textBox_TenDangNhap = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button_NVSave = new System.Windows.Forms.Button();
             this.checkBox_QuyenAdmin = new System.Windows.Forms.CheckBox();
             this.label_QuyenAdmin = new System.Windows.Forms.Label();
             this.label_idNV = new System.Windows.Forms.Label();
@@ -77,15 +76,19 @@
             this.TENDV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GIATIEN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_AdminBan = new System.Windows.Forms.Panel();
-            this.button_BanSave = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBox_TrangThai = new System.Windows.Forms.ComboBox();
+            this.label_TrangThai = new System.Windows.Forms.Label();
+            this.button_ChinhSuaBan = new System.Windows.Forms.Button();
+            this.button_ThemBan = new System.Windows.Forms.Button();
+            this.button_XoaBan = new System.Windows.Forms.Button();
+            this.textBox_GiaTienBan = new System.Windows.Forms.TextBox();
             this.label_GiaTienBan = new System.Windows.Forms.Label();
             this.textBox_idBan = new System.Windows.Forms.TextBox();
             this.label_idBan = new System.Windows.Forms.Label();
             this.dataGridView_Ban = new System.Windows.Forms.DataGridView();
-            this.IDBAN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TRANGTHAI = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn_IDBAN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn_GIATIEN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn_TRANGTHAI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_ThongKe = new System.Windows.Forms.Panel();
             this.panel_AdminControl.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -164,7 +167,7 @@
             this.button_AdminBan.TabIndex = 2;
             this.button_AdminBan.Text = "QUẢN LÝ BÀN";
             this.button_AdminBan.UseVisualStyleBackColor = true;
-            this.button_AdminBan.Click += new System.EventHandler(this.button_AdminBan_Click);
+            this.button_AdminBan.Click += new System.EventHandler(this.Button_AdminBan_Click);
             // 
             // button_AdminDV
             // 
@@ -197,13 +200,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_AdminNhanVien.BackColor = System.Drawing.Color.White;
             this.panel_AdminNhanVien.Controls.Add(this.linkLabel_AccountToApprove);
-            this.panel_AdminNhanVien.Controls.Add(this.button_SuaNhanVien);
+            this.panel_AdminNhanVien.Controls.Add(this.button_ChinhSuaNhanVien);
             this.panel_AdminNhanVien.Controls.Add(this.button_ThemNhanVien);
             this.panel_AdminNhanVien.Controls.Add(this.button_XoaNhanVien);
-            this.panel_AdminNhanVien.Controls.Add(this.dateTimePicker1);
+            this.panel_AdminNhanVien.Controls.Add(this.dateTimePicker_NgaySinh);
             this.panel_AdminNhanVien.Controls.Add(this.textBox_TenDangNhap);
             this.panel_AdminNhanVien.Controls.Add(this.label1);
-            this.panel_AdminNhanVien.Controls.Add(this.button_NVSave);
             this.panel_AdminNhanVien.Controls.Add(this.checkBox_QuyenAdmin);
             this.panel_AdminNhanVien.Controls.Add(this.label_QuyenAdmin);
             this.panel_AdminNhanVien.Controls.Add(this.label_idNV);
@@ -225,7 +227,7 @@
             this.linkLabel_AccountToApprove.AutoSize = true;
             this.linkLabel_AccountToApprove.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel_AccountToApprove.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabel_AccountToApprove.Location = new System.Drawing.Point(615, 681);
+            this.linkLabel_AccountToApprove.Location = new System.Drawing.Point(615, 563);
             this.linkLabel_AccountToApprove.Name = "linkLabel_AccountToApprove";
             this.linkLabel_AccountToApprove.Size = new System.Drawing.Size(366, 25);
             this.linkLabel_AccountToApprove.TabIndex = 21;
@@ -234,47 +236,55 @@
             this.linkLabel_AccountToApprove.VisitedLinkColor = System.Drawing.Color.Blue;
             this.linkLabel_AccountToApprove.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLabel_AccountToApprove_LinkClicked);
             // 
-            // button_SuaNhanVien
+            // button_ChinhSuaNhanVien
             // 
-            this.button_SuaNhanVien.Location = new System.Drawing.Point(839, 567);
-            this.button_SuaNhanVien.Name = "button_SuaNhanVien";
-            this.button_SuaNhanVien.Size = new System.Drawing.Size(181, 52);
-            this.button_SuaNhanVien.TabIndex = 20;
-            this.button_SuaNhanVien.Text = "Chỉnh sửa nhân viên";
-            this.button_SuaNhanVien.UseVisualStyleBackColor = true;
+            this.button_ChinhSuaNhanVien.Enabled = false;
+            this.button_ChinhSuaNhanVien.Location = new System.Drawing.Point(839, 725);
+            this.button_ChinhSuaNhanVien.Name = "button_ChinhSuaNhanVien";
+            this.button_ChinhSuaNhanVien.Size = new System.Drawing.Size(181, 52);
+            this.button_ChinhSuaNhanVien.TabIndex = 20;
+            this.button_ChinhSuaNhanVien.Text = "Chỉnh sửa";
+            this.button_ChinhSuaNhanVien.UseVisualStyleBackColor = true;
+            this.button_ChinhSuaNhanVien.Click += new System.EventHandler(this.Button_ChinhSuaNhanVien_Click);
             // 
             // button_ThemNhanVien
             // 
-            this.button_ThemNhanVien.Location = new System.Drawing.Point(615, 567);
+            this.button_ThemNhanVien.Location = new System.Drawing.Point(615, 725);
             this.button_ThemNhanVien.Name = "button_ThemNhanVien";
             this.button_ThemNhanVien.Size = new System.Drawing.Size(160, 52);
             this.button_ThemNhanVien.TabIndex = 19;
             this.button_ThemNhanVien.Text = "Thêm nhân viên";
             this.button_ThemNhanVien.UseVisualStyleBackColor = true;
+            this.button_ThemNhanVien.Click += new System.EventHandler(this.Button_ThemNhanVien_Click);
             // 
             // button_XoaNhanVien
             // 
-            this.button_XoaNhanVien.Location = new System.Drawing.Point(1081, 567);
+            this.button_XoaNhanVien.Enabled = false;
+            this.button_XoaNhanVien.Location = new System.Drawing.Point(1081, 725);
             this.button_XoaNhanVien.Name = "button_XoaNhanVien";
             this.button_XoaNhanVien.Size = new System.Drawing.Size(160, 52);
             this.button_XoaNhanVien.TabIndex = 18;
-            this.button_XoaNhanVien.Text = "Xóa nhân viên";
+            this.button_XoaNhanVien.Text = "Xóa";
             this.button_XoaNhanVien.UseVisualStyleBackColor = true;
+            this.button_XoaNhanVien.Click += new System.EventHandler(this.Button_XoaNhanVien_Click);
             // 
-            // dateTimePicker1
+            // dateTimePicker_NgaySinh
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(757, 232);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(137, 31);
-            this.dateTimePicker1.TabIndex = 17;
-            this.dateTimePicker1.Value = new System.DateTime(2022, 12, 29, 16, 19, 40, 0);
+            this.dateTimePicker_NgaySinh.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_NgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker_NgaySinh.Location = new System.Drawing.Point(757, 232);
+            this.dateTimePicker_NgaySinh.Name = "dateTimePicker_NgaySinh";
+            this.dateTimePicker_NgaySinh.Size = new System.Drawing.Size(137, 31);
+            this.dateTimePicker_NgaySinh.TabIndex = 17;
+            this.dateTimePicker_NgaySinh.Tag = "";
+            this.dateTimePicker_NgaySinh.ValueChanged += new System.EventHandler(this.DateTimePicker_NgaySinh_ValueChanged);
             // 
             // textBox_TenDangNhap
             // 
             this.textBox_TenDangNhap.Location = new System.Drawing.Point(762, 465);
             this.textBox_TenDangNhap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_TenDangNhap.Name = "textBox_TenDangNhap";
+            this.textBox_TenDangNhap.ReadOnly = true;
             this.textBox_TenDangNhap.Size = new System.Drawing.Size(413, 31);
             this.textBox_TenDangNhap.TabIndex = 16;
             // 
@@ -287,27 +297,17 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Tên đăng nhập";
             // 
-            // button_NVSave
-            // 
-            this.button_NVSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_NVSave.BackColor = System.Drawing.Color.White;
-            this.button_NVSave.Location = new System.Drawing.Point(1081, 771);
-            this.button_NVSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button_NVSave.Name = "button_NVSave";
-            this.button_NVSave.Size = new System.Drawing.Size(174, 84);
-            this.button_NVSave.TabIndex = 14;
-            this.button_NVSave.Text = "Lưu";
-            this.button_NVSave.UseVisualStyleBackColor = false;
-            // 
             // checkBox_QuyenAdmin
             // 
             this.checkBox_QuyenAdmin.AutoSize = true;
-            this.checkBox_QuyenAdmin.Location = new System.Drawing.Point(762, 395);
+            this.checkBox_QuyenAdmin.Location = new System.Drawing.Point(762, 389);
             this.checkBox_QuyenAdmin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox_QuyenAdmin.Name = "checkBox_QuyenAdmin";
             this.checkBox_QuyenAdmin.Size = new System.Drawing.Size(22, 21);
             this.checkBox_QuyenAdmin.TabIndex = 13;
+            this.checkBox_QuyenAdmin.Tag = "";
             this.checkBox_QuyenAdmin.UseVisualStyleBackColor = true;
+            this.checkBox_QuyenAdmin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBox_QuyenAdmin_MouseClick);
             // 
             // label_QuyenAdmin
             // 
@@ -315,9 +315,9 @@
             this.label_QuyenAdmin.Location = new System.Drawing.Point(611, 393);
             this.label_QuyenAdmin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_QuyenAdmin.Name = "label_QuyenAdmin";
-            this.label_QuyenAdmin.Size = new System.Drawing.Size(122, 25);
+            this.label_QuyenAdmin.Size = new System.Drawing.Size(102, 25);
             this.label_QuyenAdmin.TabIndex = 12;
-            this.label_QuyenAdmin.Text = "Quyền Admin";
+            this.label_QuyenAdmin.Text = "Quyền QTV";
             // 
             // label_idNV
             // 
@@ -335,8 +335,11 @@
             this.textBox_idNV.Location = new System.Drawing.Point(757, 57);
             this.textBox_idNV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_idNV.Name = "textBox_idNV";
+            this.textBox_idNV.ReadOnly = true;
             this.textBox_idNV.Size = new System.Drawing.Size(418, 31);
             this.textBox_idNV.TabIndex = 7;
+            this.textBox_idNV.Tag = "";
+            this.textBox_idNV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
             // label_CCCDNV
             // 
@@ -355,6 +358,9 @@
             this.textBox_CCCDNV.Name = "textBox_CCCDNV";
             this.textBox_CCCDNV.Size = new System.Drawing.Size(418, 31);
             this.textBox_CCCDNV.TabIndex = 5;
+            this.textBox_CCCDNV.Tag = "";
+            this.textBox_CCCDNV.TextChanged += new System.EventHandler(this.NhanVien_Control_ValueChanged);
+            this.textBox_CCCDNV.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
             // label_NgaySinhNV
             // 
@@ -383,6 +389,9 @@
             this.textBox_TenNhanVien.Name = "textBox_TenNhanVien";
             this.textBox_TenNhanVien.Size = new System.Drawing.Size(418, 31);
             this.textBox_TenNhanVien.TabIndex = 1;
+            this.textBox_TenNhanVien.Tag = "";
+            this.textBox_TenNhanVien.TextChanged += new System.EventHandler(this.NhanVien_Control_ValueChanged);
+            this.textBox_TenNhanVien.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
             // dataGridView_NhanVien
             // 
@@ -613,8 +622,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_AdminBan.BackColor = System.Drawing.Color.White;
-            this.panel_AdminBan.Controls.Add(this.button_BanSave);
-            this.panel_AdminBan.Controls.Add(this.textBox2);
+            this.panel_AdminBan.Controls.Add(this.comboBox_TrangThai);
+            this.panel_AdminBan.Controls.Add(this.label_TrangThai);
+            this.panel_AdminBan.Controls.Add(this.button_ChinhSuaBan);
+            this.panel_AdminBan.Controls.Add(this.button_ThemBan);
+            this.panel_AdminBan.Controls.Add(this.button_XoaBan);
+            this.panel_AdminBan.Controls.Add(this.textBox_GiaTienBan);
             this.panel_AdminBan.Controls.Add(this.label_GiaTienBan);
             this.panel_AdminBan.Controls.Add(this.textBox_idBan);
             this.panel_AdminBan.Controls.Add(this.label_idBan);
@@ -626,24 +639,66 @@
             this.panel_AdminBan.TabIndex = 3;
             this.panel_AdminBan.Visible = false;
             // 
-            // button_BanSave
+            // comboBox_TrangThai
             // 
-            this.button_BanSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_BanSave.Location = new System.Drawing.Point(1065, 755);
-            this.button_BanSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button_BanSave.Name = "button_BanSave";
-            this.button_BanSave.Size = new System.Drawing.Size(190, 100);
-            this.button_BanSave.TabIndex = 5;
-            this.button_BanSave.Text = "Lưu";
-            this.button_BanSave.UseVisualStyleBackColor = true;
+            this.comboBox_TrangThai.FormattingEnabled = true;
+            this.comboBox_TrangThai.Items.AddRange(new object[] {
+            "Trống",
+            "Có người",
+            "Bảo trì"});
+            this.comboBox_TrangThai.Location = new System.Drawing.Point(757, 292);
+            this.comboBox_TrangThai.Name = "comboBox_TrangThai";
+            this.comboBox_TrangThai.Size = new System.Drawing.Size(182, 33);
+            this.comboBox_TrangThai.TabIndex = 25;
             // 
-            // textBox2
+            // label_TrangThai
             // 
-            this.textBox2.Location = new System.Drawing.Point(757, 193);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(405, 31);
-            this.textBox2.TabIndex = 4;
+            this.label_TrangThai.AutoSize = true;
+            this.label_TrangThai.Location = new System.Drawing.Point(615, 295);
+            this.label_TrangThai.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_TrangThai.Name = "label_TrangThai";
+            this.label_TrangThai.Size = new System.Drawing.Size(93, 25);
+            this.label_TrangThai.TabIndex = 24;
+            this.label_TrangThai.Text = "Trạng thái:";
+            // 
+            // button_ChinhSuaBan
+            // 
+            this.button_ChinhSuaBan.Enabled = false;
+            this.button_ChinhSuaBan.Location = new System.Drawing.Point(839, 718);
+            this.button_ChinhSuaBan.Name = "button_ChinhSuaBan";
+            this.button_ChinhSuaBan.Size = new System.Drawing.Size(181, 52);
+            this.button_ChinhSuaBan.TabIndex = 23;
+            this.button_ChinhSuaBan.Text = "Chỉnh sửa bàn";
+            this.button_ChinhSuaBan.UseVisualStyleBackColor = true;
+            this.button_ChinhSuaBan.Click += new System.EventHandler(this.Button_ChinhSuaBan_Click);
+            // 
+            // button_ThemBan
+            // 
+            this.button_ThemBan.Location = new System.Drawing.Point(615, 718);
+            this.button_ThemBan.Name = "button_ThemBan";
+            this.button_ThemBan.Size = new System.Drawing.Size(160, 52);
+            this.button_ThemBan.TabIndex = 22;
+            this.button_ThemBan.Text = "Thêm bàn";
+            this.button_ThemBan.UseVisualStyleBackColor = true;
+            this.button_ThemBan.Click += new System.EventHandler(this.Button_ThemBan_Click);
+            // 
+            // button_XoaBan
+            // 
+            this.button_XoaBan.Enabled = false;
+            this.button_XoaBan.Location = new System.Drawing.Point(1081, 718);
+            this.button_XoaBan.Name = "button_XoaBan";
+            this.button_XoaBan.Size = new System.Drawing.Size(160, 52);
+            this.button_XoaBan.TabIndex = 21;
+            this.button_XoaBan.Text = "Xóa bàn";
+            this.button_XoaBan.UseVisualStyleBackColor = true;
+            // 
+            // textBox_GiaTienBan
+            // 
+            this.textBox_GiaTienBan.Location = new System.Drawing.Point(757, 193);
+            this.textBox_GiaTienBan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox_GiaTienBan.Name = "textBox_GiaTienBan";
+            this.textBox_GiaTienBan.Size = new System.Drawing.Size(288, 31);
+            this.textBox_GiaTienBan.TabIndex = 4;
             // 
             // label_GiaTienBan
             // 
@@ -660,7 +715,8 @@
             this.textBox_idBan.Location = new System.Drawing.Point(757, 88);
             this.textBox_idBan.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_idBan.Name = "textBox_idBan";
-            this.textBox_idBan.Size = new System.Drawing.Size(405, 31);
+            this.textBox_idBan.ReadOnly = true;
+            this.textBox_idBan.Size = new System.Drawing.Size(288, 31);
             this.textBox_idBan.TabIndex = 2;
             // 
             // label_idBan
@@ -677,9 +733,9 @@
             // 
             this.dataGridView_Ban.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_Ban.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IDBAN,
-            this.dataGridViewTextBoxColumn1,
-            this.TRANGTHAI});
+            this.dataGridViewTextBoxColumn_IDBAN,
+            this.dataGridViewTextBoxColumn_GIATIEN,
+            this.dataGridViewTextBoxColumn_TRANGTHAI});
             this.dataGridView_Ban.Location = new System.Drawing.Point(24, 27);
             this.dataGridView_Ban.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView_Ban.Name = "dataGridView_Ban";
@@ -687,27 +743,28 @@
             this.dataGridView_Ban.RowTemplate.Height = 25;
             this.dataGridView_Ban.Size = new System.Drawing.Size(534, 743);
             this.dataGridView_Ban.TabIndex = 0;
+            this.dataGridView_Ban.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.DataGridView_Ban_RowStateChanged);
             // 
-            // IDBAN
+            // dataGridViewTextBoxColumn_IDBAN
             // 
-            this.IDBAN.HeaderText = "Mã bàn";
-            this.IDBAN.MinimumWidth = 8;
-            this.IDBAN.Name = "IDBAN";
-            this.IDBAN.Width = 150;
+            this.dataGridViewTextBoxColumn_IDBAN.HeaderText = "Mã bàn";
+            this.dataGridViewTextBoxColumn_IDBAN.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn_IDBAN.Name = "dataGridViewTextBoxColumn_IDBAN";
+            this.dataGridViewTextBoxColumn_IDBAN.Width = 150;
             // 
-            // dataGridViewTextBoxColumn1
+            // dataGridViewTextBoxColumn_GIATIEN
             // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Giá tiền";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 8;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Width = 150;
+            this.dataGridViewTextBoxColumn_GIATIEN.HeaderText = "Giá tiền";
+            this.dataGridViewTextBoxColumn_GIATIEN.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn_GIATIEN.Name = "dataGridViewTextBoxColumn_GIATIEN";
+            this.dataGridViewTextBoxColumn_GIATIEN.Width = 150;
             // 
-            // TRANGTHAI
+            // dataGridViewTextBoxColumn_TRANGTHAI
             // 
-            this.TRANGTHAI.HeaderText = "Trạng thái";
-            this.TRANGTHAI.MinimumWidth = 8;
-            this.TRANGTHAI.Name = "TRANGTHAI";
-            this.TRANGTHAI.Width = 150;
+            this.dataGridViewTextBoxColumn_TRANGTHAI.HeaderText = "Trạng thái";
+            this.dataGridViewTextBoxColumn_TRANGTHAI.MinimumWidth = 8;
+            this.dataGridViewTextBoxColumn_TRANGTHAI.Name = "dataGridViewTextBoxColumn_TRANGTHAI";
+            this.dataGridViewTextBoxColumn_TRANGTHAI.Width = 150;
             // 
             // panel_ThongKe
             // 
@@ -727,10 +784,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1674, 937);
             this.Controls.Add(this.panel_AdminControl);
-            this.Controls.Add(this.panel_AdminNhanVien);
-            this.Controls.Add(this.panel_ThongKe);
             this.Controls.Add(this.panel_AdminBan);
             this.Controls.Add(this.panel_AdminDichVu);
+            this.Controls.Add(this.panel_AdminNhanVien);
+            this.Controls.Add(this.panel_ThongKe);
             this.MinimizeBox = false;
             this.Name = "AdminMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -769,7 +826,6 @@
         private TextBox textBox_idNV;
         private Label label_CCCDNV;
         private TextBox textBox_CCCDNV;
-        private Button button_NVSave;
         private CheckBox checkBox_QuyenAdmin;
         private Label label_QuyenAdmin;
         private Panel panel_AdminDichVu;
@@ -785,9 +841,8 @@
         private DataGridView dataGridView_Ban;
         private TextBox textBox_idBan;
         private Label label_idBan;
-        private TextBox textBox2;
+        private TextBox textBox_GiaTienBan;
         private Label label_GiaTienBan;
-        private Button button_BanSave;
         private Panel panel_ThongKe;
         private TextBox textBox_TenDangNhap;
         private Label label1;
@@ -801,15 +856,20 @@
         private DataGridViewTextBoxColumn IDDV;
         private DataGridViewTextBoxColumn TENDV;
         private DataGridViewTextBoxColumn GIATIEN;
-        private DataGridViewTextBoxColumn IDBAN;
-        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn TRANGTHAI;
         private TableLayoutPanel tableLayoutPanel1;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePicker_NgaySinh;
         private Button button_ThemDV;
-        private Button button_SuaNhanVien;
+        private Button button_ChinhSuaNhanVien;
         private Button button_ThemNhanVien;
         private Button button_XoaNhanVien;
         private LinkLabel linkLabel_AccountToApprove;
+        private Button button_ChinhSuaBan;
+        private Button button_ThemBan;
+        private Button button_XoaBan;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_IDBAN;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_GIATIEN;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TRANGTHAI;
+        private Label label_TrangThai;
+        private ComboBox comboBox_TrangThai;
     }
 }

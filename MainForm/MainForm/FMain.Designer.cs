@@ -96,7 +96,7 @@
             this.flpTable.Location = new System.Drawing.Point(0, 147);
             this.flpTable.Margin = new System.Windows.Forms.Padding(4);
             this.flpTable.Name = "flpTable";
-            this.flpTable.Size = new System.Drawing.Size(1050, 652);
+            this.flpTable.Size = new System.Drawing.Size(1046, 652);
             this.flpTable.TabIndex = 1;
             // 
             // btnCreateHD
@@ -146,6 +146,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SmartBilliard";
             this.Load += new System.EventHandler(this.FMain_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

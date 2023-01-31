@@ -49,11 +49,11 @@
             // 
             this.dateTimePicker_NgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker_NgaySinh.Location = new System.Drawing.Point(217, 141);
-            this.dateTimePicker_NgaySinh.MaxDate = new System.DateTime(2022, 12, 28, 0, 0, 0, 0);
+            this.dateTimePicker_NgaySinh.MaxDate = new System.DateTime(2023, 1, 27, 0, 0, 0, 0);
             this.dateTimePicker_NgaySinh.Name = "dateTimePicker_NgaySinh";
             this.dateTimePicker_NgaySinh.Size = new System.Drawing.Size(179, 31);
             this.dateTimePicker_NgaySinh.TabIndex = 27;
-            this.dateTimePicker_NgaySinh.Value = new System.DateTime(2022, 12, 20, 20, 24, 3, 0);
+            this.dateTimePicker_NgaySinh.Value = new System.DateTime(2023, 1, 27, 0, 0, 0, 0);
             // 
             // label_CCCDNV
             // 

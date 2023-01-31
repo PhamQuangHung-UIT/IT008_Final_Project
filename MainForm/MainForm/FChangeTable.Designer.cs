@@ -59,7 +59,7 @@
             // 
             this.cbOldTable.FormattingEnabled = true;
             this.cbOldTable.Location = new System.Drawing.Point(110, 49);
-            this.cbOldTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbOldTable.Margin = new System.Windows.Forms.Padding(4);
             this.cbOldTable.Name = "cbOldTable";
             this.cbOldTable.Size = new System.Drawing.Size(188, 33);
             this.cbOldTable.TabIndex = 2;
@@ -68,7 +68,7 @@
             // 
             this.cbNewTable.FormattingEnabled = true;
             this.cbNewTable.Location = new System.Drawing.Point(449, 49);
-            this.cbNewTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbNewTable.Margin = new System.Windows.Forms.Padding(4);
             this.cbNewTable.Name = "cbNewTable";
             this.cbNewTable.Size = new System.Drawing.Size(188, 33);
             this.cbNewTable.TabIndex = 3;
@@ -76,8 +76,8 @@
             // btnChangeTable
             // 
             this.btnChangeTable.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnChangeTable.Location = new System.Drawing.Point(260, 195);
-            this.btnChangeTable.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnChangeTable.Location = new System.Drawing.Point(257, 190);
+            this.btnChangeTable.Margin = new System.Windows.Forms.Padding(4);
             this.btnChangeTable.Name = "btnChangeTable";
             this.btnChangeTable.Size = new System.Drawing.Size(118, 36);
             this.btnChangeTable.TabIndex = 4;
@@ -89,14 +89,15 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 280);
+            this.ClientSize = new System.Drawing.Size(661, 253);
             this.ControlBox = false;
             this.Controls.Add(this.btnChangeTable);
             this.Controls.Add(this.cbNewTable);
             this.Controls.Add(this.cbOldTable);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FChangeTable";
             this.Text = "Đổi bàn";
             this.ResumeLayout(false);
