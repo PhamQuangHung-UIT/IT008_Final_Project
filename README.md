@@ -7,4 +7,4 @@
 
 Database mà chương trình sử dụng là `DoAn_lttq` và chương trình sử dụng dữ liệu của file *DoAn_lttq_CreateScript.sql* để gửi lệnh khởi tạo database đến server. Quá trình khỏi tạo chỉ chạy khi chương trình không tìm thấy database nào có cùng tên `DoAn_lttq`
 
-Để đăng nhập vào chương trình thì cần phải đăng ký tài khoản mới. Tài khoản đó mặc định sẽ có quyền Quản trị viên, những tài khoản sau muốn vào sử dụng chương trình cần phải được Quản trị viên phê duyệt
+Để đăng nhập vào chương trình thì cần phải đăng ký tài khoản mới. Tài khoản đó mặc định sẽ có quyền Quản trị viên, những tài khoản sau muốn vào sử dụng chương trình cần phải được Quản trị viên phê duyệt. Sau khi phê duyệt mới có thể đăng nhập vào chương trình
