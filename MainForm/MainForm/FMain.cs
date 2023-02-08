@@ -27,7 +27,7 @@ namespace MainForm
             catch (Exception)
             {
                 // Khởi tạo database
-                FileInfo scriptFile = new("..\\..\\DoAn_lttq_CreateScript.sql");
+                FileInfo scriptFile = new("..\\..\\..\\DoAn_lttq_CreateScript.sql");
                 string[] scripts = scriptFile.OpenText().ReadToEnd().Split("GO");
                 SqlConnection connection = new($"Data Source = {Environment.MachineName}\\SQLEXPRESS; Integrated Security = True");
                 connection.Open();

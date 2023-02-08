@@ -228,7 +228,7 @@
             "Mã số",
             "Thời gian - Ngày",
             "Thời gian - Tháng"});
-            this.comboBox_GroupBy.Location = new System.Drawing.Point(902, 22);
+            this.comboBox_GroupBy.Location = new System.Drawing.Point(889, 22);
             this.comboBox_GroupBy.Name = "comboBox_GroupBy";
             this.comboBox_GroupBy.Size = new System.Drawing.Size(177, 33);
             this.comboBox_GroupBy.TabIndex = 11;
