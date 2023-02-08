@@ -106,3 +106,5 @@ C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\Main
 C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AccountToApproveDlg.resources
 C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.Properties.Resources.resources
 C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.FChangeTable.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AddTableDlg.resources
+C:\Users\Pham Quang Hung\Source\Repos\PhamQuangHung-UIT\IT008_Final_Project\MainForm\MainForm\obj\Debug\net7.0-windows\MainForm.AddService.resources

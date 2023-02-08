@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace MainForm
 {
@@ -27,10 +28,11 @@ namespace MainForm
             {
                 // Khởi tạo database
                 FileInfo scriptFile = new("..\\..\\DoAn_lttq_CreateScript.sql");
-                string script = scriptFile.OpenText().ReadToEnd();
+                string[] scripts = scriptFile.OpenText().ReadToEnd().Split("GO");
                 SqlConnection connection = new($"Data Source = {Environment.MachineName}\\SQLEXPRESS; Integrated Security = True");
                 connection.Open();
-                new SqlCommand(script, connection).ExecuteNonQuery();
+                foreach (var script in scripts)
+                    new SqlCommand(script, connection).ExecuteNonQuery();
                 connection.Close();
             }
             LoginDlg dlg = new();
@@ -173,11 +175,6 @@ namespace MainForm
             }
         }
 
-        private void SplitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void AdminMenuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!IsAdminState)
@@ -191,6 +188,20 @@ namespace MainForm
             Hide();
         }
 
+        /// <summary>
+        /// Set double-buffering to the control and its control children
+        /// </summary>
+        /// <param name="control">The control to set double-buffering</param>
+        public static void SetDoubleBuffered(Control control)
+        {
+            PropertyInfo? propInfo = typeof(Control).GetProperty(
+                                                    "DoubleBuffered",
+                                                    BindingFlags.NonPublic |
+                                                    BindingFlags.Instance);
+            propInfo?.SetValue(control, true, null);
+            foreach (Control ctrl in control.Controls)
+                SetDoubleBuffered(ctrl);
+        }
         /// <summary>
         /// Hàm gửi lệnh SQL đến CSDL nhưng không truy xuất Table
         /// </summary>
@@ -227,7 +238,6 @@ namespace MainForm
         private readonly TreeNode root_XuLi = new();
         private readonly TreeNode root_KetThuc = new();
 
-        // Hàm này chạy hoàn toàn bình thường
         private void ThôngTinTàiKhoảnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AccountInfoDlg dlg = new();

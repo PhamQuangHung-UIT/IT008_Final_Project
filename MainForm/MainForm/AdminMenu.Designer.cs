@@ -30,6 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel_AdminControl = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.button_AdminBack = new System.Windows.Forms.Button();
@@ -63,9 +64,10 @@
             this.QUYENADMIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TENDANGNHAP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_AdminDichVu = new System.Windows.Forms.Panel();
-            this.button_ThemDV = new System.Windows.Forms.Button();
-            this.button_DVSave = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button_ChinhSuaDichVu = new System.Windows.Forms.Button();
+            this.button_ThemDichVu = new System.Windows.Forms.Button();
+            this.button_XoaDichVu = new System.Windows.Forms.Button();
+            this.textBox_GiaTienDV = new System.Windows.Forms.TextBox();
             this.label_GiaTienDV = new System.Windows.Forms.Label();
             this.textBox_TenDV = new System.Windows.Forms.TextBox();
             this.label_TenDV = new System.Windows.Forms.Label();
@@ -270,11 +272,11 @@
             // 
             // dateTimePicker_NgaySinh
             // 
-            this.dateTimePicker_NgaySinh.CustomFormat = "dd/MM/yyyy";
+            this.dateTimePicker_NgaySinh.CustomFormat = " ";
             this.dateTimePicker_NgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker_NgaySinh.Location = new System.Drawing.Point(757, 232);
             this.dateTimePicker_NgaySinh.Name = "dateTimePicker_NgaySinh";
-            this.dateTimePicker_NgaySinh.Size = new System.Drawing.Size(137, 31);
+            this.dateTimePicker_NgaySinh.Size = new System.Drawing.Size(145, 31);
             this.dateTimePicker_NgaySinh.TabIndex = 17;
             this.dateTimePicker_NgaySinh.Tag = "";
             this.dateTimePicker_NgaySinh.ValueChanged += new System.EventHandler(this.DateTimePicker_NgaySinh_ValueChanged);
@@ -307,7 +309,7 @@
             this.checkBox_QuyenAdmin.TabIndex = 13;
             this.checkBox_QuyenAdmin.Tag = "";
             this.checkBox_QuyenAdmin.UseVisualStyleBackColor = true;
-            this.checkBox_QuyenAdmin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBox_QuyenAdmin_MouseClick);
+            this.checkBox_QuyenAdmin.CheckedChanged += new System.EventHandler(this.NhanVien_Control_ValueChanged);
             // 
             // label_QuyenAdmin
             // 
@@ -331,7 +333,7 @@
             // 
             // textBox_idNV
             // 
-            this.textBox_idNV.Enabled = false;
+            this.textBox_idNV.BackColor = System.Drawing.SystemColors.Control;
             this.textBox_idNV.Location = new System.Drawing.Point(757, 57);
             this.textBox_idNV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_idNV.Name = "textBox_idNV";
@@ -408,6 +410,7 @@
             this.MATKHAU,
             this.QUYENADMIN,
             this.TENDANGNHAP});
+            this.dataGridView_NhanVien.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_NhanVien.Location = new System.Drawing.Point(20, 27);
             this.dataGridView_NhanVien.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView_NhanVien.Name = "dataGridView_NhanVien";
@@ -484,9 +487,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_AdminDichVu.BackColor = System.Drawing.Color.White;
-            this.panel_AdminDichVu.Controls.Add(this.button_ThemDV);
-            this.panel_AdminDichVu.Controls.Add(this.button_DVSave);
-            this.panel_AdminDichVu.Controls.Add(this.textBox1);
+            this.panel_AdminDichVu.Controls.Add(this.button_ChinhSuaDichVu);
+            this.panel_AdminDichVu.Controls.Add(this.button_ThemDichVu);
+            this.panel_AdminDichVu.Controls.Add(this.button_XoaDichVu);
+            this.panel_AdminDichVu.Controls.Add(this.textBox_GiaTienDV);
             this.panel_AdminDichVu.Controls.Add(this.label_GiaTienDV);
             this.panel_AdminDichVu.Controls.Add(this.textBox_TenDV);
             this.panel_AdminDichVu.Controls.Add(this.label_TenDV);
@@ -500,33 +504,43 @@
             this.panel_AdminDichVu.TabIndex = 2;
             this.panel_AdminDichVu.Visible = false;
             // 
-            // button_ThemDV
+            // button_ChinhSuaDichVu
             // 
-            this.button_ThemDV.Location = new System.Drawing.Point(744, 414);
-            this.button_ThemDV.Name = "button_ThemDV";
-            this.button_ThemDV.Size = new System.Drawing.Size(112, 34);
-            this.button_ThemDV.TabIndex = 8;
-            this.button_ThemDV.Text = "Thêm";
-            this.button_ThemDV.UseVisualStyleBackColor = true;
+            this.button_ChinhSuaDichVu.Enabled = false;
+            this.button_ChinhSuaDichVu.Location = new System.Drawing.Point(839, 718);
+            this.button_ChinhSuaDichVu.Name = "button_ChinhSuaDichVu";
+            this.button_ChinhSuaDichVu.Size = new System.Drawing.Size(181, 52);
+            this.button_ChinhSuaDichVu.TabIndex = 26;
+            this.button_ChinhSuaDichVu.Text = "Chỉnh sửa dịch vụ";
+            this.button_ChinhSuaDichVu.UseVisualStyleBackColor = true;
             // 
-            // button_DVSave
+            // button_ThemDichVu
             // 
-            this.button_DVSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_DVSave.Location = new System.Drawing.Point(1065, 755);
-            this.button_DVSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button_DVSave.Name = "button_DVSave";
-            this.button_DVSave.Size = new System.Drawing.Size(190, 100);
-            this.button_DVSave.TabIndex = 7;
-            this.button_DVSave.Text = "Lưu";
-            this.button_DVSave.UseVisualStyleBackColor = true;
+            this.button_ThemDichVu.Location = new System.Drawing.Point(615, 718);
+            this.button_ThemDichVu.Name = "button_ThemDichVu";
+            this.button_ThemDichVu.Size = new System.Drawing.Size(160, 52);
+            this.button_ThemDichVu.TabIndex = 25;
+            this.button_ThemDichVu.Text = "Thêm dịch vụ";
+            this.button_ThemDichVu.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // button_XoaDichVu
             // 
-            this.textBox1.Location = new System.Drawing.Point(751, 295);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(418, 31);
-            this.textBox1.TabIndex = 6;
+            this.button_XoaDichVu.Enabled = false;
+            this.button_XoaDichVu.Location = new System.Drawing.Point(1081, 718);
+            this.button_XoaDichVu.Name = "button_XoaDichVu";
+            this.button_XoaDichVu.Size = new System.Drawing.Size(160, 52);
+            this.button_XoaDichVu.TabIndex = 24;
+            this.button_XoaDichVu.Text = "Xóa dịch vụ";
+            this.button_XoaDichVu.UseVisualStyleBackColor = true;
+            // 
+            // textBox_GiaTienDV
+            // 
+            this.textBox_GiaTienDV.Location = new System.Drawing.Point(751, 295);
+            this.textBox_GiaTienDV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.textBox_GiaTienDV.Name = "textBox_GiaTienDV";
+            this.textBox_GiaTienDV.Size = new System.Drawing.Size(418, 31);
+            this.textBox_GiaTienDV.TabIndex = 6;
+            this.textBox_GiaTienDV.TextChanged += new System.EventHandler(this.DichVu_Control_ValueChanged);
             // 
             // label_GiaTienDV
             // 
@@ -545,6 +559,7 @@
             this.textBox_TenDV.Name = "textBox_TenDV";
             this.textBox_TenDV.Size = new System.Drawing.Size(418, 31);
             this.textBox_TenDV.TabIndex = 4;
+            this.textBox_TenDV.TextChanged += new System.EventHandler(this.DichVu_Control_ValueChanged);
             // 
             // label_TenDV
             // 
@@ -563,6 +578,7 @@
             this.textBox_idDV.Name = "textBox_idDV";
             this.textBox_idDV.Size = new System.Drawing.Size(418, 31);
             this.textBox_idDV.TabIndex = 2;
+            this.textBox_idDV.TextChanged += new System.EventHandler(this.DichVu_Control_ValueChanged);
             // 
             // label1_idDV
             // 
@@ -584,6 +600,7 @@
             this.IDDV,
             this.TENDV,
             this.GIATIEN});
+            this.dataGridView_DichVu.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_DichVu.Location = new System.Drawing.Point(26, 27);
             this.dataGridView_DichVu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView_DichVu.Name = "dataGridView_DichVu";
@@ -608,7 +625,7 @@
             // 
             // GIATIEN
             // 
-            dataGridViewCellStyle2.Format = "C0";
+            dataGridViewCellStyle2.Format = "C";
             dataGridViewCellStyle2.NullValue = "_";
             this.GIATIEN.DefaultCellStyle = dataGridViewCellStyle2;
             this.GIATIEN.HeaderText = "Giá tiền";
@@ -650,6 +667,7 @@
             this.comboBox_TrangThai.Name = "comboBox_TrangThai";
             this.comboBox_TrangThai.Size = new System.Drawing.Size(182, 33);
             this.comboBox_TrangThai.TabIndex = 25;
+            this.comboBox_TrangThai.SelectedIndexChanged += new System.EventHandler(this.Ban_Control_ValueChanged);
             // 
             // label_TrangThai
             // 
@@ -691,6 +709,7 @@
             this.button_XoaBan.TabIndex = 21;
             this.button_XoaBan.Text = "Xóa bàn";
             this.button_XoaBan.UseVisualStyleBackColor = true;
+            this.button_XoaBan.Click += new System.EventHandler(this.Button_XoaBan_Click);
             // 
             // textBox_GiaTienBan
             // 
@@ -699,6 +718,7 @@
             this.textBox_GiaTienBan.Name = "textBox_GiaTienBan";
             this.textBox_GiaTienBan.Size = new System.Drawing.Size(288, 31);
             this.textBox_GiaTienBan.TabIndex = 4;
+            this.textBox_GiaTienBan.TextChanged += new System.EventHandler(this.Ban_Control_ValueChanged);
             // 
             // label_GiaTienBan
             // 
@@ -731,11 +751,15 @@
             // 
             // dataGridView_Ban
             // 
+            this.dataGridView_Ban.AllowUserToAddRows = false;
+            this.dataGridView_Ban.AllowUserToDeleteRows = false;
+            this.dataGridView_Ban.AllowUserToResizeRows = false;
             this.dataGridView_Ban.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_Ban.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn_IDBAN,
             this.dataGridViewTextBoxColumn_GIATIEN,
             this.dataGridViewTextBoxColumn_TRANGTHAI});
+            this.dataGridView_Ban.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_Ban.Location = new System.Drawing.Point(24, 27);
             this.dataGridView_Ban.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView_Ban.Name = "dataGridView_Ban";
@@ -754,6 +778,9 @@
             // 
             // dataGridViewTextBoxColumn_GIATIEN
             // 
+            dataGridViewCellStyle3.Format = "C";
+            dataGridViewCellStyle3.NullValue = null;
+            this.dataGridViewTextBoxColumn_GIATIEN.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTextBoxColumn_GIATIEN.HeaderText = "Giá tiền";
             this.dataGridViewTextBoxColumn_GIATIEN.MinimumWidth = 8;
             this.dataGridViewTextBoxColumn_GIATIEN.Name = "dataGridViewTextBoxColumn_GIATIEN";
@@ -784,11 +811,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1674, 937);
             this.Controls.Add(this.panel_AdminControl);
-            this.Controls.Add(this.panel_AdminBan);
-            this.Controls.Add(this.panel_AdminDichVu);
             this.Controls.Add(this.panel_AdminNhanVien);
             this.Controls.Add(this.panel_ThongKe);
+            this.Controls.Add(this.panel_AdminBan);
+            this.Controls.Add(this.panel_AdminDichVu);
+            this.DoubleBuffered = true;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(1696, 993);
             this.Name = "AdminMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản trị viên";
@@ -834,9 +863,8 @@
         private TextBox textBox_idDV;
         private Label label1_idDV;
         private DataGridView dataGridView_DichVu;
-        private TextBox textBox1;
+        private TextBox textBox_GiaTienDV;
         private Label label_GiaTienDV;
-        private Button button_DVSave;
         private Panel panel_AdminBan;
         private DataGridView dataGridView_Ban;
         private TextBox textBox_idBan;
@@ -853,12 +881,8 @@
         private DataGridViewTextBoxColumn MATKHAU;
         private DataGridViewTextBoxColumn QUYENADMIN;
         private DataGridViewTextBoxColumn TENDANGNHAP;
-        private DataGridViewTextBoxColumn IDDV;
-        private DataGridViewTextBoxColumn TENDV;
-        private DataGridViewTextBoxColumn GIATIEN;
         private TableLayoutPanel tableLayoutPanel1;
         private DateTimePicker dateTimePicker_NgaySinh;
-        private Button button_ThemDV;
         private Button button_ChinhSuaNhanVien;
         private Button button_ThemNhanVien;
         private Button button_XoaNhanVien;
@@ -866,10 +890,16 @@
         private Button button_ChinhSuaBan;
         private Button button_ThemBan;
         private Button button_XoaBan;
+        private Label label_TrangThai;
+        private ComboBox comboBox_TrangThai;
+        private DataGridViewTextBoxColumn IDDV;
+        private DataGridViewTextBoxColumn TENDV;
+        private DataGridViewTextBoxColumn GIATIEN;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_IDBAN;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_GIATIEN;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TRANGTHAI;
-        private Label label_TrangThai;
-        private ComboBox comboBox_TrangThai;
+        private Button button_ChinhSuaDichVu;
+        private Button button_ThemDichVu;
+        private Button button_XoaDichVu;
     }
 }

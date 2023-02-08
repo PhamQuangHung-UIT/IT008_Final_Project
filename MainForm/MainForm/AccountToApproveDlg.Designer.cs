@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView_NhanVien = new System.Windows.Forms.DataGridView();
             this.IDNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HOTENNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,9 +87,9 @@
             // 
             // NGAYSINH
             // 
-            dataGridViewCellStyle1.Format = "d";
-            dataGridViewCellStyle1.NullValue = null;
-            this.NGAYSINH.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Format = "d";
+            dataGridViewCellStyle4.NullValue = null;
+            this.NGAYSINH.DefaultCellStyle = dataGridViewCellStyle4;
             this.NGAYSINH.HeaderText = "Ngày sinh";
             this.NGAYSINH.MinimumWidth = 8;
             this.NGAYSINH.Name = "NGAYSINH";
@@ -134,6 +134,7 @@
             this.button_Duyet.TabIndex = 2;
             this.button_Duyet.Text = "Duyệt";
             this.button_Duyet.UseVisualStyleBackColor = true;
+            this.button_Duyet.Click += new System.EventHandler(this.Button_Duyet_Click);
             // 
             // button_DuyetTatCa
             // 
@@ -143,6 +144,7 @@
             this.button_DuyetTatCa.TabIndex = 3;
             this.button_DuyetTatCa.Text = "Duyệt tất cả";
             this.button_DuyetTatCa.UseVisualStyleBackColor = true;
+            this.button_DuyetTatCa.Click += new System.EventHandler(this.Button_DuyetTatCa_Click);
             // 
             // button_Xoa
             // 
@@ -153,6 +155,7 @@
             this.button_Xoa.TabIndex = 4;
             this.button_Xoa.Text = "Xóa";
             this.button_Xoa.UseVisualStyleBackColor = true;
+            this.button_Xoa.Click += new System.EventHandler(this.Button_Xoa_Click);
             // 
             // button_XoaTatCa
             // 
@@ -162,6 +165,7 @@
             this.button_XoaTatCa.TabIndex = 5;
             this.button_XoaTatCa.Text = "Xóa tất cả";
             this.button_XoaTatCa.UseVisualStyleBackColor = true;
+            this.button_XoaTatCa.Click += new System.EventHandler(this.Button_XoaTatCa_Click);
             // 
             // label_ZeroAccount
             // 

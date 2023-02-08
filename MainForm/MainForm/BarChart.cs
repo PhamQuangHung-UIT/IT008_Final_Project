@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MainForm
 {
@@ -18,7 +19,6 @@ namespace MainForm
         private bool isValueLabelShow;
         private bool autoCalculateVerticalValueList;
         private double zoomRatio = 1;
-        private readonly Size defaultControlSize;
         private readonly List<T> verticalValueList;
         private readonly List<ChartItem<T>> chartItems;
 
@@ -28,7 +28,6 @@ namespace MainForm
             BackColor = Color.White;
             chartItems = new List<ChartItem<T>>();
             verticalValueList = new List<T>();
-            defaultControlSize = Size;
         }
 
         public BarChart(IContainer container) : this()
@@ -46,7 +45,7 @@ namespace MainForm
                 Graphics graphics = e.Graphics;
                 SizeF horizontalTextSize = graphics.MeasureString(horizontalText, Font);
                 SizeF verticalTextSize = graphics.MeasureString(verticalText, Font);
-                float horizontalAxisLength = 840;
+                float horizontalAxisLength = 960;
                 float horizontalPerItemWidth = (horizontalAxisLength - 30 - horizontalTextSize.Width) / chartItems.Count;
                 float maxTextWidth = graphics.MeasureString(chartItems.MaxBy(item => item?.Name?.Length)?.Name, Font).Width;
                 float verticalAxisLength = 360;
@@ -168,7 +167,11 @@ namespace MainForm
             Refresh();
         }
 
-        private void CalculateTheVerticalValue()
+        /// <summary>
+        /// Generates a list of values that appears on the vertical axis. This function will be automatically
+        /// called before the validation when the <see cref="AutoCalculateVerticalValueList"/> is set to true
+        /// </summary>
+        public void CalculateTheVerticalValue()
         {
             if (ChartItems.Count == 0) return;
             verticalValueList.Clear();
@@ -309,16 +312,13 @@ namespace MainForm
         }
 
         /// <summary>
-        /// Gets the value indicating the expectation of all values from <see cref="ChartItems"/>
+        /// Gets the value indicating the expectation of all values as <see cref="double"/> from <see cref="ChartItems"/>
         /// </summary>
         public double Expectation
         {
             get
             {
-                double val = 0;
-                for (int i = 0; i < chartItems.Count; i++)
-                    val += Convert.ToDouble(chartItems[i].Value);
-                return val / chartItems.Count;
+                return Total / chartItems.Count;
             }
         }
 
@@ -333,6 +333,17 @@ namespace MainForm
                 if (list.Count % 2 == 0)
                     return (T)(object)((Convert.ToDouble(list[list.Count / 2 - 1].Value) + Convert.ToDouble(list[list.Count / 2].Value)) / 2);
                 return list[list.Count / 2].Value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the value indicating the total of all values as <see cref="double"/> from <see cref="ChartItems"/>
+        /// </summary>
+        public double Total
+        {
+            get
+            {
+                return (double)chartItems.Sum(x => (double)(object)x.Value);
             }
         }
 
@@ -359,7 +370,7 @@ namespace MainForm
         }
 
         /// <summary>
-        /// Indicates the title to be appeared at top of the bar chart
+        /// Gets or sets a value indicating the title to be appeared at top of the bar chart
         /// </summary>
         public string? Title
         {

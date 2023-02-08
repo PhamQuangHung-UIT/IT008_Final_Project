@@ -35,7 +35,7 @@ namespace MainForm
                 if (tableResult.Rows[0]["MATKHAU"].ToString() != textBox_MatKhau.Text)
                     throw new Exception("Mật khẩu sai. Vui lòng nhập lại");
                 if (tableResult.Rows[0]["QUYENADMIN"] == Convert.DBNull)
-                throw new Exception("Thông tin đăng ký chưa được phê duyệt. Vui lòng thông báo cho quản trị viên để khắc phục");
+                    throw new Exception("Thông tin đăng ký chưa được phê duyệt. Vui lòng thông báo cho quản trị viên để khắc phục");
                 FMain.IDNV_Current = (int)tableResult.Rows[0]["IDNV"];
                 FMain.IsAdminState = (bool)tableResult.Rows[0]["QUYENADMIN"];
                 DialogResult = DialogResult.OK;

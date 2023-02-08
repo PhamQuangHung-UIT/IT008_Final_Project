@@ -126,7 +126,7 @@ namespace MainForm
                 return true;
             } catch (Exception ex)
             {
-                MessageBox.Show("Đăng ký không thành công.\n" + ex.Message, "Lỗi đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }

@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using System.Runtime.Intrinsics.X86;
+#nullable disable
 
 namespace MainForm
 {
@@ -8,7 +10,7 @@ namespace MainForm
     public partial class StatisticsControl : UserControl
     {
         private DateTime startDate, endDate;
-        private DataTable? currentTable;
+        private DataTable currentTable;
         private readonly BarChart<double> barChart;
         private enum TableType
         {
@@ -16,11 +18,12 @@ namespace MainForm
             Dịch_Vụ,
             Khách_Hàng,
             Nhân_Viên,
-            Bàn
+            Bàn,
         }
-        private const int dayIndex = 0, monthIndex = 1;
+        private enum GroupBy { ID, Days, Months}
         private readonly float[] zoomRatioArr = { 0.25f, 0.5f, 0.75f, 1.0f, 1.5f, 2.0f };
         private int currentZoomRatioIndex = 3;
+        private int maxPageNum = 0, currentPageNum = 1, beginIndex, endIndex;
         private Size defaultBarChartSize;
         public StatisticsControl()
         {
@@ -39,7 +42,7 @@ namespace MainForm
 
         private void StatisticsControl_Load(object sender, EventArgs e)
         {
-            comboBox_TimeSpan.SelectedIndex = 0;
+            comboBox_GroupBy.SelectedIndex = 0;
             startDate = endDate = DateTime.Now.Date;
 
             while (startDate.DayOfWeek != DayOfWeek.Sunday || DateTime.Now.Date - startDate.Date == TimeSpan.Zero) 
@@ -53,6 +56,10 @@ namespace MainForm
             
             panel_Chart.Controls.Add(barChart);
             defaultBarChartSize = barChart.Size;
+
+            button_BarColor.BackColor = barChart.BarColor;
+            button_BarBorderColor.BackColor = barChart.BarBorderColor;
+            button_AxisColor.BackColor = barChart.AxisColor;
         }
 
         private void CheckBox_ValueLabel_CheckedChanged(object sender, EventArgs e)
@@ -62,103 +69,169 @@ namespace MainForm
 
         private void ComboBox_TableType_SelectionChangeCommitted(object sender, EventArgs e)
         {
+            DataTable table;
             switch ((TableType)comboBox_TableType.SelectedIndex)
             {
                 case TableType.Hóa_Đơn:
                     label_ID.Text = "Mã hóa đơn";
-                    currentTable = FMain.GetSqlData("SELECT * FROM HOADON");
+                    table = FMain.GetSqlData("SELECT * FROM HOADON");
                     break;
                 case TableType.Dịch_Vụ:
                     label_ID.Text = "Mã dịch vụ";
-                    currentTable = FMain.GetSqlData("SELECT * FROM DICHVU");
+                    table = FMain.GetSqlData("SELECT * FROM DICHVU");
                     break;
                 case TableType.Nhân_Viên:
                     label_ID.Text = "Mã nhân viên";
-                    currentTable = FMain.GetSqlData("SELECT * FROM NHANVIEN");
+                    table = FMain.GetSqlData("SELECT * FROM NHANVIEN");
                     break;
                 case TableType.Khách_Hàng:
                     label_ID.Text = "Mã khách hàng";
-                    currentTable = FMain.GetSqlData("SELECT * FROM KHACHHANG");
+                    table = FMain.GetSqlData("SELECT * FROM KHACHHANG");
                     break;
                 default:
                     label_ID.Text = "Mã bàn";
-                    currentTable = FMain.GetSqlData("SELECT * FROM BAN");
+                    table = FMain.GetSqlData("SELECT * FROM BAN");
                     break;
             }
             comboBox_ID.Items.Clear();
             comboBox_Name.Items.Clear();
             comboBox_ID.SelectedIndex = -1;
             comboBox_Name.SelectedIndex = -1;
-            comboBox_ID.Items.AddRange(currentTable.Rows.Cast<DataRow>().Select(row => row[0]).ToArray());
+            comboBox_ID.Text = "";
+            comboBox_Name.Text = "";
+            comboBox_ID.Items.AddRange(table.Rows.Cast<DataRow>().Select(row => row[0]).ToArray());
             if (new[] { "Bàn", "Hóa đơn" }.Any(s => s == comboBox_TableType.SelectedItem.ToString()))
-                comboBox_Name.Items.AddRange((from row in currentTable.Rows.Cast<DataRow>() select $"{comboBox_TableType.SelectedItem} {row[0]}").ToArray());
-            else comboBox_Name.Items.AddRange((from row in currentTable.Rows.Cast<DataRow>() select row[1]).ToArray());
+                comboBox_Name.Items.AddRange((from row in table.Rows.Cast<DataRow>() select $"{comboBox_TableType.SelectedItem} {row[0]}").ToArray());
+            else comboBox_Name.Items.AddRange((from row in table.Rows.Cast<DataRow>() select row[1]).ToArray());
         }
 
         private void ButtonShow_Click(object sender, EventArgs e)
         {
-            var startDate = dateTimePicker_StartDate.Value.Date;
-            var endDate = dateTimePicker_EndDate.Value.Date;
+            Cursor = Cursors.WaitCursor;
+            startDate = dateTimePicker_StartDate.Value.Date;
+            endDate = dateTimePicker_EndDate.Value.Date;
             try
             {
-                switch (comboBox_TimeSpan.SelectedIndex)
+                if (comboBox_TableType.SelectedIndex == -1)
+                    throw new("Vui lòng chọn mục \"Loại đối tượng\".");
+                if (comboBox_GroupBy.SelectedIndex == -1)
+                    throw new("Vui lòng chọn mục \"Hiển thị doanh thu từng cột theo\".");
+                string tableString = $"SELECT {GetSelect()}, DOANHTHU = SUM(THANHTIEN) FROM {GetTableName()}" +
+                                    $" {GetCondition()}" +
+                                    $" GROUP BY {GetGroupBy()}";
+
+                barChart.AutoCalculateVerticalValueList = true;
+                string format;
+                switch ((GroupBy)comboBox_GroupBy.SelectedIndex)
                 {
-                    case dayIndex:
-                        if (startDate >= endDate)
-                            throw new Exception("Thời điểm kết thúc phải lớn hơn thời điểm bắt đầu. Vui lòng thử lại");
-                        if (endDate - startDate > TimeSpan.FromDays(30))
-                            throw new Exception("Biểu đồ chỉ hiển thị tối đa 30 ngày. Vui lòng thử lại");
-                        barChart.ChartItems.Clear();
-                        for (var i = startDate; i != endDate + TimeSpan.FromDays(1); i += TimeSpan.FromDays(1))
+                    case GroupBy.ID:
+                        currentTable = FMain.GetSqlData(tableString);
+                        if (startDate > endDate)
+                            throw new Exception("Thời điểm kết thúc phải lớn hơn hoặc bằng thời điểm bắt đầu.");
+                        maxPageNum = (int)Math.Ceiling(currentTable.Rows.Count / 15.0);
+                        format = "{0}";
+                        barChart.HorizontalText = (TableType)comboBox_TableType.SelectedIndex switch
                         {
-                            string queryString = $"SELECT SUM(THANHTIEN) FROM {GetTableName()} " +
-                                $"WHERE CONVERT(VARCHAR, GIOLAPHD, 103) = '{i:dd/MM/yyyy}' {GetCondition()}" +
-                                $"GROUP BY CAST(GIOLAPHD AS DATE)";
-                            var table = FMain.GetSqlData(queryString);
-                            double value = Convert.ToDouble(table.Rows.Count == 0 ? 0 : table.Rows[0][0]);
-                            barChart.ChartItems.Add(new ChartItem<double>($"{i:dd/MM/yyyy}\n{i:dddd}", value));
-                        }
+                            TableType.Bàn => "Bàn",
+                            TableType.Hóa_Đơn => "Hóa đơn",
+                            TableType.Nhân_Viên => "Nhân viên",
+                            TableType.Khách_Hàng => "Khách hàng",
+                            _ => "Dịch vụ"
+                        };
                         break;
-                    case monthIndex:
-                        var numOfMonths = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month;
+                    case GroupBy.Days:
+                        string queryString1 = $"SELECT Dates, DOANHTHU FROM (SELECT  TOP (DATEDIFF(DAY, '{startDate:yyy-M-d}', '{endDate:yyy-M-d}') + 1) " +
+                            $"Dates = DATEADD(DAY, ROW_NUMBER() OVER(ORDER BY s.object_id) - 1, '{startDate:yyy-M-d}') " +
+                            $"FROM sys.all_objects s) a LEFT JOIN ({tableString}) b ON Dates = NGHD";
+                        currentTable = FMain.GetSqlData(queryString1);
+                        if (startDate > endDate)
+                            throw new Exception("Thời điểm kết thúc phải lớn hơn hoặc bằng thời điểm bắt đầu.");
+                        maxPageNum = (int)Math.Ceiling(((endDate - startDate).Days + 1) / 15.0);
+                        format = "{0:dd/MM/yyyy}";
+                        barChart.HorizontalText = "";
+                        break;
+                    default:
+                        string queryString2 = $"SELECT Dates, DOANHTHU FROM (SELECT  TOP (DATEDIFF(MONTH, '{startDate:yyy-M-d}', '{endDate:yyy-M-d}') + 1) " +
+                            $"Dates = DATEADD(MONTH, ROW_NUMBER() OVER(ORDER BY s.object_id) - 1, '{startDate:yyy-M-d}') " +
+                            $"FROM sys.all_objects s) a LEFT JOIN ({tableString}) b ON YEAR(Dates) = NAM AND MONTH(Dates) = THANG";
+                        currentTable = FMain.GetSqlData(queryString2);
+                        var numOfMonths = (endDate.Year - startDate.Year) * 12 + endDate.Month - startDate.Month + 1;
                         if (numOfMonths <= 0)
-                            throw new Exception("Thời điểm kết thúc phải lớn hơn thời điểm bắt đầu");
-                        if (numOfMonths > 24)
-                            throw new Exception("Biểu đồ chỉ hiển thị tối đa 24 tháng. Vui lòng thử lại");
-                        barChart.ChartItems.Clear();
-                        for (DateTime i = new(startDate.Year, startDate.Month, 1); i <= endDate; i = i.AddMonths(1))
-                        {
-                            string queryString = $"SELECT SUM(THANHTIEN) FROM {GetTableName()} " +
-                                                $"WHERE YEAR(GIOLAPHD) = {i.Year} and MONTH(GIOLAPHD) = {i.Month} {GetCondition()}" +
-                                                $"GROUP BY YEAR(GIOLAPHD), MONTH(GIOLAPHD)";
-                            var table = FMain.GetSqlData(queryString);
-                            double value = Convert.ToDouble(table.Rows.Count == 0 ? 0 : table.Rows[0][0]);
-                            barChart.ChartItems.Add(new ChartItem<double>($"{i:'Tháng' MM/yyyy}", value));
-                        }
+                            throw new Exception("Thời điểm kết thúc phải lớn hơn hoặc bằng thời điểm bắt đầu");
+                        maxPageNum = (int)Math.Ceiling(numOfMonths / 15.0);
+                        format = "{0:'Tháng' MM/yyyy}";
+                        barChart.HorizontalText = "";
                         break;
                 }
+
+                if (maxPageNum > 0)
+                    currentPageNum = 1;
+                else currentPageNum = 0;
+                label_Page.Text = $"Trang {currentPageNum}/{maxPageNum}";
+                beginIndex = 0;
+                endIndex = 15;
+
                 barChart.IsValueLabelShowed = checkBox_ValueLabel.Checked;
-                textBox_MaxValue.Text = $"{barChart.MaxValue:c2}";
-                textBox_MinValue.Text = $"{barChart.MinValue:c2}";
-                textBox_AverageValue.Text = $"{barChart.Expectation:c2}";
+                barChart.BarColor = button_BarColor.BackColor;
+                barChart.BarBorderColor = button_BarBorderColor.BackColor;
+                barChart.AxisColor = button_AxisColor.BackColor;
+                if (currentTable.Rows.Count > 0)
+                {
+                    var rows = currentTable.Rows.Cast<DataRow>();
+                    var total = rows.Sum(row => Convert.ToDecimal(Convert.IsDBNull(row[1]) ? null : row[1]));
+                    var avg = rows.Average(row => Convert.ToDecimal(Convert.IsDBNull(row[1]) ? null : row[1]));
+                    var max = rows.Max(row => Convert.ToDecimal(Convert.IsDBNull(row[1]) ? null : row[1]));
+                    var min = rows.Min(row => Convert.ToDecimal(Convert.IsDBNull(row[1]) ? null : row[1]));
+                    textBox_Total.Text = $"{total:C2}";
+                    textBox_MaxValue.Text = $"{max:C2}";
+                    textBox_MinValue.Text = $"{min:C2}";
+                    textBox_AverageValue.Text = $"{avg:C2}";
+                    barChart.ChartItems.Clear();
+                    barChart.ChartItems.Add(new("", Convert.ToDouble(max)));
+                    barChart.CalculateTheVerticalValue();
+                    barChart.AutoCalculateVerticalValueList = false;
+                    barChart.ChartItems.Clear();
+                    for (int i = 0; i < currentTable.Rows.Count && i < 15; i++)
+                    {
+                        var value = Convert.ToDouble(Convert.IsDBNull(currentTable.Rows[i][1]) ? null : currentTable.Rows[i][1]);
+                        barChart.ChartItems.Add(new(string.Format(format, currentTable.Rows[i][0]), value));
+                    }
+                }
+                else
+                {
+                    textBox_Total.Text = $"{0:C2}";
+                    textBox_MaxValue.Text = $"{0:C2}";
+                    textBox_MinValue.Text = $"{0:C2}";
+                    textBox_AverageValue.Text = $"{0:C2}";
+                }
                 splitContainer_Top.Panel2Collapsed = false;
+                splitContainer_Main.SplitterDistance = splitContainer_Top.Bounds.Height;
+
                 barChart.Refresh();
+                if (currentTable.Rows.Count == 0)
+                    MessageBox.Show("Không tìm thấy giá trị thỏa mãn","Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex) 
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
+            Cursor = Cursors.Default;
         }
 
-        private void ComboBox_TimeSpan_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_GroupBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox_TimeSpan.SelectedIndex) 
+            comboBox_ID.Enabled = comboBox_Name.Enabled = (GroupBy)comboBox_GroupBy.SelectedIndex != GroupBy.ID;
+            switch ((GroupBy)comboBox_GroupBy.SelectedIndex)
             {
-                case dayIndex:
+                case GroupBy.ID:
+                    comboBox_ID.SelectedIndex = comboBox_Name.SelectedIndex = -1;
+                    comboBox_ID.Text = comboBox_Name.Text = "";
+                    dateTimePicker_StartDate.CustomFormat = dateTimePicker_EndDate.CustomFormat = "dd/MM/yyyy";
+                    break;
+                case GroupBy.Days:
                     dateTimePicker_StartDate.CustomFormat = dateTimePicker_EndDate.CustomFormat = "dd/MM/yyyy"; 
                     break;
-                case monthIndex:
+                case GroupBy.Months:
                     dateTimePicker_StartDate.CustomFormat = dateTimePicker_EndDate.CustomFormat = "'Tháng' MM/yyyy";
                     break;
             }
@@ -174,27 +247,107 @@ namespace MainForm
             comboBox_Name.SelectedIndex = comboBox_ID.SelectedIndex;
         }
 
-        private void Panel_Chart_SizeChanged(object sender, EventArgs e)
-        {
-            barChart.Height = panel_Chart.Height + 100;
-        }
-
         private void Button_ZoomIn_Click(object sender, EventArgs e)
         {
             currentZoomRatioIndex++;
-            if (currentZoomRatioIndex >= zoomRatioArr.Length) currentZoomRatioIndex = zoomRatioArr.Length - 1;
+            if (currentZoomRatioIndex == zoomRatioArr.Length - 1)
+                button_ZoomIn.Enabled = false;
+
             barChart.ZoomRatio = zoomRatioArr[currentZoomRatioIndex];
             barChart.Width = (int)(defaultBarChartSize.Width * zoomRatioArr[currentZoomRatioIndex]);
             barChart.Height = (int)(defaultBarChartSize.Height * zoomRatioArr[currentZoomRatioIndex]);
+            button_ZoomOut.Enabled = true;
         }
 
         private void Button_ZoomOut_Click(object sender, EventArgs e)
         {
             currentZoomRatioIndex--;
-            if (currentZoomRatioIndex < 0) currentZoomRatioIndex = 0;
+            if (currentZoomRatioIndex == 0)
+                button_ZoomOut.Enabled = false;
+
             barChart.ZoomRatio = zoomRatioArr[currentZoomRatioIndex];
             barChart.Width = (int)(defaultBarChartSize.Width * zoomRatioArr[currentZoomRatioIndex]);
             barChart.Height = (int)(defaultBarChartSize.Height * zoomRatioArr[currentZoomRatioIndex]);
+            button_ZoomIn.Enabled = true;
+        }
+
+        private void Button_PageDecrease_Click(object sender, EventArgs e)
+        {
+            currentPageNum--;
+            label_Page.Text = $"Trang {currentPageNum}/{maxPageNum}";
+            beginIndex -= 15;
+            if (beginIndex < 0) beginIndex = 0;
+            endIndex = beginIndex + 15;
+            barChart.ChartItems.Clear();
+            switch ((GroupBy)comboBox_GroupBy.SelectedIndex)
+            {
+                case GroupBy.Months:
+                    for (int i = beginIndex; i < endIndex; i++)
+                    {
+                        var value = Convert.ToDouble(Convert.IsDBNull(currentTable.Rows[i][1]) ? null : currentTable.Rows[i][1]);
+                        barChart.ChartItems.Add(new($"{currentTable.Rows[i][0]:'Tháng' MM/yyyy}", value));
+                    }
+                    break;
+                default:
+                    for (int i = beginIndex; i < endIndex; i++)
+                    {
+                        var value = Convert.ToDouble(Convert.IsDBNull(currentTable.Rows[i][1]) ? null : currentTable.Rows[i][1]);
+                        barChart.ChartItems.Add(new($"{currentTable.Rows[i][0]:dd/MM/yyyy}", value));
+                    }
+                    break;
+
+            }
+            barChart.Refresh();
+        }
+
+        private void Button_PageIncrease_Click(object sender, EventArgs e)
+        {
+            currentPageNum++;
+            label_Page.Text = $"Trang {currentPageNum}/{maxPageNum}";
+            endIndex += 15;
+            if (endIndex > currentTable.Rows.Count) endIndex = currentTable.Rows.Count;
+            beginIndex = endIndex - 15;
+            barChart.ChartItems.Clear();
+            switch ((GroupBy)comboBox_GroupBy.SelectedIndex)
+            {
+                case GroupBy.Months:
+                    for (int i = beginIndex; i < endIndex; i++)
+                    {
+                        var value = Convert.ToDouble(Convert.IsDBNull(currentTable.Rows[i][1]) ? null : currentTable.Rows[i][1]);
+                        barChart.ChartItems.Add(new($"{currentTable.Rows[i][0]:'Tháng' MM/yyyy}", value));
+                    }
+                    break;
+                default:
+                    for (int i = beginIndex; i < endIndex; i++)
+                    {
+                        var value = Convert.ToDouble(Convert.IsDBNull(currentTable.Rows[i][1]) ? null : currentTable.Rows[i][1]);
+                        barChart.ChartItems.Add(new($"{currentTable.Rows[i][0]:dd/MM/yyyy}", value));
+                    }
+                    break;
+
+            }
+            barChart.Refresh();
+        }
+
+        private void Label_Page_TextChanged(object sender, EventArgs e)
+        {
+            button_PageDecrease.Enabled = currentPageNum > 1;
+            button_PageIncrease.Enabled = currentPageNum != maxPageNum;
+        }
+
+        private void ButtonColor_Click(object sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                ColorDialog dlg = new()
+                {
+                    Color = btn.BackColor,
+                };
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    btn.BackColor = dlg.Color;
+                }
+            }
         }
 
         private string GetTableName()
@@ -203,32 +356,72 @@ namespace MainForm
             {
                 TableType.Hóa_Đơn => "HOADON",
                 TableType.Dịch_Vụ => "(SELECT IDHD, GIOLAPHD FROM HOADON) AS h JOIN (" +
-                                    "SELECT IDHD, h.IDDV, THANHTIEN = SOLUONG * GIATIEN " +
+                                    "SELECT IDHD, h.IDDV, TENDV, THANHTIEN = SOLUONG * GIATIEN " +
                                     "FROM HOADONDV h JOIN DICHVU d ON h.IDDV = d.IDDV" +
                                     ") AS c ON h.IDHD = c.IDHD",
                 TableType.Nhân_Viên => "HOADON h JOIN NHANVIEN n ON h.IDNV = n.IDNV",
                 TableType.Khách_Hàng => "HOADON h JOIN KHACHHANG k ON h.IDKH = k.IDKH",
-                TableType.Bàn => "HOADON h JOIN (" +
+                _                   => "HOADON h JOIN (" +
                                         "SELECT IDHD, h.IDBAN, " +
                                         "THANHTIEN = (DATEPART(HOUR, GIOKETTHUC - GIOBATDAU) + DATEPART(MINUTE, GIOKETTHUC - GIOBATDAU)/60.0) * GIATIEN " +
                                         "FROM HOADONBAN h JOIN BAN b ON h.IDBAN = b.IDBAN) AS c ON h.IDHD = c.IDHD",
-                _ => throw new Exception("Vui lòng chọn \"Loại đối tượng\".")
             };
         }
 
         private string GetCondition()
         {
-            if (comboBox_ID.SelectedIndex == -1) return "";
-            return (TableType)comboBox_TableType.SelectedIndex switch
+            string idString;
+            if (comboBox_ID.SelectedIndex == -1)
+                idString = "WHERE ";
+            else idString = (TableType)comboBox_TableType.SelectedIndex switch
             {
-                TableType.Hóa_Đơn => $"AND IDHD = {comboBox_ID.SelectedItem}",
-                TableType.Dịch_Vụ => $"AND IDDV = {comboBox_ID.SelectedItem}",
-                TableType.Nhân_Viên => $"AND IDNV = {comboBox_ID.SelectedItem}",
-                TableType.Khách_Hàng => $"AND IDKH = {comboBox_ID.SelectedItem}",
-                TableType.Bàn => $"AND IDBAN = {comboBox_ID.SelectedItem}",
-                _ => throw new Exception("Vui lòng chọn \"Loại đối tượng\".")
+                TableType.Hóa_Đơn => $"WHERE IDHD = {comboBox_ID.SelectedItem} AND",
+                TableType.Dịch_Vụ => $"WHERE IDDV = {comboBox_ID.SelectedItem} AND",
+                TableType.Nhân_Viên => $"WHERE h.IDNV = {comboBox_ID.SelectedItem} AND",
+                TableType.Khách_Hàng => $"WHERE h.IDKH = {comboBox_ID.SelectedItem} AND",
+                _ => $"WHERE IDBAN = {comboBox_ID.SelectedItem} AND",
+            };
+            return (GroupBy)comboBox_GroupBy.SelectedIndex switch
+            {
+                GroupBy.ID => $"WHERE CAST(GIOLAPHD AS DATE) BETWEEN '{startDate:yyy-M-d}' AND '{endDate:yyy-M-d}'",
+                GroupBy.Days => $"{idString} CAST(GIOLAPHD AS DATE) BETWEEN '{startDate:yyy-M-d}' AND '{endDate:yyy-M-d}'",
+                _ => $"{idString} ({endDate:yyy} - YEAR(GIOLAPHD)) * 12 + {endDate:MM} - MONTH(GIOLAPHD) " +
+                        $"BETWEEN 0 AND ({endDate:yyy} - {startDate:yyy}) * 12 + {endDate:MM} - {startDate:MM}",
             };
         }
 
+        private string GetGroupBy()
+        {
+            return (GroupBy)comboBox_GroupBy.SelectedIndex switch
+            {
+                GroupBy.ID => (TableType)comboBox_TableType.SelectedIndex switch
+                {
+                    TableType.Bàn => "IDBAN",
+                    TableType.Nhân_Viên => "h.IDNV, HOTENNV",
+                    TableType.Khách_Hàng => "h.IDKH, HOTEN",
+                    TableType.Dịch_Vụ => "IDDV, TENDV",
+                    _ => "IDHD",
+                },
+                GroupBy.Days => "CAST(GIOLAPHD AS DATE)",
+                _ => "YEAR(GIOLAPHD), MONTH(GIOLAPHD)"
+            };
+        }
+
+        private string GetSelect()
+        {
+            return (GroupBy)comboBox_GroupBy.SelectedIndex switch
+            {
+                GroupBy.ID => (TableType)comboBox_TableType.SelectedIndex switch
+                {
+                    TableType.Bàn => "NAME = N'Bàn ' + CAST(IDBAN AS VARCHAR)",
+                    TableType.Nhân_Viên => "NAME = HOTENNV + ' (' + CAST(h.IDNV AS VARCHAR) + ')'",
+                    TableType.Khách_Hàng => "NAME = HOTEN + ' (' + CAST(h.IDKH AS VARCHAR) + ')'",
+                    TableType.Dịch_Vụ => "NAME = TENDV + ' (' + CAST(IDDV AS VARCHAR) + ')'",
+                    _ => "NAME = N'Hóa đơn ' + CAST(IDHD AS VARCHAR)",
+                },
+                GroupBy.Days => "NGHD = CAST(GIOLAPHD AS DATE)",
+                _ => "NAM = YEAR(GIOLAPHD), THANG = MONTH(GIOLAPHD)"
+            };
+        }
     }
 }

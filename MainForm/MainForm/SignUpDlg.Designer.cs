@@ -58,7 +58,7 @@
             // label_CCCDNV
             // 
             this.label_CCCDNV.AutoSize = true;
-            this.label_CCCDNV.Location = new System.Drawing.Point(55, 227);
+            this.label_CCCDNV.Location = new System.Drawing.Point(55, 224);
             this.label_CCCDNV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_CCCDNV.Name = "label_CCCDNV";
             this.label_CCCDNV.Size = new System.Drawing.Size(144, 25);
@@ -77,7 +77,7 @@
             // label_NgaySinhNV
             // 
             this.label_NgaySinhNV.AutoSize = true;
-            this.label_NgaySinhNV.Location = new System.Drawing.Point(55, 147);
+            this.label_NgaySinhNV.Location = new System.Drawing.Point(55, 146);
             this.label_NgaySinhNV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_NgaySinhNV.Name = "label_NgaySinhNV";
             this.label_NgaySinhNV.Size = new System.Drawing.Size(95, 25);
@@ -87,7 +87,7 @@
             // label_TenNV
             // 
             this.label_TenNV.AutoSize = true;
-            this.label_TenNV.Location = new System.Drawing.Point(55, 74);
+            this.label_TenNV.Location = new System.Drawing.Point(55, 71);
             this.label_TenNV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_TenNV.Name = "label_TenNV";
             this.label_TenNV.Size = new System.Drawing.Size(71, 25);
@@ -125,7 +125,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(55, 310);
+            this.label1.Location = new System.Drawing.Point(55, 307);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 25);
             this.label1.TabIndex = 32;
@@ -134,7 +134,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(55, 385);
+            this.label2.Location = new System.Drawing.Point(55, 382);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(86, 25);
             this.label2.TabIndex = 34;
@@ -179,7 +179,7 @@
             // checkBox_ShowPassword
             // 
             this.checkBox_ShowPassword.AutoSize = true;
-            this.checkBox_ShowPassword.Location = new System.Drawing.Point(566, 381);
+            this.checkBox_ShowPassword.Location = new System.Drawing.Point(568, 381);
             this.checkBox_ShowPassword.Name = "checkBox_ShowPassword";
             this.checkBox_ShowPassword.Size = new System.Drawing.Size(153, 29);
             this.checkBox_ShowPassword.TabIndex = 39;

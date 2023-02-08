@@ -6,9 +6,9 @@ using System.Data.SqlClient;
 
 namespace MainForm
 {
-    public partial class AddTableDlg : Form
+    public partial class AddService : Form
     {
-        public AddTableDlg()
+        public AddService()
         {
             InitializeComponent();
         }
@@ -16,12 +16,13 @@ namespace MainForm
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            textBox_idBan.Text = FMain.GetSqlData("SELECT IDBAN + 1 FROM BAN ORDER BY IDBAN DESC").Rows[0][0].ToString();
+            textBox_idDV.Text = FMain.GetSqlData("SELECT IDDV + 1 FROM DICHVU ORDER BY IDDV DESC").Rows[0][0].ToString();
+            textBox_GiaTienDV.Text = "0";
         }
 
         private void Button_Save_Click(object sender, EventArgs e)
         {
-            string commandText = $"INSERT INTO BAN VALUES({textBox_idBan.Text}, {textBox_GiaTienBan.Text}, 0)";
+            string commandText = $"INSERT INTO DICHVU VALUES({textBox_idDV.Text}, N'{textBox_TenDV.Text}', {textBox_GiaTienDV.Text})";
             try
             {
                 FMain.SendSqlCommand(commandText);
@@ -33,8 +34,9 @@ namespace MainForm
                 {
                     string message = error.Number switch
                     {
-                        2627 => "Mã bàn trùng lặp.",
                         207 => "Giá trị bạn vừa nhập không đúng định dạng.",
+                        2627 => "Mã dịch vụ trùng lặp.",
+                        2628 => "Độ dài chuỗi kí tự vượt quá giới hạn",
                         _ => $"Lỗi không xác định. Chi tiết lỗi như dưới:\n{error.Message}",
                     };
                     MessageBox.Show(message, "Thêm thất bại", MessageBoxButtons.OK, MessageBoxIcon.Error);

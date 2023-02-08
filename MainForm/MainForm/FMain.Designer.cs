@@ -59,7 +59,6 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flpTable);
             this.splitContainer1.Panel2.Controls.Add(this.btnCreateHD);
-            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(1579, 799);
             this.splitContainer1.SplitterDistance = 523;
             this.splitContainer1.SplitterWidth = 5;

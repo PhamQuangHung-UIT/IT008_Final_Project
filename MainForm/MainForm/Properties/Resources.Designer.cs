@@ -63,6 +63,26 @@ namespace MainForm.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap LeftCap {
+            get {
+                object obj = ResourceManager.GetObject("LeftCap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RightCap {
+            get {
+                object obj = ResourceManager.GetObject("RightCap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ZoomIn {
             get {
                 object obj = ResourceManager.GetObject("ZoomIn", resourceCulture);
