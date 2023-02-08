@@ -36,12 +36,14 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonSignUp = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // checkBox_HiệnMậtKhẩu
             // 
             this.checkBox_HiệnMậtKhẩu.AutoSize = true;
-            this.checkBox_HiệnMậtKhẩu.Location = new System.Drawing.Point(580, 236);
+            this.checkBox_HiệnMậtKhẩu.Location = new System.Drawing.Point(615, 250);
             this.checkBox_HiệnMậtKhẩu.Name = "checkBox_HiệnMậtKhẩu";
             this.checkBox_HiệnMậtKhẩu.Size = new System.Drawing.Size(153, 29);
             this.checkBox_HiệnMậtKhẩu.TabIndex = 27;
@@ -52,7 +54,7 @@
             // label_MatKhauNV
             // 
             this.label_MatKhauNV.AutoSize = true;
-            this.label_MatKhauNV.Location = new System.Drawing.Point(85, 240);
+            this.label_MatKhauNV.Location = new System.Drawing.Point(120, 254);
             this.label_MatKhauNV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_MatKhauNV.Name = "label_MatKhauNV";
             this.label_MatKhauNV.Size = new System.Drawing.Size(95, 25);
@@ -61,7 +63,7 @@
             // 
             // textBox_MatKhau
             // 
-            this.textBox_MatKhau.Location = new System.Drawing.Point(222, 236);
+            this.textBox_MatKhau.Location = new System.Drawing.Point(257, 250);
             this.textBox_MatKhau.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_MatKhau.Name = "textBox_MatKhau";
             this.textBox_MatKhau.Size = new System.Drawing.Size(322, 31);
@@ -72,7 +74,7 @@
             // label_idNV
             // 
             this.label_idNV.AutoSize = true;
-            this.label_idNV.Location = new System.Drawing.Point(85, 171);
+            this.label_idNV.Location = new System.Drawing.Point(120, 185);
             this.label_idNV.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_idNV.Name = "label_idNV";
             this.label_idNV.Size = new System.Drawing.Size(129, 25);
@@ -81,7 +83,7 @@
             // 
             // textBox_TenDangNhap
             // 
-            this.textBox_TenDangNhap.Location = new System.Drawing.Point(222, 168);
+            this.textBox_TenDangNhap.Location = new System.Drawing.Point(257, 182);
             this.textBox_TenDangNhap.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_TenDangNhap.Name = "textBox_TenDangNhap";
             this.textBox_TenDangNhap.Size = new System.Drawing.Size(203, 31);
@@ -91,7 +93,7 @@
             // buttonLogin
             // 
             this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLogin.Location = new System.Drawing.Point(327, 339);
+            this.buttonLogin.Location = new System.Drawing.Point(372, 367);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(129, 38);
             this.buttonLogin.TabIndex = 28;
@@ -103,7 +105,7 @@
             // 
             this.buttonExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonExit.Location = new System.Drawing.Point(640, 339);
+            this.buttonExit.Location = new System.Drawing.Point(685, 367);
             this.buttonExit.Name = "buttonExit";
             this.buttonExit.Size = new System.Drawing.Size(129, 38);
             this.buttonExit.TabIndex = 29;
@@ -113,13 +115,23 @@
             // buttonSignUp
             // 
             this.buttonSignUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSignUp.Location = new System.Drawing.Point(482, 339);
+            this.buttonSignUp.Location = new System.Drawing.Point(527, 367);
             this.buttonSignUp.Name = "buttonSignUp";
             this.buttonSignUp.Size = new System.Drawing.Size(129, 38);
             this.buttonSignUp.TabIndex = 30;
             this.buttonSignUp.Text = "Đăng ký";
             this.buttonSignUp.UseVisualStyleBackColor = true;
             this.buttonSignUp.Click += new System.EventHandler(this.ButtonSignUp_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MainForm.Properties.Resources.logo;
+            this.pictureBox1.Location = new System.Drawing.Point(221, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(416, 142);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 31;
+            this.pictureBox1.TabStop = false;
             // 
             // LoginDlg
             // 
@@ -128,8 +140,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.CancelButton = this.buttonExit;
-            this.ClientSize = new System.Drawing.Size(792, 389);
+            this.ClientSize = new System.Drawing.Size(837, 417);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.buttonSignUp);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.buttonLogin);
@@ -143,6 +156,7 @@
             this.Name = "LoginDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,5 +172,6 @@
         private Button buttonLogin;
         private Button buttonExit;
         private Button buttonSignUp;
+        private PictureBox pictureBox1;
     }
 }

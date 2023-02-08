@@ -19,7 +19,7 @@ namespace MainForm
         public static List<Table> LoadTableList()
         {   
             List<Table> tablelist  = new();
-            string commandText = "select * from BAN";
+            string commandText = "SELECT * FROM BAN WHERE TRANGTHAI is not null";
             var data = FMain.GetSqlData(commandText);
             
             foreach(DataRow item in data.Rows)

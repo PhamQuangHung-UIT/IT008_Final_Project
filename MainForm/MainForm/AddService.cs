@@ -22,7 +22,7 @@ namespace MainForm
 
         private void Button_Save_Click(object sender, EventArgs e)
         {
-            string commandText = $"INSERT INTO DICHVU VALUES({textBox_idDV.Text}, N'{textBox_TenDV.Text}', {textBox_GiaTienDV.Text})";
+            string commandText = $"INSERT INTO DICHVU VALUES({textBox_idDV.Text}, N'{textBox_TenDV.Text}', {textBox_GiaTienDV.Text}, 1)";
             try
             {
                 FMain.SendSqlCommand(commandText);

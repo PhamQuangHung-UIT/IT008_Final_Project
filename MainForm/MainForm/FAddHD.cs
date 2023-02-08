@@ -1,6 +1,4 @@
-﻿using static System.ComponentModel.Design.ObjectSelectorEditor;
-
-namespace MainForm
+﻿namespace MainForm
 {
     public partial class FAddHD : Form
     {

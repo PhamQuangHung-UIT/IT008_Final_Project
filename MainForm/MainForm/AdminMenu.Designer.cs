@@ -39,6 +39,7 @@
             this.button_AdminDV = new System.Windows.Forms.Button();
             this.button_AdminThongKe = new System.Windows.Forms.Button();
             this.panel_AdminNhanVien = new System.Windows.Forms.Panel();
+            this.button_TuyenDungLai = new System.Windows.Forms.Button();
             this.linkLabel_AccountToApprove = new System.Windows.Forms.LinkLabel();
             this.button_ChinhSuaNhanVien = new System.Windows.Forms.Button();
             this.button_ThemNhanVien = new System.Windows.Forms.Button();
@@ -60,13 +61,14 @@
             this.HOTENNV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NGAYSINH = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CCCD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MATKHAU = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QUYENADMIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TENDANGNHAP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TUYENDUNG = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_AdminDichVu = new System.Windows.Forms.Panel();
+            this.button_HienThiLaiDV = new System.Windows.Forms.Button();
             this.button_ChinhSuaDichVu = new System.Windows.Forms.Button();
             this.button_ThemDichVu = new System.Windows.Forms.Button();
-            this.button_XoaDichVu = new System.Windows.Forms.Button();
+            this.button_BoHienThiDV = new System.Windows.Forms.Button();
             this.textBox_GiaTienDV = new System.Windows.Forms.TextBox();
             this.label_GiaTienDV = new System.Windows.Forms.Label();
             this.textBox_TenDV = new System.Windows.Forms.TextBox();
@@ -77,12 +79,12 @@
             this.IDDV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TENDV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GIATIEN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HIENTHI = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_AdminBan = new System.Windows.Forms.Panel();
             this.comboBox_TrangThai = new System.Windows.Forms.ComboBox();
             this.label_TrangThai = new System.Windows.Forms.Label();
             this.button_ChinhSuaBan = new System.Windows.Forms.Button();
             this.button_ThemBan = new System.Windows.Forms.Button();
-            this.button_XoaBan = new System.Windows.Forms.Button();
             this.textBox_GiaTienBan = new System.Windows.Forms.TextBox();
             this.label_GiaTienBan = new System.Windows.Forms.Label();
             this.textBox_idBan = new System.Windows.Forms.TextBox();
@@ -201,6 +203,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_AdminNhanVien.BackColor = System.Drawing.Color.White;
+            this.panel_AdminNhanVien.Controls.Add(this.button_TuyenDungLai);
             this.panel_AdminNhanVien.Controls.Add(this.linkLabel_AccountToApprove);
             this.panel_AdminNhanVien.Controls.Add(this.button_ChinhSuaNhanVien);
             this.panel_AdminNhanVien.Controls.Add(this.button_ThemNhanVien);
@@ -224,6 +227,17 @@
             this.panel_AdminNhanVien.Size = new System.Drawing.Size(1300, 900);
             this.panel_AdminNhanVien.TabIndex = 1;
             // 
+            // button_TuyenDungLai
+            // 
+            this.button_TuyenDungLai.Enabled = false;
+            this.button_TuyenDungLai.Location = new System.Drawing.Point(839, 718);
+            this.button_TuyenDungLai.Name = "button_TuyenDungLai";
+            this.button_TuyenDungLai.Size = new System.Drawing.Size(181, 52);
+            this.button_TuyenDungLai.TabIndex = 22;
+            this.button_TuyenDungLai.Text = "Tuyển dụng lại";
+            this.button_TuyenDungLai.UseVisualStyleBackColor = true;
+            this.button_TuyenDungLai.Click += new System.EventHandler(this.Button_TuyenDungLai_Click);
+            // 
             // linkLabel_AccountToApprove
             // 
             this.linkLabel_AccountToApprove.AutoSize = true;
@@ -241,7 +255,7 @@
             // button_ChinhSuaNhanVien
             // 
             this.button_ChinhSuaNhanVien.Enabled = false;
-            this.button_ChinhSuaNhanVien.Location = new System.Drawing.Point(839, 725);
+            this.button_ChinhSuaNhanVien.Location = new System.Drawing.Point(839, 638);
             this.button_ChinhSuaNhanVien.Name = "button_ChinhSuaNhanVien";
             this.button_ChinhSuaNhanVien.Size = new System.Drawing.Size(181, 52);
             this.button_ChinhSuaNhanVien.TabIndex = 20;
@@ -251,7 +265,7 @@
             // 
             // button_ThemNhanVien
             // 
-            this.button_ThemNhanVien.Location = new System.Drawing.Point(615, 725);
+            this.button_ThemNhanVien.Location = new System.Drawing.Point(615, 638);
             this.button_ThemNhanVien.Name = "button_ThemNhanVien";
             this.button_ThemNhanVien.Size = new System.Drawing.Size(160, 52);
             this.button_ThemNhanVien.TabIndex = 19;
@@ -262,11 +276,11 @@
             // button_XoaNhanVien
             // 
             this.button_XoaNhanVien.Enabled = false;
-            this.button_XoaNhanVien.Location = new System.Drawing.Point(1081, 725);
+            this.button_XoaNhanVien.Location = new System.Drawing.Point(1081, 638);
             this.button_XoaNhanVien.Name = "button_XoaNhanVien";
             this.button_XoaNhanVien.Size = new System.Drawing.Size(160, 52);
             this.button_XoaNhanVien.TabIndex = 18;
-            this.button_XoaNhanVien.Text = "Xóa";
+            this.button_XoaNhanVien.Text = "Cho nghỉ việc";
             this.button_XoaNhanVien.UseVisualStyleBackColor = true;
             this.button_XoaNhanVien.Click += new System.EventHandler(this.Button_XoaNhanVien_Click);
             // 
@@ -407,9 +421,9 @@
             this.HOTENNV,
             this.NGAYSINH,
             this.CCCD,
-            this.MATKHAU,
             this.QUYENADMIN,
-            this.TENDANGNHAP});
+            this.TENDANGNHAP,
+            this.TUYENDUNG});
             this.dataGridView_NhanVien.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_NhanVien.Location = new System.Drawing.Point(20, 27);
             this.dataGridView_NhanVien.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -456,15 +470,6 @@
             this.CCCD.ReadOnly = true;
             this.CCCD.Width = 180;
             // 
-            // MATKHAU
-            // 
-            this.MATKHAU.HeaderText = "Mật khẩu";
-            this.MATKHAU.MinimumWidth = 8;
-            this.MATKHAU.Name = "MATKHAU";
-            this.MATKHAU.ReadOnly = true;
-            this.MATKHAU.Visible = false;
-            this.MATKHAU.Width = 150;
-            // 
             // QUYENADMIN
             // 
             this.QUYENADMIN.HeaderText = "Quyền QTV";
@@ -481,15 +486,24 @@
             this.TENDANGNHAP.ReadOnly = true;
             this.TENDANGNHAP.Width = 165;
             // 
+            // TUYENDUNG
+            // 
+            this.TUYENDUNG.HeaderText = "Tuyển dụng";
+            this.TUYENDUNG.MinimumWidth = 8;
+            this.TUYENDUNG.Name = "TUYENDUNG";
+            this.TUYENDUNG.ReadOnly = true;
+            this.TUYENDUNG.Width = 142;
+            // 
             // panel_AdminDichVu
             // 
             this.panel_AdminDichVu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_AdminDichVu.BackColor = System.Drawing.Color.White;
+            this.panel_AdminDichVu.Controls.Add(this.button_HienThiLaiDV);
             this.panel_AdminDichVu.Controls.Add(this.button_ChinhSuaDichVu);
             this.panel_AdminDichVu.Controls.Add(this.button_ThemDichVu);
-            this.panel_AdminDichVu.Controls.Add(this.button_XoaDichVu);
+            this.panel_AdminDichVu.Controls.Add(this.button_BoHienThiDV);
             this.panel_AdminDichVu.Controls.Add(this.textBox_GiaTienDV);
             this.panel_AdminDichVu.Controls.Add(this.label_GiaTienDV);
             this.panel_AdminDichVu.Controls.Add(this.textBox_TenDV);
@@ -504,38 +518,52 @@
             this.panel_AdminDichVu.TabIndex = 2;
             this.panel_AdminDichVu.Visible = false;
             // 
+            // button_HienThiLaiDV
+            // 
+            this.button_HienThiLaiDV.Enabled = false;
+            this.button_HienThiLaiDV.Location = new System.Drawing.Point(839, 707);
+            this.button_HienThiLaiDV.Name = "button_HienThiLaiDV";
+            this.button_HienThiLaiDV.Size = new System.Drawing.Size(181, 52);
+            this.button_HienThiLaiDV.TabIndex = 27;
+            this.button_HienThiLaiDV.Text = "Hiển thị lại";
+            this.button_HienThiLaiDV.UseVisualStyleBackColor = true;
+            this.button_HienThiLaiDV.Click += new System.EventHandler(this.Button_HienThiLaiDV_Click);
+            // 
             // button_ChinhSuaDichVu
             // 
             this.button_ChinhSuaDichVu.Enabled = false;
-            this.button_ChinhSuaDichVu.Location = new System.Drawing.Point(839, 718);
+            this.button_ChinhSuaDichVu.Location = new System.Drawing.Point(839, 602);
             this.button_ChinhSuaDichVu.Name = "button_ChinhSuaDichVu";
             this.button_ChinhSuaDichVu.Size = new System.Drawing.Size(181, 52);
             this.button_ChinhSuaDichVu.TabIndex = 26;
             this.button_ChinhSuaDichVu.Text = "Chỉnh sửa dịch vụ";
             this.button_ChinhSuaDichVu.UseVisualStyleBackColor = true;
+            this.button_ChinhSuaDichVu.Click += new System.EventHandler(this.Button_ChinhSuaDichVu_Click);
             // 
             // button_ThemDichVu
             // 
-            this.button_ThemDichVu.Location = new System.Drawing.Point(615, 718);
+            this.button_ThemDichVu.Location = new System.Drawing.Point(615, 602);
             this.button_ThemDichVu.Name = "button_ThemDichVu";
             this.button_ThemDichVu.Size = new System.Drawing.Size(160, 52);
             this.button_ThemDichVu.TabIndex = 25;
             this.button_ThemDichVu.Text = "Thêm dịch vụ";
             this.button_ThemDichVu.UseVisualStyleBackColor = true;
+            this.button_ThemDichVu.Click += new System.EventHandler(this.Button_ThemDichVu_Click);
             // 
-            // button_XoaDichVu
+            // button_BoHienThiDV
             // 
-            this.button_XoaDichVu.Enabled = false;
-            this.button_XoaDichVu.Location = new System.Drawing.Point(1081, 718);
-            this.button_XoaDichVu.Name = "button_XoaDichVu";
-            this.button_XoaDichVu.Size = new System.Drawing.Size(160, 52);
-            this.button_XoaDichVu.TabIndex = 24;
-            this.button_XoaDichVu.Text = "Xóa dịch vụ";
-            this.button_XoaDichVu.UseVisualStyleBackColor = true;
+            this.button_BoHienThiDV.Enabled = false;
+            this.button_BoHienThiDV.Location = new System.Drawing.Point(1081, 602);
+            this.button_BoHienThiDV.Name = "button_BoHienThiDV";
+            this.button_BoHienThiDV.Size = new System.Drawing.Size(160, 52);
+            this.button_BoHienThiDV.TabIndex = 24;
+            this.button_BoHienThiDV.Text = "Bỏ hiển thị";
+            this.button_BoHienThiDV.UseVisualStyleBackColor = true;
+            this.button_BoHienThiDV.Click += new System.EventHandler(this.Button_BoHienThiDV_Click);
             // 
             // textBox_GiaTienDV
             // 
-            this.textBox_GiaTienDV.Location = new System.Drawing.Point(751, 295);
+            this.textBox_GiaTienDV.Location = new System.Drawing.Point(751, 302);
             this.textBox_GiaTienDV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_GiaTienDV.Name = "textBox_GiaTienDV";
             this.textBox_GiaTienDV.Size = new System.Drawing.Size(418, 31);
@@ -554,7 +582,7 @@
             // 
             // textBox_TenDV
             // 
-            this.textBox_TenDV.Location = new System.Drawing.Point(751, 173);
+            this.textBox_TenDV.Location = new System.Drawing.Point(751, 183);
             this.textBox_TenDV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_TenDV.Name = "textBox_TenDV";
             this.textBox_TenDV.Size = new System.Drawing.Size(418, 31);
@@ -573,7 +601,7 @@
             // 
             // textBox_idDV
             // 
-            this.textBox_idDV.Location = new System.Drawing.Point(751, 67);
+            this.textBox_idDV.Location = new System.Drawing.Point(751, 74);
             this.textBox_idDV.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_idDV.Name = "textBox_idDV";
             this.textBox_idDV.Size = new System.Drawing.Size(418, 31);
@@ -599,7 +627,8 @@
             this.dataGridView_DichVu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IDDV,
             this.TENDV,
-            this.GIATIEN});
+            this.GIATIEN,
+            this.HIENTHI});
             this.dataGridView_DichVu.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView_DichVu.Location = new System.Drawing.Point(26, 27);
             this.dataGridView_DichVu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -633,6 +662,13 @@
             this.GIATIEN.Name = "GIATIEN";
             this.GIATIEN.Width = 150;
             // 
+            // HIENTHI
+            // 
+            this.HIENTHI.HeaderText = "Hiển thị";
+            this.HIENTHI.MinimumWidth = 8;
+            this.HIENTHI.Name = "HIENTHI";
+            this.HIENTHI.Width = 150;
+            // 
             // panel_AdminBan
             // 
             this.panel_AdminBan.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -643,7 +679,6 @@
             this.panel_AdminBan.Controls.Add(this.label_TrangThai);
             this.panel_AdminBan.Controls.Add(this.button_ChinhSuaBan);
             this.panel_AdminBan.Controls.Add(this.button_ThemBan);
-            this.panel_AdminBan.Controls.Add(this.button_XoaBan);
             this.panel_AdminBan.Controls.Add(this.textBox_GiaTienBan);
             this.panel_AdminBan.Controls.Add(this.label_GiaTienBan);
             this.panel_AdminBan.Controls.Add(this.textBox_idBan);
@@ -662,7 +697,7 @@
             this.comboBox_TrangThai.Items.AddRange(new object[] {
             "Trống",
             "Có người",
-            "Bảo trì"});
+            "Bỏ hiển thị"});
             this.comboBox_TrangThai.Location = new System.Drawing.Point(757, 292);
             this.comboBox_TrangThai.Name = "comboBox_TrangThai";
             this.comboBox_TrangThai.Size = new System.Drawing.Size(182, 33);
@@ -682,7 +717,7 @@
             // button_ChinhSuaBan
             // 
             this.button_ChinhSuaBan.Enabled = false;
-            this.button_ChinhSuaBan.Location = new System.Drawing.Point(839, 718);
+            this.button_ChinhSuaBan.Location = new System.Drawing.Point(1026, 718);
             this.button_ChinhSuaBan.Name = "button_ChinhSuaBan";
             this.button_ChinhSuaBan.Size = new System.Drawing.Size(181, 52);
             this.button_ChinhSuaBan.TabIndex = 23;
@@ -692,24 +727,13 @@
             // 
             // button_ThemBan
             // 
-            this.button_ThemBan.Location = new System.Drawing.Point(615, 718);
+            this.button_ThemBan.Location = new System.Drawing.Point(703, 718);
             this.button_ThemBan.Name = "button_ThemBan";
             this.button_ThemBan.Size = new System.Drawing.Size(160, 52);
             this.button_ThemBan.TabIndex = 22;
             this.button_ThemBan.Text = "Thêm bàn";
             this.button_ThemBan.UseVisualStyleBackColor = true;
             this.button_ThemBan.Click += new System.EventHandler(this.Button_ThemBan_Click);
-            // 
-            // button_XoaBan
-            // 
-            this.button_XoaBan.Enabled = false;
-            this.button_XoaBan.Location = new System.Drawing.Point(1081, 718);
-            this.button_XoaBan.Name = "button_XoaBan";
-            this.button_XoaBan.Size = new System.Drawing.Size(160, 52);
-            this.button_XoaBan.TabIndex = 21;
-            this.button_XoaBan.Text = "Xóa bàn";
-            this.button_XoaBan.UseVisualStyleBackColor = true;
-            this.button_XoaBan.Click += new System.EventHandler(this.Button_XoaBan_Click);
             // 
             // textBox_GiaTienBan
             // 
@@ -874,13 +898,6 @@
         private Panel panel_ThongKe;
         private TextBox textBox_TenDangNhap;
         private Label label1;
-        private DataGridViewTextBoxColumn IDNV;
-        private DataGridViewTextBoxColumn HOTENNV;
-        private DataGridViewTextBoxColumn NGAYSINH;
-        private DataGridViewTextBoxColumn CCCD;
-        private DataGridViewTextBoxColumn MATKHAU;
-        private DataGridViewTextBoxColumn QUYENADMIN;
-        private DataGridViewTextBoxColumn TENDANGNHAP;
         private TableLayoutPanel tableLayoutPanel1;
         private DateTimePicker dateTimePicker_NgaySinh;
         private Button button_ChinhSuaNhanVien;
@@ -889,17 +906,26 @@
         private LinkLabel linkLabel_AccountToApprove;
         private Button button_ChinhSuaBan;
         private Button button_ThemBan;
-        private Button button_XoaBan;
         private Label label_TrangThai;
         private ComboBox comboBox_TrangThai;
-        private DataGridViewTextBoxColumn IDDV;
-        private DataGridViewTextBoxColumn TENDV;
-        private DataGridViewTextBoxColumn GIATIEN;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_IDBAN;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_GIATIEN;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn_TRANGTHAI;
         private Button button_ChinhSuaDichVu;
         private Button button_ThemDichVu;
-        private Button button_XoaDichVu;
+        private Button button_BoHienThiDV;
+        private DataGridViewTextBoxColumn IDNV;
+        private DataGridViewTextBoxColumn HOTENNV;
+        private DataGridViewTextBoxColumn NGAYSINH;
+        private DataGridViewTextBoxColumn CCCD;
+        private DataGridViewTextBoxColumn QUYENADMIN;
+        private DataGridViewTextBoxColumn TENDANGNHAP;
+        private DataGridViewTextBoxColumn TUYENDUNG;
+        private Button button_TuyenDungLai;
+        private DataGridViewTextBoxColumn IDDV;
+        private DataGridViewTextBoxColumn TENDV;
+        private DataGridViewTextBoxColumn GIATIEN;
+        private DataGridViewTextBoxColumn HIENTHI;
+        private Button button_HienThiLaiDV;
     }
 }

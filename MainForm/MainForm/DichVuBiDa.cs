@@ -14,7 +14,7 @@ namespace MainForm
         public static List<DichVu> LoadDichVuList()
         {
             List<DichVu> dichvulist = new();
-            string commandText = "SELECT * FROM DICHVU";
+            string commandText = "SELECT * FROM DICHVU WHERE HIENTHI = 1";
             DataTable data = FMain.GetSqlData(commandText);
             DataGridView dataGridView = new()
             {

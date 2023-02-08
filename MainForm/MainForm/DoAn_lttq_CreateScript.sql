@@ -1,7 +1,6 @@
-/****** 
-	This is the generating-database script for the application. DO NOT MODIFY IT. 
-******/
-/****** Object:  Database [DoAn_lttq]    Script Date: 02/01/2023 5:35:44 CH ******/
+USE [master]
+GO
+/****** Object:  Database [DoAn_lttq]    Script Date: 08/02/2023 4:12:16 CH ******/
 CREATE DATABASE [DoAn_lttq]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -81,7 +80,7 @@ ALTER DATABASE [DoAn_lttq] SET QUERY_STORE = OFF
 GO
 USE [DoAn_lttq]
 GO
-/****** Object:  Table [dbo].[BAN]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[BAN]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -96,7 +95,7 @@ CREATE TABLE [dbo].[BAN](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DICHVU]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[DICHVU]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -105,13 +104,14 @@ CREATE TABLE [dbo].[DICHVU](
 	[IDDV] [int] NOT NULL,
 	[TENDV] [nvarchar](50) NULL,
 	[GIATIEN] [money] NULL,
+	[HIENTHI] [bit] NULL,
  CONSTRAINT [PK_DICHVU] PRIMARY KEY CLUSTERED 
 (
 	[IDDV] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[HOADON]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[HOADON]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -129,7 +129,7 @@ CREATE TABLE [dbo].[HOADON](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[HOADONBAN]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[HOADONBAN]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -141,7 +141,7 @@ CREATE TABLE [dbo].[HOADONBAN](
 	[GIOKETTHUC] [datetime] NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[HOADONDV]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[HOADONDV]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -157,7 +157,7 @@ CREATE TABLE [dbo].[HOADONDV](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[KHACHHANG]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[KHACHHANG]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -173,7 +173,7 @@ CREATE TABLE [dbo].[KHACHHANG](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[NHANVIEN]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Table [dbo].[NHANVIEN]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -186,19 +186,16 @@ CREATE TABLE [dbo].[NHANVIEN](
 	[MATKHAU] [varchar](32) NOT NULL,
 	[QUYENADMIN] [bit] NULL,
 	[TENDANGNHAP] [varchar](32) NOT NULL,
+	[HIENTHI] [bit] NULL,
  CONSTRAINT [PK_NHANVIEN] PRIMARY KEY CLUSTERED 
 (
 	[IDNV] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-SET ANSI_PADDING ON
-GO
-/****** Object:  Index [UNQ_CCCD]    Script Date: 02/01/2023 5:35:44 CH ******/
-ALTER TABLE [dbo].[NHANVIEN] ADD  CONSTRAINT [UNQ_CCCD] UNIQUE NONCLUSTERED 
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UNQ_CCCD] UNIQUE NONCLUSTERED 
 (
 	[CCCD] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[NHANVIEN] ADD  CONSTRAINT [DF_NHANVIEN_MATKHAU]  DEFAULT ('12345678') FOR [MATKHAU]
 GO
@@ -234,17 +231,19 @@ REFERENCES [dbo].[HOADON] ([IDHD])
 GO
 ALTER TABLE [dbo].[HOADONDV] CHECK CONSTRAINT [FK_HOADONDV_HOADON]
 GO
-/****** Object:  Trigger [dbo].[Thêm hóa đơn]    Script Date: 02/01/2023 5:35:44 CH ******/
+/****** Object:  Trigger [dbo].[Thêm hóa đơn]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-create trigger [dbo].[Thêm hóa đơn]
+CREATE trigger [dbo].[Thêm hóa đơn]
 on [dbo].[HOADON]
 after insert
 as
 begin
 	declare @IDHD int;
+	select @IDHD = IDHD
+	from inserted
 	update HOADON
 	set THANHTIEN = 0
 	where IDHD = @IDHD
@@ -252,7 +251,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADON] ENABLE TRIGGER [Thêm hóa đơn]
 GO
-/****** Object:  Trigger [dbo].[Chỉnh sửa HD bàn]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[Chỉnh sửa HD bàn]    Script Date: 08/02/2023 4:12:16 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -280,7 +279,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADONBAN] ENABLE TRIGGER [Chỉnh sửa HD bàn]
 GO
-/****** Object:  Trigger [dbo].[Thêm HD bàn]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[Thêm HD bàn]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -302,7 +301,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADONBAN] ENABLE TRIGGER [Thêm HD bàn]
 GO
-/****** Object:  Trigger [dbo].[Xóa HD bàn]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[Xóa HD bàn]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -324,7 +323,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADONBAN] ENABLE TRIGGER [Xóa HD bàn]
 GO
-/****** Object:  Trigger [dbo].[Chỉnh sửa hóa đơn DV]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[Chỉnh sửa hóa đơn DV]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -349,7 +348,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADONDV] ENABLE TRIGGER [Chỉnh sửa hóa đơn DV]
 GO
-/****** Object:  Trigger [dbo].[Thêm hóa đơn DV]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[Thêm hóa đơn DV]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -369,7 +368,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADONDV] ENABLE TRIGGER [Thêm hóa đơn DV]
 GO
-/****** Object:  Trigger [dbo].[Xóa hóa đơn DV]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[Xóa hóa đơn DV]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -389,7 +388,7 @@ end
 GO
 ALTER TABLE [dbo].[HOADONDV] ENABLE TRIGGER [Xóa hóa đơn DV]
 GO
-/****** Object:  Trigger [dbo].[TRG_NHANVIEN_DELETE]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[TRG_NHANVIEN_DELETE]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -412,7 +411,7 @@ end
 GO
 ALTER TABLE [dbo].[NHANVIEN] ENABLE TRIGGER [TRG_NHANVIEN_DELETE]
 GO
-/****** Object:  Trigger [dbo].[TRG_NHANVIEN_INSERT]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[TRG_NHANVIEN_INSERT]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -438,7 +437,7 @@ end
 GO
 ALTER TABLE [dbo].[NHANVIEN] ENABLE TRIGGER [TRG_NHANVIEN_INSERT]
 GO
-/****** Object:  Trigger [dbo].[TRG_NHANVIEN_UPDATE]    Script Date: 02/01/2023 5:35:45 CH ******/
+/****** Object:  Trigger [dbo].[TRG_NHANVIEN_UPDATE]    Script Date: 08/02/2023 4:12:17 CH ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

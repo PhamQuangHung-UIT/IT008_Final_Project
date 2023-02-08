@@ -20,7 +20,7 @@ namespace MainForm
         public static List<Bill> GetListUnCheckBillID()
         {
             List<Bill> billlist=new();
-            string commandText = "select * from HoaDon where trangthai = 0";
+            string commandText = "SELECT * FROM HOADON WHERE TRANGTHAI = 0";
             DataTable data = FMain.GetSqlData(commandText);
             foreach(DataRow row in data.Rows)
             {
@@ -35,7 +35,7 @@ namespace MainForm
         public static List<Bill> GetListCheckedBill()
         {
             List<Bill> billlist = new();
-            string commandText = "select * from HoaDon where trangthai = 1";
+            string commandText = "SELECT * FROM HOADON WHERE TRANGTHAI = 1";
             DataTable data = FMain.GetSqlData(commandText);
             foreach (DataRow row in data.Rows)
             {

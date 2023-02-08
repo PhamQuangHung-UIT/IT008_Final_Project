@@ -91,7 +91,8 @@ namespace MainForm
                 int id = (int)row["IDDV"];
                 string tenDV = (string)row["TENDV"];
                 decimal giaTien = (decimal)row["GIATIEN"];
-                dataGridView_DichVu.Rows.Add(id, tenDV, giaTien);
+                string hienThi = (bool)row["HIENTHI"] ? "Có" : "Không";
+                dataGridView_DichVu.Rows.Add(id, tenDV, giaTien, hienThi);
             }
         }
 
@@ -106,10 +107,10 @@ namespace MainForm
                 string tenNV = (string)row["HOTENNV"];
                 DateTime ngaySinh = (DateTime)row["NGAYSINH"];
                 string CCCD = (string)row["CCCD"];
-                string matKhau = (string)row["MATKHAU"];
                 string quyenAdmin = (bool)row["QUYENADMIN"] ? "Có" : "Không";
                 string tenDangNhap = (string)row["TENDANGNHAP"];
-                dataGridView_NhanVien.Rows.Add(id, tenNV, ngaySinh, CCCD, matKhau, quyenAdmin, tenDangNhap);
+                string tuyenDung = (bool)row["HIENTHI"] ? "Có" : "Không";
+                dataGridView_NhanVien.Rows.Add(id, tenNV, ngaySinh, CCCD, quyenAdmin, tenDangNhap, tuyenDung);
             }
         }
 
@@ -119,7 +120,6 @@ namespace MainForm
 
         private void DataGridView_Ban_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            button_XoaBan.Enabled = dataGridView_Ban.SelectedRows.Count > 0;
             button_ChinhSuaBan.Enabled = false;
             if (dataGridView_Ban.SelectedRows.Count > 1) 
             {
@@ -182,7 +182,7 @@ namespace MainForm
 
         private void DataGridView_DichVu_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            button_XoaDichVu.Enabled = dataGridView_DichVu.SelectedRows.Count > 0;
+            button_BoHienThiDV.Enabled = dataGridView_DichVu.SelectedRows.Count > 0;
             button_ChinhSuaBan.Enabled = false;
             if (dataGridView_DichVu.SelectedRows.Count > 1)
             {
@@ -241,6 +241,7 @@ namespace MainForm
                 try
                 {
                     FMain.SendSqlCommand(commandText);
+                    MessageBox.Show("Chỉnh sửa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     UpdateNhanVien();
                 }
                 catch (Exception ex)
@@ -255,25 +256,39 @@ namespace MainForm
             string message;
             int count = dataGridView_NhanVien.SelectedRows.Count;
             if (count > 1)
-                message = $"Bạn có chắc muốn xóa {dataGridView_NhanVien.SelectedRows.Count} nhân viên ra khỏi danh sách nhân viên không?";
-            else message = $"Bạn có chắc muốn xóa {dataGridView_NhanVien.SelectedRows[0].Cells[2].Value} ra khỏi danh sách nhân viên không?";
-            if (MessageBox.Show(message, "Xóa nhân viên", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                message = $"Bạn có chắc muốn cho nghỉ việc {dataGridView_NhanVien.SelectedRows.Count} nhân viên không?";
+            else message = $"Bạn có chắc muốn cho nghỉ việc nhân viên \"{dataGridView_NhanVien.SelectedRows[0].Cells[1].Value}\" không?";
+            if (MessageBox.Show(message, " nhân viên", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
                 Cursor = Cursors.WaitCursor;
                 foreach (DataGridViewRow row in dataGridView_NhanVien.SelectedRows)
                 {
-                    string commandText = $"DELETE FROM NHANVIEN WHERE IDNV = {row.Cells[0].Value}";
+                    string commandText = $"UPDATE NHANVIEN SET HIENTHI = 0 WHERE IDNV = {row.Cells[0].Value}";
                     try
                     {
                         FMain.SendSqlCommand(commandText);
-                    } catch (Exception ex)
+                    } catch (SqlException ex)
                     {
-                        MessageBox.Show($"Lỗi không xác định. Chi tiết lỗi như dưới:\n{ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 UpdateNhanVien();
                 Cursor = Cursors.Default;
             }
+        }
+
+
+        private void Button_TuyenDungLai_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView_NhanVien.SelectedRows)
+            {
+                if (row.Cells["TUYENDUNG"].Value.ToString() == "Không")
+                {
+                    string commandText = $"UPDATE NHANVIEN SET HIENTHI = 1 WHERE IDNV = {row.Cells[0].Value}";
+                    FMain.SendSqlCommand(commandText);
+                }
+            }
+            UpdateNhanVien();
         }
 
         private void LinkLabel_AccountToApprove_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -295,19 +310,26 @@ namespace MainForm
 
         private void Button_ChinhSuaBan_Click(object sender, EventArgs e)
         {
-            string commandText = $"UPDATE BAN SET GIATIEN = {textBox_GiaTienBan.Text} WHERE IDBAN = {textBox_idBan.Text}";
-            try
+            int count = panel_AdminBan.Controls.Cast<Control>().Count(x => x.Tag is int);
+            if (count == 0) return;
+            foreach (DataGridViewRow row in dataGridView_Ban.SelectedRows)
             {
-                FMain.SendSqlCommand(commandText);
-                MessageBox.Show("Chỉnh sửa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                UpdateBan();
-            }
-            catch (SqlException ex)
-            {
-                var errors = ex.Errors.Cast<SqlException>().ToList();
-                foreach (var error in errors)
+                string commandText = "UPDATE BAN SET ";
+                if (textBox_GiaTienBan.Tag is int)
+                    commandText += $"GIATIEN = {textBox_GiaTienBan.Text},";
+                if (comboBox_TrangThai.Tag is int)
+                    commandText += $"TRANGTHAI = {(comboBox_TrangThai.SelectedIndex == 2 ? null : comboBox_TrangThai.SelectedIndex)} ";
+                commandText = commandText[..^1];
+                commandText += $" WHERE IDBAN = {row.Cells[0].Value}";
+                try
                 {
-                    string message = error.Number switch
+                    FMain.SendSqlCommand(commandText);
+                    MessageBox.Show("Chỉnh sửa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    UpdateBan();
+                }
+                catch (SqlException ex)
+                {
+                    string message = ex.Number switch
                     {
                         207 => "Giá trị bạn vừa nhập không đúng định dạng.",
                         _ => $"Lỗi không xác định. Chi tiết lỗi như dưới:\n{ex.Message}",
@@ -317,54 +339,92 @@ namespace MainForm
             }
         }
 
-        private void Button_XoaBan_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Button_DichVu_Click Event
+
+        private void Button_ThemDichVu_Click(object sender, EventArgs e)
+        {
+            AddService dlg = new();
+            if (dlg.ShowDialog() == DialogResult.OK)
+                UpdateDichVu();
+        }
+
+        private void Button_ChinhSuaDichVu_Click(object sender, EventArgs e)
+        {
+            int count = panel_AdminDichVu.Controls.Cast<Control>().Count(x => x.Tag is int);
+            if (count == 0) return;
+            foreach (DataGridViewRow row in dataGridView_DichVu.SelectedRows)
+            {
+                string commandText = "UPDATE BAN SET ";
+                if (textBox_GiaTienDV.Tag is int)
+                    commandText += $"GIATIEN = {textBox_GiaTienBan.Text},";
+                if (textBox_TenDV.Tag is int)
+                    commandText += $"TENDV = N'{textBox_TenDV.Text}' ";
+                commandText = commandText[..^1];
+                commandText += $" WHERE IDDV = {row.Cells[0].Value}";
+                try
+                {
+                    FMain.SendSqlCommand(commandText);
+                    MessageBox.Show("Chỉnh sửa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    UpdateBan();
+                }
+                catch (SqlException ex)
+                {
+                    string message = ex.Number switch
+                    {
+                        207 => "Giá trị bạn vừa nhập không đúng định dạng.",
+                        _ => $"Lỗi không xác định. Chi tiết lỗi như dưới:\n{ex.Message}",
+                    };
+                    MessageBox.Show(message, "Lỗi bàn", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void Button_BoHienThiDV_Click(object sender, EventArgs e)
         {
             string message;
             int count = dataGridView_Ban.SelectedRows.Count;
             if (count == 0) return;
             if (count > 1)
-                message = $"Bạn có chắc muốn xóa {count} bàn ra khỏi danh sách bàn không?";
-            else message = $"Bạn có chắc muốn xóa bàn {dataGridView_Ban.SelectedRows[0].Cells[0].Value} ra khỏi danh sách bàn không?";
-            if (MessageBox.Show(message, "Xóa bàn", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
+                message = $"Bạn có chắc muốn bỏ hiển thị {count} dịch vụ không?";
+            else message = $"Bạn có chắc muốn bỏ hiển thị \"{dataGridView_DichVu.SelectedRows[0].Cells[1].Value}\" không?";
+            if (MessageBox.Show(message, "Xóa dịch vụ", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
             {
                 Cursor = Cursors.WaitCursor;
-                bool isError = false;
-                List<SqlException> sqlEx = new();
-                string idErr = "";
                 foreach (DataGridViewRow row in dataGridView_Ban.SelectedRows)
                 {
-                    string commandText = $"DELETE FROM BAN WHERE IDBAN = {row.Cells[0].Value}";
+                    string commandText = $"UPDATE DICHVU SET HIENTHI = 0 WHERE IDDV = {row.Cells[0].Value}";
                     try
                     {
                         FMain.SendSqlCommand(commandText);
-                    } catch (SqlException ex) 
+                    }
+                    catch (SqlException ex)
                     {
-                        isError = true;
-                        if (ex.Number == 547)// Lỗi xóa dữ liệu có tham chiếu khóa ngoại
-                            idErr += $" {row.Cells[0].Value},";
-
-                        sqlEx.Add(ex);
+                        MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 UpdateBan();
                 Cursor = Cursors.Default;
-                idErr = idErr[..^1];
-                if (isError)
-                {
-                    foreach (var ex in sqlEx) 
-                    {
-                        string msg = ex.Number switch
-                        {
-                            547 => $"Không thể xóa bàn{idErr} vì bàn đó tồn tại trong danh sách hóa đơn",
-                            _ => $"Lỗi không xác định. Chi tiết lỗi như dưới:\n{ex.Message}"
-                        };
-                        MessageBox.Show(msg, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
             }
         }
 
+        private void Button_HienThiLaiDV_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            foreach (DataGridViewRow row in dataGridView_DichVu.SelectedRows)
+            {
+                if (row.Cells["HIENTHI"].Value.ToString() == "Không")
+                {
+                    string commandText = $"UPDATE DICHVU SET HIENTHI = 1 WHERE IDDV = {row.Cells[0].Value}";
+                    FMain.SendSqlCommand(commandText);
+                }
+            }
+            UpdateDichVu();
+            Cursor = Cursors.Default;
+        }
         #endregion
+
 
         private void Ban_Control_ValueChanged(object sender, EventArgs e)
         {
